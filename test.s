@@ -1,0 +1,91 @@
+.name "test"
+.comment "just a basic living prog"
+sti r1, %:first, %1
+first: live %1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+sti r1,%0,%1
+ld %50, r5
+ld %13, r2
+sti r1,%:live,%1
+l2: sti r1,r5,r2
+add r5,r2,r5
+and r5,%0,r3
+aff r5
+live: live %1
+zjmp %:l2
+
