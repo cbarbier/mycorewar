@@ -73,7 +73,6 @@ int		parse_argv(t_vm *vm, int argc, char **argv)
 	ret = 1;
 	while (index < argc)
 	{
-		ft_printf("ärgv => %s\n", argv[index]);
 		if (!ft_strcmp(argv[index], "-dump"))
 			ret = get_next_int(&(vm->dump), &index, argv);
 		else if (!ft_strcmp(argv[index], "-v") && index + 1 < argc)

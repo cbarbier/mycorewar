@@ -1,0 +1,28 @@
+debug.c:	ft_printf("| nb_players % 21.7d|\n", vm->nb_players);
+debug.c:	ft_printf("| dump       % 21.7d|\n", vm->dump);
+debug.c:	ft_printf("| verbose    % 21.7d|\n", vm->verbose);
+debug.c:	ft_printf("| ncurse:    % 21.7d|\n", vm->ncurse);
+debug.c:	while (++i <vm->nb_players)
+debug.c:		ft_printf("|       id % 8d fd % 8d   |\n", vm->players[i].id, vm->players[i].fd);
+init_vm.c:	index = ip * MEM_SIZE / vm->nb_players;
+init_vm.c:	ft_memcpy(vm->arena + index, p->prog, p->header.prog_size);
+init_vm.c:	proc.pc = ip * MEM_SIZE / vm->nb_players;
+init_vm.c:	ft_lstadd(&(vm->procs), elm);
+init_vm.c:	vm->ctd = CYCLE_TO_DIE;
+init_vm.c:	ft_printf("parse argv ok! nb players: %d\n", vm->nb_players);
+init_vm.c:	while (ip < vm->nb_players)
+init_vm.c:		if (!parse_player(vm->players + ip))
+init_vm.c:		load_prog(vm, vm->players + ip, ip);
+init_vm.c:		add_process(vm, vm->players + ip, ip);
+main.c:			ft_printf(" %.2x", vm->arena[64 * j + i++].i);
+parse_argv.c:	index = vm->nb_players;
+parse_argv.c:	vm->players[index].id = flag ? id_arg : id;
+parse_argv.c:	vm->players[index].fd = fd;
+parse_argv.c:	vm->nb_players++;
+parse_argv.c:			ret = get_next_int(&(vm->dump), &index, argv);
+parse_argv.c:			ret = get_next_int(&(vm->verbose), &index, argv);
+parse_argv.c:		else if (!ft_strcmp(argv[index], "-ncurse") && (vm->ncurse = 1))
+parse_pcb.c:	proc->op_code = vm->arena[proc->pc].i;
+parse_pcb.c:		tmp = vm->arena[proc->ipc].i;
+parse_pcb.c:	pcb = vm->arena[proc->ipc].i;
+vm_core.c:	elm = vm->procs;

@@ -22,7 +22,7 @@ int		put_vm_infos(t_vm *vm)
 	ft_printf("| nb_players % 21.7d|\n", vm->nb_players);
 	ft_printf("| dump       % 21.7d|\n", vm->dump);
 	ft_printf("| verbose    % 21.7d|\n", vm->verbose);
-	ft_printf("| ncurse:    % 21.7d|\n", vm->ncurse);
+	ft_printf("| ncurse     % 21.7d|\n", vm->ncurse);
 	ft_printf("-----------------------------------\n");
 	ft_printf("| PLAYERS                         |\n");
 	i = -1;
@@ -41,11 +41,14 @@ void		put_proc(t_list *e)
 	ft_printf("-----------------------------------\n");
 	ft_printf("|           PROC % 6d           |\n", p->id);
 	ft_printf("-----------------------------------\n");
+	ft_printf("|op_code     % 21.7d|\n", p->op_code);
+	ft_printf("|pc                         0x%.4x|\n", p->pc);
+	ft_printf("|ipc                        0x%.4x|\n", p->ipc);
+	ft_printf("|adv         % 21.7d|\n", p->adv);
 	ft_printf("|carry       % 21.7d|\n", p->carry);
 	ft_printf("|live_in_ctd % 21.7d|\n", p->live_in_ctd);
 	ft_printf("|is_alive    % 21.7d|\n", p->is_alive);
-	ft_printf("|pc :                       0x%.4x|\n", p->pc);
-	ft_printf("|op_code     % 21.7d|\n", p->op_code);
+	ft_printf("|error pcb   % 21.7d|\n", p->error_pcb);
 	ft_printf("-----------------------------------\n");
 	i = -1;
 	ft_printf("| PARAMS |  T  |  S  |     VAL    |\n");

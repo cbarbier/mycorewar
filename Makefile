@@ -24,6 +24,7 @@ CORE_SRCS			= core_srcs/main.c \
 				  core_srcs/parse_pcb.c \
 				  core_srcs/init_vm.c \
 				  core_srcs/vm_core.c \
+				  core_srcs/tools.c \
 				  core_srcs/debug.c \
 				  core_srcs/ops/f_live.c \
 				  core_srcs/ops/f_ld.c \

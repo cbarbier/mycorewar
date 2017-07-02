@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   f_ld.c                                             :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,19 +12,32 @@
 
 #include "corewar.h"
 
-int		f_ld(t_vm *vm, t_proc *proc)
+int		is_reg(int reg)
 {
-	int	val;
-	int	i_reg;
-
-	if (!is_reg(proc->param[1]))
+	if (reg < 1 || reg > 17)
 		return (0);
-	i_reg = proc->param[1] - 1;
-	val = proc->param[0];
-	if (proc->ptype[0] == T_DIR)
-		proc->reg[i_reg] = val;
-	else
-		proc->reg[i_reg] = getnbytes(vm, proc->pc + val, 4);
-	proc->carry = !proc->reg[i_reg];
+	return (1);
+}
+
+int		getnbytes(t_vm *vm, int addr, int n)
+{
+	int	i;
+	int	val;
+	int	tmp;
+
+	i = 0;
+	val = 0;
+	while (i < n)
+	{
+		tmp = (addr + i) % MEM_SIZE;
+		val = (val << 8) + vm->arena[tmp].i;
+		i++;
+	}
+	return (val);
+}
+
+int		inc_pc(t_proc *proc, int n)
+{
+	proc->ipc = (proc->ipc + n) % MEM_SIZE;
 	return (1);
 }

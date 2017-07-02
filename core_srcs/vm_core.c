@@ -21,7 +21,7 @@ int		vm_core(t_vm *vm)
 	while (elm)
 	{
 		proc = (t_proc*)(elm->content);
-		if (init_proc(vm, proc))
+		if (init_proc(vm, proc, proc->pc))
 		{
 			ft_printf("init_proc ok\n");
 			if (parse_pcb(vm, proc))

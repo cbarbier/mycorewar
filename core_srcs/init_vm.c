@@ -21,7 +21,7 @@ static int	load_prog(t_vm *vm, t_player *p, int ip)
 	return (1);
 }
 
-static int	add_process(t_vm *vm, t_player *p, int ip)
+static int	add_process(t_vm *vm, t_player *p, int pc)
 {
 	static int	id_proc;
 	t_proc		proc;
@@ -30,7 +30,7 @@ static int	add_process(t_vm *vm, t_player *p, int ip)
 	ft_bzero(&proc, sizeof(t_proc));
 	proc.id = id_proc++;
 	proc.reg[0] = p->id;
-	proc.pc = ip * MEM_SIZE / vm->nb_players;
+	proc.pc = pc;
 	if (!(elm = ft_lstnew(&proc, sizeof(t_proc))))
 		return (0);
 	ft_lstadd(&(vm->procs), elm);
@@ -40,11 +40,13 @@ static int	add_process(t_vm *vm, t_player *p, int ip)
 int		init_vm(t_vm *vm, int argc, char **argv)
 {
 	int		ip;
+	int		pc;
 
 	ft_bzero(vm, sizeof(t_vm));
 	if (!parse_argv(vm, argc, argv))
 		return (0);
-	ft_printf("parse argv ok!\n");
+	vm->ctd = CYCLE_TO_DIE;
+	ft_printf("parse argv ok! nb players: %d\n", vm->nb_players);
 	ip = 0;
 	while (ip < vm->nb_players)
 	{
@@ -53,8 +55,9 @@ int		init_vm(t_vm *vm, int argc, char **argv)
 			ft_printf("parse player %d failed\n", ip);
 			return (0);
 		}
+		pc = ip * MEM_SIZE / vm->nb_players;
 		load_prog(vm, vm->players + ip, ip);
-		add_process(vm, vm->players + ip, ip);
+		add_process(vm, vm->players + ip, pc);
 		ip++;
 	}
 	return (1);

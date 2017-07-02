@@ -33,6 +33,7 @@ typedef struct	s_proc
 	int		op_code;
 	int		exec_in;
 	int		adv;
+	int		error_pcb;
 	int		ptype[3];
 	int		psize[3];
 	int		param[3];
@@ -43,8 +44,9 @@ typedef struct	s_player
 	int	id;
 	int	fd;
 	int	live_in_ctd; // nb live by player in this cycle to die
+	int	last_live_cycle;
 	t_header	header;
-	unsigned char	prog[CHAMP_MAX_SIZE + 1];
+	unsigned char	prog[CHAMP_MAX_SIZE + 2];
 }		t_player;	
 
 typedef struct	s_vm
@@ -53,6 +55,7 @@ typedef struct	s_vm
 	int		nb_players;
 	t_byte		arena[MEM_SIZE];
 	t_list		*procs; // list of processus
+	int		live_in_ctd;
 	int		cycle;
 	int		check;
 	int		ctd; //cycle to die
@@ -72,8 +75,11 @@ int		parse_argv(t_vm *vm, int argc, char **argv);
 int		parse_player(t_player *p);
 int		parse_pcb(t_vm *vm, t_proc *proc);
 int		init_vm(t_vm *vm, int argc, char **argv);
-int		init_proc(t_vm *vm, t_proc *proc);
+int		init_proc(t_vm *vm, t_proc *proc, int pc);
 int		vm_core(t_vm *vm);
+int		is_reg(int reg);
+int		inc_pc(t_proc *proc, int n);
+int		getnbytes(t_vm *vm, int addr, int n);
 /*
 ** 	INSTRUCTIONS FUNCTIONS
 */
