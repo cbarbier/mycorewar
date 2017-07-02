@@ -1,0 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
+/*   Updated: 2017/05/12 19:21:31 by cbarbier         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "corewar.h"
+
+int		put_vm_infos(t_vm *vm)
+{
+	int	i;
+
+	ft_printf("-----------------------------------\n");
+	ft_printf("|               VM                |\n");
+	ft_printf("-----------------------------------\n");
+	ft_printf("| nb_players % 21.7d|\n", vm->nb_players);
+	ft_printf("| dump       % 21.7d|\n", vm->dump);
+	ft_printf("| verbose    % 21.7d|\n", vm->verbose);
+	ft_printf("| ncurse:    % 21.7d|\n", vm->ncurse);
+	ft_printf("-----------------------------------\n");
+	ft_printf("| PLAYERS                         |\n");
+	i = -1;
+	while (++i <vm->nb_players)
+		ft_printf("|       id % 8d fd % 8d   |\n", vm->players[i].id, vm->players[i].fd);
+	ft_printf("-----------------------------------\n\n");
+	return (1);
+}
+	
+void		put_proc(t_list *e)
+{
+	t_proc	*p;
+	int	i;
+
+	p = (t_proc*)(e->content);
+	ft_printf("-----------------------------------\n");
+	ft_printf("|           PROC % 6d           |\n", p->id);
+	ft_printf("-----------------------------------\n");
+	ft_printf("|carry       % 21.7d|\n", p->carry);
+	ft_printf("|live_in_ctd % 21.7d|\n", p->live_in_ctd);
+	ft_printf("|is_alive    % 21.7d|\n", p->is_alive);
+	ft_printf("|pc :                       0x%.4x|\n", p->pc);
+	ft_printf("|op_code     % 21.7d|\n", p->op_code);
+	ft_printf("-----------------------------------\n");
+	i = -1;
+	ft_printf("| PARAMS |  T  |  S  |     VAL    |\n");
+	ft_printf("-----------------------------------\n");
+	while (++i < 3 && p->psize[i])
+		ft_printf("| %.1d      | %.2d  |  %.1d  |    % 8d|\n", i, p->ptype[i], p->psize[i], p->param[i]);
+	ft_printf("-----------------------------------\n");
+}

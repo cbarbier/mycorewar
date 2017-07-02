@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   vm_core.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,35 +11,28 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
-	
-static int	put_arena(t_vm *vm)
-{
-	int		i;
-	int		j;
 
-	j = 0;
-	while(j < 64)
+int		vm_core(t_vm *vm)
+{
+	t_list	*elm;
+	t_proc	*proc;
+
+	elm = vm->procs;
+	while (elm)
 	{
-		ft_printf("0x%.4x :", j * 64);
-		i = 0;
-		while (i < 64)
-			ft_printf(" %.2x", vm->arena[64 * j + i++].i);
-		j++;
-		ft_printf("\n");
+		proc = (t_proc*)(elm->content);
+		if (init_proc(vm, proc))
+		{
+			ft_printf("init_proc ok\n");
+			if (parse_pcb(vm, proc))
+				ft_printf("parse_pcb ok\n");
+			else
+				ft_printf("parse_pcb ko\n");
+		}
+		else
+			ft_printf("init_proc ko\n");
+		put_proc(elm);
+		elm = elm->next;
 	}
 	return (1);
-}
-
-int		main(int argc, char **argv)
-{
-	t_vm		vm;
-
-	ft_printf("corewar in progress\n");
-	if (!init_vm(&vm, argc, argv))
-		ft_fprintf(2, "Error: on init_vm\n");
-	put_arena(&vm);
-	vm_core(&vm);
-//	ft_lstiter(vm.procs, put_proc);
-	put_vm_infos(&vm);
-	return (0);
 }
