@@ -14,7 +14,17 @@
 
 int		f_lfork(t_vm *vm, t_proc *proc)
 {
-	(void)vm;
-	(void)proc;
+	t_list	*elm;
+	int		p0;
+	t_proc		*new;
+	int		id;
+
+	if (!get_param_value(vm, proc, 0, &p0)
+	|| !(elm = ft_lstnew(proc, sizeof(t_proc))))
+		return (0);
+	id = ((t_proc*)(vm->procs->content))->id + 1;
+	ft_lstadd(&(vm->procs), elm);
+	new = (t_proc*)(vm->procs->content);
+	new->pc = (proc->pc + p0) % MEM_SIZE;
 	return (1);
 }

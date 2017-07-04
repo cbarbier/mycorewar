@@ -20,11 +20,9 @@ int		f_ld(t_vm *vm, t_proc *proc)
 	if (!is_reg(proc->param[1]))
 		return (0);
 	i_reg = proc->param[1] - 1;
-	val = proc->param[0];
-	if (proc->ptype[0] == T_DIR)
-		proc->reg[i_reg] = val;
-	else
-		proc->reg[i_reg] = getnbytes(vm, proc->pc + val, 4);
+	if (!get_param_value(vm, proc, 0, &val))
+		return (0);
+	proc->reg[i_reg] = getnbytes(vm, proc->pc + val, 4);
 	proc->carry = !proc->reg[i_reg];
 	return (1);
 }

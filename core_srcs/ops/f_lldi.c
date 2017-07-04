@@ -14,7 +14,17 @@
 
 int		f_lldi(t_vm *vm, t_proc *proc)
 {
-	(void)vm;
-	(void)proc;
+	int	p0;
+	int	p1;
+	int	i_reg;
+
+	if (!get_param_value(vm, proc, 0, &p0)
+	|| !get_param_value(vm, proc, 1, &p1)
+	|| !is_reg(proc->param[1]))
+		return (0);
+	i_reg = proc->param[1] - 1;
+	p0 = p0 + p1;
+	proc->reg[i_reg] = getnbytes(vm, proc->pc + p0, 4);
+	proc->carry = !proc->reg[i_reg];
 	return (1);
 }

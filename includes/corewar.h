@@ -80,6 +80,8 @@ int		vm_core(t_vm *vm);
 int		is_reg(int reg);
 int		inc_pc(t_proc *proc, int n);
 int		getnbytes(t_vm *vm, int addr, int n);
+int		setnbytes(t_vm *vm, int addr, int val, int n);
+int		get_param_value(t_vm *vm, t_proc *proc, int i, int *val);
 /*
 ** 	INSTRUCTIONS FUNCTIONS
 */

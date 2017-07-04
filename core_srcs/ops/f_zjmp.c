@@ -14,7 +14,13 @@
 
 int		f_zjmp(t_vm *vm, t_proc *proc)
 {
-	(void)vm;
-	(void)proc;
+	int	p0;
+
+	if (!get_param_value(vm, proc, 0, &p0))
+		return (0);
+	if (proc->carry)
+		proc->ipc = (proc->pc + p0) % MEM_SIZE;
+	else
+		proc->ipc = (proc->pc + 3) % MEM_SIZE;
 	return (1);
 }

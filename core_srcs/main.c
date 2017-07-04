@@ -33,6 +33,7 @@ static int	put_arena(t_vm *vm)
 int		main(int argc, char **argv)
 {
 	t_vm		vm;
+	int	i;
 
 	ft_printf("corewar in progress\n");
 	if (!init_vm(&vm, argc, argv))
@@ -41,5 +42,7 @@ int		main(int argc, char **argv)
 	vm_core(&vm);
 //	ft_lstiter(vm.procs, put_proc);
 	put_vm_infos(&vm);
+	i = 0xfffd;
+	ft_printf("test : %d", i);
 	return (0);
 }

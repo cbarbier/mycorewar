@@ -25,12 +25,14 @@ int		init_proc(t_vm *vm, t_proc *proc, int pc)
 	if (!(proc->op_code > 0 && proc->op_code < 17))
 	{
 		proc->op_code = 0;
+		inc_pc(proc, 1);
 		return (0);
 	}
 	proc->op_code--;
 	proc->exec_in = op_tab[proc->op_code].cycle_to_wait;
 	if (op_tab[proc->op_code].pcb)
 		proc->adv = 2;
+	inc_pc(proc, 1);
 	return (1);
 }
 
@@ -77,7 +79,6 @@ int		parse_pcb(t_vm *vm, t_proc *proc)
 	int		i;
 	int		t;
 
-	inc_pc(proc, 1);
 	if (op_tab[proc->op_code].pcb)
 	{
 		pcb = getnbytes(vm, proc->ipc, 1);

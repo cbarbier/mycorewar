@@ -89,6 +89,7 @@ typedef struct		s_op
 	char	*description;
 	int	pcb;
 	int	var;
+	int	mod;
 	int	(*f)(t_vm *vm, t_proc *proc);
 }			t_op;
 

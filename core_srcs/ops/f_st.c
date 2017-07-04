@@ -14,7 +14,12 @@
 
 int		f_st(t_vm *vm, t_proc *proc)
 {
-	(void)vm;
-	(void)proc;
+	int	reg_p0;
+	int	index;
+
+	if (!get_param_value(vm, proc, 0, &reg_p0)
+	|| !get_param_value(vm, proc, 1, &index))
+		return (0);
+	setnbytes(vm, proc->pc + index, reg_p0, 4);
 	return (1);
 }
