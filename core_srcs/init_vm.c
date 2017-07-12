@@ -58,6 +58,7 @@ int		init_vm(t_vm *vm, int argc, char **argv)
 		pc = ip * MEM_SIZE / vm->nb_players;
 		load_prog(vm, vm->players + ip, ip);
 		add_process(vm, vm->players + ip, pc);
+		init_proc(vm, (t_proc*)(vm->procs->content), pc);
 		ip++;
 	}
 	return (1);

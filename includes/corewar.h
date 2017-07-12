@@ -14,7 +14,8 @@
 # define COREWAR_H
 # include "../libft/includes/libft.h"
 # include "op.h"
-# define DEBUG		1
+# include <ncurses.h>
+# define DEBUG		0
 
 typedef union	u_byte
 {
@@ -56,9 +57,11 @@ typedef struct	s_vm
 	t_byte		arena[MEM_SIZE];
 	t_list		*procs; // list of processus
 	int		live_in_ctd;
+	int		last_player_live;
 	int		cycle;
 	int		check;
 	int		ctd; //cycle to die
+	int		ctd_cycle;
 	int		dump;
 	int		verbose;
 	int		ncurse;
@@ -73,7 +76,7 @@ extern const t_op	op_tab[17];
 
 int		parse_argv(t_vm *vm, int argc, char **argv);
 int		parse_player(t_player *p);
-int		parse_pcb(t_vm *vm, t_proc *proc);
+int		parse_pcb_n_param(t_vm *vm, t_proc *proc);
 int		init_vm(t_vm *vm, int argc, char **argv);
 int		init_proc(t_vm *vm, t_proc *proc, int pc);
 int		vm_core(t_vm *vm);

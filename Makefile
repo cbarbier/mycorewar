@@ -15,13 +15,14 @@ ASM			= asm
 LIB				= libft/libft.a
 CC				= gcc
 CFLAGS				= -Wall -Wextra -Werror
+NCURSES				= -lncurses
 CORE_HDR			= includes/corewar.h
 ASM_HDR				= includes/asm.h
 CORE_SRCS			= core_srcs/main.c \
 				  core_srcs/op.c \
 				  core_srcs/parse_argv.c \
 				  core_srcs/parse_player.c \
-				  core_srcs/parse_pcb.c \
+				  core_srcs/parse_pcb_n_param.c \
 				  core_srcs/init_vm.c \
 				  core_srcs/vm_core.c \
 				  core_srcs/tools.c \
@@ -57,7 +58,7 @@ all: $(CORE) $(ASM)
 	@$(CC) $(CFLAGS) -c $< -o $@ -Iincludes
 
 $(CORE): $(LIB) $(CORE_OBJS) $(CORE_HDR)
-	@$(CC) $(CFLAGS) -o $(CORE) $(CORE_OBJS) -Llibft -lft 
+	@$(CC) $(CFLAGS) $(NCURSES) -o $(CORE) $(CORE_OBJS) -Llibft -lft 
 	@echo "COREWAR BUILT\t\t\033[0;32m✓\033[0m"
 
 $(ASM): $(LIB) $(ASM_OBJS) $(ASM_HDR)

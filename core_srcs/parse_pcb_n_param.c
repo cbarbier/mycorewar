@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_pcb.c                                        :+:      :+:    :+:   */
+/*   parse_pcb_n_param.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -24,7 +24,7 @@ int		init_proc(t_vm *vm, t_proc *proc, int pc)
 	proc->error_pcb = 0;
 	if (!(proc->op_code > 0 && proc->op_code < 17))
 	{
-		proc->op_code = 0;
+		proc->op_code = -1;
 		inc_pc(proc, 1);
 		return (0);
 	}
@@ -73,12 +73,14 @@ static int	get_param(t_vm *vm, t_proc *proc, int i, int t)
 	return (proc->psize[i]);
 }
 	
-int		parse_pcb(t_vm *vm, t_proc *proc)
+int		parse_pcb_n_param(t_vm *vm, t_proc *proc)
 {
 	int		pcb;
 	int		i;
 	int		t;
 
+	if (proc->op_code < 0)
+		return (0);
 	if (op_tab[proc->op_code].pcb)
 	{
 		pcb = getnbytes(vm, proc->ipc, 1);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ncurses.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -28,32 +28,4 @@ static int	put_arena(t_vm *vm)
 		ft_printf("\n");
 	}
 	return (1);
-}
-
-static int	init_ncurse(t_vm *vm)
-{
-	if (!vm->ncurse)
-		return (1);	
-	vm->dump = -1;
-	vm->verbose = 0;
-	initscr();
-	return (1);
-}
-int		main(int argc, char **argv)
-{
-	t_vm		vm;
-	int	i;
-
-	ft_printf("corewar in progress\n");
-	if (!init_vm(&vm, argc, argv))
-		ft_fprintf(2, "Error: on init_vm\n");
-	if (DEBUG)
-		put_arena(&vm);
-	init_ncurse(&vm);
-	vm_core(&vm);
-//	ft_lstiter(vm.procs, put_proc);
-//	put_vm_infos(&vm);
-	i = 0xfffd;
-	ft_printf("test : %d", i);
-	return (0);
 }

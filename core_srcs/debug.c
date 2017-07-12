@@ -23,6 +23,11 @@ int		put_vm_infos(t_vm *vm)
 	ft_printf("| dump       % 21.7d|\n", vm->dump);
 	ft_printf("| verbose    % 21.7d|\n", vm->verbose);
 	ft_printf("| ncurse     % 21.7d|\n", vm->ncurse);
+	ft_printf("| check      % 21.7d|\n", vm->check);
+	ft_printf("| cycle      % 21.7d|\n", vm->cycle);
+	ft_printf("| ctd        % 21.7d|\n", vm->ctd);
+	ft_printf("| cycle in ctd % 19.7d|\n", vm->ctd_cycle);
+	ft_printf("| live in ctd  % 19.7d|\n", vm->live_in_ctd);
 	ft_printf("-----------------------------------\n");
 	ft_printf("| PLAYERS                         |\n");
 	i = -1;
@@ -49,6 +54,7 @@ void		put_proc(t_list *e)
 	ft_printf("|live_in_ctd % 21.7d|\n", p->live_in_ctd);
 	ft_printf("|is_alive    % 21.7d|\n", p->is_alive);
 	ft_printf("|error pcb   % 21.7d|\n", p->error_pcb);
+	ft_printf("|exec_in     % 21.7d|\n", p->exec_in);
 	ft_printf("-----------------------------------\n");
 	i = -1;
 	ft_printf("| PARAMS |  T  |  S  |     VAL    |\n");
