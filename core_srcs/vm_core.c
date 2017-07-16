@@ -12,6 +12,23 @@
 
 #include "corewar.h"
 
+static int	kill_proc(void *e)
+{
+	t_proc *proc;
+	int	tmp;
+
+	proc = (t_proc*)(e);
+	tmp = proc->live_in_ctd;
+	proc->live_in_ctd = 0;
+	return (tmp);
+}
+
+static void	free_proc(void *e, size_t size)
+{
+	(void)size;
+	ft_memdel(&e);
+}
+
 static int	vm_rules(t_vm *vm)
 {
 	if (vm->ctd_cycle == vm->ctd)
@@ -26,6 +43,7 @@ static int	vm_rules(t_vm *vm)
 		vm->ctd_cycle = 0;
 		//kill the one that did not execute live;
 		// and reset proc->live_in_ctd;
+		ft_lstdelif(&(vm->procs), free_proc, kill_proc);
 	}
 	return (1);
 }

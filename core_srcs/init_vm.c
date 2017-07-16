@@ -31,6 +31,7 @@ static int	add_process(t_vm *vm, t_player *p, int pc)
 	proc.id = id_proc++;
 	proc.reg[0] = p->id;
 	proc.pc = pc;
+	proc.player_id = p->id;
 	if (!(elm = ft_lstnew(&proc, sizeof(t_proc))))
 		return (0);
 	ft_lstadd(&(vm->procs), elm);

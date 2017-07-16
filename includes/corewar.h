@@ -25,12 +25,12 @@ typedef union	u_byte
 typedef struct	s_proc
 {
 	int		id;
+	int		player_id;
 	int		reg[REG_NUMBER];
 	int		pc;
 	int		ipc;
 	int		carry;
 	int		live_in_ctd;
-	int		is_alive;
 	int		op_code;
 	int		exec_in;
 	int		adv;

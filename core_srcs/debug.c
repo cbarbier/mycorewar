@@ -52,7 +52,6 @@ void		put_proc(t_list *e)
 	ft_printf("|adv         % 21.7d|\n", p->adv);
 	ft_printf("|carry       % 21.7d|\n", p->carry);
 	ft_printf("|live_in_ctd % 21.7d|\n", p->live_in_ctd);
-	ft_printf("|is_alive    % 21.7d|\n", p->is_alive);
 	ft_printf("|error pcb   % 21.7d|\n", p->error_pcb);
 	ft_printf("|exec_in     % 21.7d|\n", p->exec_in);
 	ft_printf("-----------------------------------\n");
