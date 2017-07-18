@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 19:21:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/18 09:32:35 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	vm_play(t_vm *vm)
 				op_tab[proc->op_code].f(vm, proc);
 				ft_printf("parse_pcb ok\n");
 				ft_printf("{red}execution of %s by proc %d at pc 0x%.4x\n{no}",
-op_tab[proc->op_code].name, proc->id, proc->pc);
+				op_tab[proc->op_code].name, proc->id, proc->pc);
 			}
 			else
 				ft_printf("parse_pcb ko\n");
@@ -85,12 +85,14 @@ op_tab[proc->op_code].name, proc->id, proc->pc);
 int		vm_core(t_vm *vm)
 {
 	while (vm->dump != vm->cycle && vm->procs)
-	{	
+	{
+		vb_cycles(vm);
 //		ft_lstiter(vm->procs, put_proc);
 		put_vm_infos(vm);
 		vm_rules(vm);
 		vm_play(vm);
 		vm->cycle++;
+		vb_cycles(vm);
 		vm->ctd_cycle++;
 	}
 	put_vm_infos(vm);

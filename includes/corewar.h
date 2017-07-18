@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/06/14 17:25:37 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/18 11:29:36 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef union	u_byte
 typedef struct	s_proc
 {
 	int		id;
+	int		ic;
 	int		player_id;
 	int		reg[REG_NUMBER];
 	int		pc;
@@ -74,6 +75,9 @@ typedef union	u_mem
 
 extern const t_op	op_tab[17];
 
+/*
+** 	CORE FUNCTIONS
+*/
 int		parse_argv(t_vm *vm, int argc, char **argv);
 int		parse_player(t_player *p);
 int		parse_pcb_n_param(t_vm *vm, t_proc *proc);
@@ -85,6 +89,11 @@ int		inc_pc(t_proc *proc, int n);
 int		getnbytes(t_vm *vm, int addr, int n);
 int		setnbytes(t_vm *vm, int addr, int val, int n);
 int		get_param_value(t_vm *vm, t_proc *proc, int i, int *val);
+/*
+** 	VERBOSITY FUNCTIONS
+*/
+int		vb_introduce(t_vm *vm);
+int		vb_cycles(t_vm *vm);
 /*
 ** 	INSTRUCTIONS FUNCTIONS
 */

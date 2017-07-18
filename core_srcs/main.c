@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 19:21:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/18 11:33:09 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,34 @@ static int	init_ncurse(t_vm *vm)
 	vm->dump = -1;
 	vm->verbose = 0;
 	initscr();
+	noecho();
+	start_color();
+	init_pair(1, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	init_pair(3, COLOR_BLUE, COLOR_BLACK);
+	init_pair(4, COLOR_RED, COLOR_BLACK);
+	init_pair(5, COLOR_CYAN, COLOR_BLACK);
+	init_pair(6, COLOR_BLACK, COLOR_GREEN);
+	init_pair(7, COLOR_BLACK, COLOR_BLUE);
+	init_pair(8, COLOR_BLACK, COLOR_RED);
+	init_pair(9, COLOR_BLACK, COLOR_CYAN);
 	return (1);
 }
 int		main(int argc, char **argv)
 {
 	t_vm		vm;
-	int	i;
 
 	ft_printf("corewar in progress\n");
 	if (!init_vm(&vm, argc, argv))
 		ft_fprintf(2, "Error: on init_vm\n");
 	if (DEBUG)
 		put_arena(&vm);
+	vb_introduce(&vm);
 	init_ncurse(&vm);
 	vm_core(&vm);
 //	ft_lstiter(vm.procs, put_proc);
 //	put_vm_infos(&vm);
-	i = 0xfffd;
-	ft_printf("test : %d", i);
+	if (vm.dump == vm.cycle)
+		put_arena(&vm);
 	return (0);
 }
