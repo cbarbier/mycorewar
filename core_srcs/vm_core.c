@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/19 17:16:54 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/19 20:12:52 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int		vm_core(t_vm *vm)
 {
 	while (vm->dump != vm->cycle && vm->procs)
 	{
-		vb_cycles(vm);
 //		ft_lstiter(vm->procs, put_proc);
 		put_vm_infos(vm);
 		vm_rules(vm);

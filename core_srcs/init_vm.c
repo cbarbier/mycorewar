@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/19 20:00:34 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/19 20:10:34 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		init_vm(t_vm *vm, int argc, char **argv)
 	int		pc;
 
 	ft_bzero(vm, sizeof(t_vm));
+	vm->dump = -1;
 	if (!parse_argv(vm, argc, argv))
 		return (0);
 	vm->ctd = CYCLE_TO_DIE;
