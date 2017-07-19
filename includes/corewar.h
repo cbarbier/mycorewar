@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/18 11:29:36 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/19 19:55:24 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ typedef union	u_byte
 {
 	unsigned char	c;
 	uint8_t		i;
-}		t_byte;
+}				t_byte;
 typedef struct	s_proc
 {
 	int		id;
-	int		ic;
+	int		cpair;//index color pair
 	int		player_id;
 	int		reg[REG_NUMBER];
 	int		pc;
@@ -39,42 +39,45 @@ typedef struct	s_proc
 	int		ptype[3];
 	int		psize[3];
 	int		param[3];
-}		t_proc;
+}				t_proc;
 
 typedef struct	s_player
 {
-	int	id;
-	int	fd;
-	int	live_in_ctd; // nb live by player in this cycle to die
-	int	last_live_cycle;
-	t_header	header;
+	int				id;
+	int				fd;
+	int				live_in_ctd; // nb live by player in this cycle to die
+	int				last_live_cycle;
+	t_header		header;
 	unsigned char	prog[CHAMP_MAX_SIZE + 2];
-}		t_player;	
+}				t_player;	
 
 typedef struct	s_vm
 {
+	WINDOW		*win;
+	WINDOW		*winfo;
+	WINDOW		*war;
 	t_player 	players[MAX_PLAYERS];
-	int		nb_players;
+	int			nb_players;
 	t_byte		arena[MEM_SIZE];
+	char		colors[MEM_SIZE];
 	t_list		*procs; // list of processus
-	int		live_in_ctd;
-	int		last_player_live;
-	int		cycle;
-	int		check;
-	int		ctd; //cycle to die
-	int		ctd_cycle;
-	int		dump;
-	int		verbose;
-	int		ncurse;
-}		t_vm;
+	int			live_in_ctd;
+	int			last_player_live;
+	int			cycle;
+	int			check;
+	int			ctd; //cycle to die
+	int			ctd_cycle;
+	int			dump;
+	int			verbose;
+	int			ncurse;
+	int			cps;
+}				t_vm;
 typedef union	u_mem
 {
 	uint8_t i[4];
 	char 	c[4];
-}		t_mem;
-
+}				t_mem;
 extern const t_op	op_tab[17];
-
 /*
 ** 	CORE FUNCTIONS
 */
@@ -95,6 +98,13 @@ int		get_param_value(t_vm *vm, t_proc *proc, int i, int *val);
 int		vb_introduce(t_vm *vm);
 int		vb_cycles(t_vm *vm);
 /*
+** 	NCURSES FUNCTIONS
+*/
+int		nc_init(t_vm *vm);
+int		nc_init_info(t_vm *vm);
+int		nc_loop(t_vm *vm);
+int		nc_put_pc(t_vm *vm, t_proc *proc, int put);
+/*
 ** 	INSTRUCTIONS FUNCTIONS
 */
 int		f_live(t_vm *vm, t_proc *proc);
@@ -113,10 +123,9 @@ int		f_lld(t_vm *vm, t_proc *proc);
 int		f_lldi(t_vm *vm, t_proc *proc);
 int		f_lfork(t_vm *vm, t_proc *proc);
 int		f_aff(t_vm *vm, t_proc *proc);
-
 /*
 ** 	DEBUG FUNCTIONS
 */
-int		put_vm_infos(t_vm *vm);
+int			put_vm_infos(t_vm *vm);
 void		put_proc(t_list *e);
 #endif

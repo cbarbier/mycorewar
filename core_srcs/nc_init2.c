@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ncurses.c                                          :+:      :+:    :+:   */
+/*   nc_init2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 19:21:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/19 19:55:00 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-	
-static int	put_arena(t_vm *vm)
-{
-	int		i;
-	int		j;
 
-	j = 0;
-	while(j < 64)
-	{
-		ft_printf("0x%.4x :", j * 64);
-		i = 0;
-		while (i < 64)
-			ft_printf(" %.2x", vm->arena[64 * j + i++].i);
-		j++;
-		ft_printf("\n");
-	}
+int		nc_init_info(t_vm *vm)
+{
+	mvwprintw(vm->winfo, 3, 3, "COREWAR");
+	mvwprintw(vm->winfo, 4, 3, "by team Dinosaurus");
+	mvwprintw(vm->winfo, 5, 3, "Cycle: %d", vm->cycle);
+	wrefresh(vm->winfo);
 	return (1);
 }

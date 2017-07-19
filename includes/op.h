@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/05/18 11:02:42 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/07/19 13:48:39 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,28 +69,28 @@ typedef char	t_arg_type;
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-typedef struct		s_header
+typedef struct			s_header
 {
-	  unsigned int		magic;
-	    char				prog_name[PROG_NAME_LENGTH + 1];
-		  unsigned int		prog_size;
-		    char				comment[COMMENT_LENGTH + 1];
-}					t_header;
+	unsigned int	magic;
+	char			prog_name[PROG_NAME_LENGTH + 1];
+	unsigned int	prog_size;
+    char			comment[COMMENT_LENGTH + 1];
+}						t_header;
 
-typedef struct s_vm	t_vm;
+typedef struct s_vm		t_vm;
 typedef struct s_proc	t_proc;
-typedef struct		s_op
+typedef struct			s_op
 {
 	char	*name;
-	int	nb_params;
-	int	param[3];
-	int	ope_code;
-	int	cycle_to_wait;
+	int		nb_params;
+	int		param[3];
+	int		ope_code;
+	int		cycle_to_wait;
 	char	*description;
-	int	pcb;
-	int	var;
-	int	mod;
-	int	(*f)(t_vm *vm, t_proc *proc);
-}			t_op;
+	int		pcb;//has a param coding bte
+	int		var;//are the DIR param on 4 or 2 bytes.
+	int		mod;//is it modulo IDX_MOD
+	int		(*f)(t_vm *vm, t_proc *proc);
+}						t_op;
 
 #endif

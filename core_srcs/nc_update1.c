@@ -1,50 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   nc_update1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/19 15:23:16 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/19 19:52:29 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-	
-static int	put_arena(t_vm *vm)
-{
-	int		i;
-	int		j;
 
-	j = 0;
-	while(j < 64)
-	{
-		ft_printf("0x%.4x :", j * 64);
-		i = 0;
-		while (i < 64)
-			ft_printf(" %.2x", vm->arena[64 * j + i++].i);
-		j++;
-		ft_printf("\n");
-	}
+int			nc_put_pc(t_vm *vm, t_proc *proc, int put)
+{
+	int 	j;
+	int		i;
+	int		cp;
+
+	if (!vm->ncurse)
+		return (0);
+	j = proc->pc / 64;
+	i = proc->pc % 64;
+	if (put)
+		cp = proc->cpair + 4;
+	else
+		cp = (int)(vm->colors[proc->pc]);
+	wattron(vm->war, COLOR_PAIR(cp));
+	mvwprintw(vm->war, j + 1, 3 * i + 1, "%.2x", vm->arena[proc->pc].i);	
+	wattroff(vm->war, COLOR_PAIR(cp));
 	return (1);
 }
 
-int		main(int argc, char **argv)
+static int	nc_update_info(t_vm *vm)
 {
-	t_vm		vm;
+	mvwprintw(vm->winfo, 5, 10, "%d", vm->cycle);
+	return (1);
+}
 
-	ft_printf("corewar in progress\n");
-	if (!init_vm(&vm, argc, argv))
-		ft_fprintf(2, "Error: on init_vm\n");
-	if (DEBUG && !vm.ncurse)
-		put_arena(&vm);
-	vb_introduce(&vm);
-	nc_init(&vm);
-	vm_core(&vm);
-//	ft_lstiter(vm.procs, put_proc);
-//	put_vm_infos(&vm);
-	if (vm.dump == vm.cycle)
-		put_arena(&vm);
-	return (0);
+int			nc_loop(t_vm *vm)
+{
+	nc_update_info(vm);
+	wrefresh(vm->war);
+	wrefresh(vm->winfo);
+	usleep(1000000 / vm->cps);
+	return (1);
 }

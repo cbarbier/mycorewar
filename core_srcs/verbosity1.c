@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/18 11:35:44 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/19 14:07:46 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	vb_introduce(t_vm *vm)
 	while (i < vm->nb_players)
 	{
 		h = &(vm->players[i].header);
-		ft_printf("* Player %d, weighing %d bytes, ", i, h->prog_size);
+		ft_printf("* Player %d, weighing %d bytes, ", i + 1, h->prog_size);
 		ft_printf("\"%s\" (\"%s\") !\n", h->prog_name, h->comment);
 		i++;
 	}

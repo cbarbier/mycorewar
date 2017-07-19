@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/18 09:32:35 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/19 17:16:54 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,10 @@ static int	vm_play(t_vm *vm)
 		if (!proc->exec_in)
 		{
 			if (parse_pcb_n_param(vm, proc))
-			{
 				op_tab[proc->op_code].f(vm, proc);
-				ft_printf("parse_pcb ok\n");
-				ft_printf("{red}execution of %s by proc %d at pc 0x%.4x\n{no}",
-				op_tab[proc->op_code].name, proc->id, proc->pc);
-			}
-			else
-				ft_printf("parse_pcb ko\n");
-			put_proc(elm);
-			if (init_proc(vm, proc, proc->ipc))
-				ft_printf("init_proc ok\n");
-			else
-				ft_printf("init_proc ko\n");
-			put_proc(elm);
+//			put_proc(elm);
+			init_proc(vm, proc, proc->ipc);
+//			put_proc(elm);
 		}
 		else
 			proc->exec_in--;
@@ -94,6 +84,7 @@ int		vm_core(t_vm *vm)
 		vm->cycle++;
 		vb_cycles(vm);
 		vm->ctd_cycle++;
+		nc_loop(vm);
 	}
 	put_vm_infos(vm);
 	return (1);

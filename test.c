@@ -17,7 +17,7 @@ static int	print_arr(WINDOW *warr, uint8_t *arr)
 		i = 0;
 		while (i < 64)
 		{
-			mvwprintw(warr, j + 1, 3 * i + 1, "%.2x%c", arr[j * 4 + i], (i < 3 ? ' ': '\n'));
+			mvwprintw(warr, j + 1, 3 * i + 1, "%.2x", arr[j * 4 + i]);
 			i++;
 		}
 		j++;
@@ -77,7 +77,8 @@ int	main(void)
 	put_pc(warr, add);
 	wrefresh(warr);
 	wrefresh(winfo);
-	while (getch() != ' ');
+	printf("test");
+	usleep(1000000);
 	put_pc(warr, 0x400);
 	wrefresh(warr);
 	while (getch() != ' ');

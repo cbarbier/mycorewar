@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/18 11:35:18 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/19 20:00:34 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@ static int	load_prog(t_vm *vm, t_player *p, int ip)
 static int	add_process(t_vm *vm, t_player *p, int pc)
 {
 	static int	id_proc = 1;
-	static int	ic = 1;
 	t_proc		proc;
 	t_list		*elm;
 
 	ft_bzero(&proc, sizeof(t_proc));
-	proc.id = id_proc++;
-	proc.ic = ic-- + vm->nb_players;
+	proc.id = id_proc;
+	proc.cpair = id_proc++;
 	proc.reg[0] = p->id;
 	proc.pc = pc;
 	proc.player_id = p->id;
@@ -49,6 +48,7 @@ int		init_vm(t_vm *vm, int argc, char **argv)
 	if (!parse_argv(vm, argc, argv))
 		return (0);
 	vm->ctd = CYCLE_TO_DIE;
+	vm->cps = 50;
 	ft_printf("parse argv ok! nb players: %d\n", vm->nb_players);
 	ip = 0;
 	while (ip < vm->nb_players)
