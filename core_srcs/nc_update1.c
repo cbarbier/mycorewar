@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/20 14:20:00 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/20 16:10:49 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,22 @@ int			nc_put_pc(t_vm *vm, t_proc *proc, int put)
 
 static int	nc_update_info(t_vm *vm)
 {
+	int		j;
+	int		i;
+
 	mvwprintw(vm->winfo, 5, 10, "%d", vm->cycle);
+	j = 10;
+	i = -1;
+	mvwprintw(vm->winfo, 7, 14, "%d", ft_lstlen(vm->procs));
+	while (++i < vm->nb_players)
+	{
+		wattron(vm->winfo, COLOR_PAIR(i + 1));
+		mvwprintw(vm->winfo, j, 29, "%d", vm->players[i].last_live_cycle);
+		mvwprintw(vm->winfo, j + 1, 29, "%d", vm->players[i].live_in_ctd);
+		j += 4;
+	}
+	wattron(vm->winfo, COLOR_PAIR(10));
+	mvwprintw(vm->winfo, j, 18, "% 10d", vm->ctd);
 	return (1);
 }
 
@@ -44,30 +59,5 @@ int			nc_loop(t_vm *vm)
 	wrefresh(vm->war);
 	wrefresh(vm->winfo);
 	usleep(1000000 / vm->cps);
-	return (1);
-}
-
-static void		*nc_event(void *arg_vm)
-{
-	t_vm	*vm;
-
-	vm = (t_vm *)(arg_vm);
-	while (42)
-	{
-		if (wgetch(vm->winfo) == ' ')
-			vm->play = (vm->play ? 0 : 1);
-	}
-	return (0);
-}
-
-int			nc_event_handling(t_vm *vm)
-{
-	pthread_t		th;
-	
-	if (pthread_create(&th, NULL, nc_event, vm))
-	{
-		ft_fprintf(2, "problem while threading the events handling\n");
-		exit(0);
-	}
 	return (1);
 }

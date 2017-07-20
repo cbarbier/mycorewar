@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/20 14:20:41 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/20 17:23:07 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct	s_vm
 	int			ncurse;
 	int			cps;
 	int			play;
+	int			step;
 }				t_vm;
 typedef union	u_mem
 {
@@ -97,6 +98,7 @@ int		get_param_value(t_vm *vm, t_proc *proc, int i, int *val);
 /*
 ** 	VERBOSITY FUNCTIONS
 */
+int		put_usage(char **argv);
 int		vb_introduce(t_vm *vm);
 int		vb_cycles(t_vm *vm);
 /*

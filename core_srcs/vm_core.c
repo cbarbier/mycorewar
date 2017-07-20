@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/20 14:26:55 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/20 15:52:49 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		vm_core(t_vm *vm)
 	nc_event_handling(vm);
 	while (vm->dump != vm->cycle && vm->procs)
 	{
-		if (!vm->play)
+		if (!vm->play || vm->step == vm->cycle)
 			continue;
 //		ft_lstiter(vm->procs, put_proc);
 		put_vm_infos(vm);

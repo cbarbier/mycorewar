@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/19 15:31:34 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/20 17:10:38 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,5 @@ int		parse_argv(t_vm *vm, int argc, char **argv)
 		if (!ret)
 			return (0);			
 	}
-	return (1);
+	return (vm->nb_players > 0 && vm->nb_players <= 4);
 }
