@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/19 19:55:24 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/20 14:20:41 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "../libft/includes/libft.h"
 # include "op.h"
 # include <ncurses.h>
+# include <pthread.h>
 # define DEBUG		0
 
 typedef union	u_byte
@@ -71,6 +72,7 @@ typedef struct	s_vm
 	int			verbose;
 	int			ncurse;
 	int			cps;
+	int			play;
 }				t_vm;
 typedef union	u_mem
 {
@@ -104,6 +106,7 @@ int		nc_init(t_vm *vm);
 int		nc_init_info(t_vm *vm);
 int		nc_loop(t_vm *vm);
 int		nc_put_pc(t_vm *vm, t_proc *proc, int put);
+int		nc_event_handling(t_vm *vm);
 /*
 ** 	INSTRUCTIONS FUNCTIONS
 */

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/19 19:52:29 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/20 14:20:00 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,30 @@ int			nc_loop(t_vm *vm)
 	wrefresh(vm->war);
 	wrefresh(vm->winfo);
 	usleep(1000000 / vm->cps);
+	return (1);
+}
+
+static void		*nc_event(void *arg_vm)
+{
+	t_vm	*vm;
+
+	vm = (t_vm *)(arg_vm);
+	while (42)
+	{
+		if (wgetch(vm->winfo) == ' ')
+			vm->play = (vm->play ? 0 : 1);
+	}
+	return (0);
+}
+
+int			nc_event_handling(t_vm *vm)
+{
+	pthread_t		th;
+	
+	if (pthread_create(&th, NULL, nc_event, vm))
+	{
+		ft_fprintf(2, "problem while threading the events handling\n");
+		exit(0);
+	}
 	return (1);
 }

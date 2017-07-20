@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/19 19:57:52 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/20 14:28:53 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int			nc_init(t_vm *vm)
 	vm->dump = -1; //ncurse overright dump
 	vm->verbose = 0;// and verbose
 	initscr();
+	cbreak();
 	curs_set(0);
 	noecho();
 	start_color();

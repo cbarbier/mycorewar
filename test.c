@@ -82,6 +82,9 @@ int	main(void)
 	put_pc(warr, 0x400);
 	wrefresh(warr);
 	while (getch() != ' ');
+	printf("the key code is %d\n", getch());
+	wrefresh(warr);
+	while (getch() != ' ');
 	endwin();
 	return (0);
 }
