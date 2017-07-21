@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 19:21:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/21 11:46:29 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static int	get_comment(t_player *p)
 
 static int	get_size(t_player *p)
 {
-	unsigned int		size;
-	int			ret;
+	unsigned int	size;
+	int				ret;
 	t_mem			mem;
 
 	if ((ret = read(p->fd, mem.c, 4)) != 4)
@@ -71,8 +71,8 @@ static int	get_name(t_player *p)
 
 static int	get_magik(t_player *p)
 {
-	unsigned int		majik;
-	int			ret;
+	unsigned int	majik;
+	int				ret;
 	t_mem			mem;
 
 	if ((ret = read(p->fd, mem.c, 4)) != 4)

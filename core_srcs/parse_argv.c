@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/20 17:10:38 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/21 11:46:52 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	add_player(t_vm *vm, int fd, int flag, int id_arg)
 {
-	static int		id = -1;
+	static int		id = 1;
 	int			index;
 
 	index = vm->nb_players;
@@ -24,7 +24,7 @@ static int	add_player(t_vm *vm, int fd, int flag, int id_arg)
 	vm->players[index].fd = fd;
 	vm->nb_players++;
 	if (!flag)
-		id--;
+		id++;
 	return (1);
 }
 

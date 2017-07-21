@@ -1,0 +1,249 @@
+debug.c:	if (vm->ncurse)
+debug.c:	ft_printf("-----------------------------------\n");
+debug.c:	ft_printf("-----------------------------------\n");
+debug.c:	ft_printf("| nb_players % 21.7d|\n", vm->nb_players);
+debug.c:	ft_printf("| dump       % 21.7d|\n", vm->dump);
+debug.c:	ft_printf("| verbose    % 21.7d|\n", vm->verbose);
+debug.c:	ft_printf("| ncurse     % 21.7d|\n", vm->ncurse);
+debug.c:	ft_printf("| check      % 21.7d|\n", vm->check);
+debug.c:	ft_printf("| cycle      % 21.7d|\n", vm->cycle);
+debug.c:	ft_printf("| ctd        % 21.7d|\n", vm->ctd);
+debug.c:	ft_printf("| cycle in ctd % 19.7d|\n", vm->ctd_cycle);
+debug.c:	ft_printf("| live in ctd  % 19.7d|\n", vm->live_in_ctd);
+debug.c:	ft_printf("-----------------------------------\n");
+debug.c:	i = -1;
+debug.c:	while (++i <vm->nb_players)
+debug.c:		ft_printf("|       id % 8d fd % 8d   |\n", vm->players[i].id, vm->players[i].fd);
+debug.c:	ft_printf("-----------------------------------\n\n");
+debug.c:	p = (t_proc*)(e->content);
+debug.c:	ft_printf("-----------------------------------\n");
+debug.c:	ft_printf("|           PROC % 6d           |\n", p->id);
+debug.c:	ft_printf("-----------------------------------\n");
+debug.c:	ft_printf("|op_code     % 21.7d|\n", p->op_code);
+debug.c:	ft_printf("|pc                         0x%.4x|\n", p->pc);
+debug.c:	ft_printf("|ipc                        0x%.4x|\n", p->ipc);
+debug.c:	ft_printf("|adv         % 21.7d|\n", p->adv);
+debug.c:	ft_printf("|carry       % 21.7d|\n", p->carry);
+debug.c:	ft_printf("|live_in_ctd % 21.7d|\n", p->live_in_ctd);
+debug.c:	ft_printf("|error pcb   % 21.7d|\n", p->error_pcb);
+debug.c:	ft_printf("|exec_in     % 21.7d|\n", p->exec_in);
+debug.c:	ft_printf("-----------------------------------\n");
+debug.c:	i = -1;
+debug.c:	ft_printf("-----------------------------------\n");
+debug.c:	while (++i < 3 && p->psize[i])
+debug.c:		ft_printf("| %.1d      | %.2d  |  %.1d  |    % 8d|\n", i, p->ptype[i], p->psize[i], p->param[i]);
+debug.c:	ft_printf("-----------------------------------\n");
+init_vm.c:	index = ip * MEM_SIZE / vm->nb_players;
+init_vm.c:	ft_memcpy(vm->arena + index, p->prog, p->header.prog_size);
+init_vm.c:	proc.reg[0] = p->id;
+init_vm.c:	proc.player_id = p->id;
+init_vm.c:	ft_lstadd(&(vm->procs), elm);
+init_vm.c:	vm->ctd = CYCLE_TO_DIE;
+init_vm.c:	vm->cps = 50;
+init_vm.c:	vm->step = -2;
+init_vm.c:	vm->last_player_live = vm->players + vm->nb_players - 1;
+init_vm.c:	vm->dump = -1;
+init_vm.c:	ft_printf("parse argv ok! nb players: %d\n", vm->nb_players);
+init_vm.c:	while (ip < vm->nb_players)
+init_vm.c:		if (!parse_player(vm->players + ip))
+init_vm.c:		pc = ip * MEM_SIZE / vm->nb_players;
+init_vm.c:		load_prog(vm, vm->players + ip, ip);
+init_vm.c:		add_process(vm, vm->players + ip, pc);
+init_vm.c:		init_proc(vm, (t_proc*)(vm->procs->content), pc);
+main.c:			ft_printf(" %.2x", vm->arena[64 * j + i++].i);
+main.c:	ft_fprintf(2, "Usage: {red}%s{no} [-d N -v N -ncurse] \
+main.c: < [-n N] champion1.cor> <...>\n", argv[0]);
+main.c:    -{grn}d{no} N  : Dumps memory after N cycles then exits\n\
+main.c:    -{grn}v{no} N  : Verbosity levels, can be added together to enable several\n\
+main.c:    -{grn}n{no} N  : Gives the given id to the following champ (file .cor)\n\
+main.c:	 - {yel}0{no}  : Show only essentials\n\
+main.c:	 - {yel}1{no}  : Show lives\n\
+main.c:	 - {yel}2{no}  : Show cycles\n\
+main.c:	 - {yel}4{no}  : Show operations (Params are NOT litteral ...)\n\
+main.c:	 - {yel}8{no}  : Show deaths\n\
+main.c:	 - {yel}16{no} : Show PC movements (Except for jumps)\n");
+main.c:    -{blu}ncurse{no} : Ncurses output mode with some nice features\n");
+nc_event.c:	if (key == 'q' && cps - 10 > 0)
+nc_event.c:		*p_cps = cps - 10;
+nc_event.c:	else if (key == 'w' && cps - 1 > 0)
+nc_event.c:		*p_cps = cps - 1;
+nc_event.c:	mvwprintw(vm->winfo, 17 + 4 * vm->nb_players, 18, "% 10d", vm->cps);
+nc_event.c:		key = wgetch(vm->winfo);
+nc_event.c:			vm->play = (vm->play && vm->step != vm->cycle ? 0 : 1);
+nc_event.c:			vm->step = -1;
+nc_event.c:			nc_update_cps(vm, key, &(vm->cps));
+nc_event.c:			wrefresh(vm->winfo);
+nc_event.c:		else if (key == 's' && (vm->play = 1))
+nc_event.c:			vm->step = vm->cycle + 1;
+nc_init1.c:	i = vm->nb_players;
+nc_init1.c:	elm = vm->procs;
+nc_init1.c:	ft_memset(vm->colors, 9, MEM_SIZE);
+nc_init1.c:		p = (t_proc*)(elm->content);
+nc_init1.c:		ft_memset(vm->colors + p->pc, p->cpair, (int)(vm->players[--i].header.prog_size));
+nc_init1.c:		elm = elm->next;
+nc_init1.c:	elm = vm->procs;
+nc_init1.c:		p = (t_proc*)(elm->content);
+nc_init1.c:		elm = elm->next;
+nc_init1.c:			wattron(vm->war, COLOR_PAIR((int)(vm->colors[j * 64 + i])));
+nc_init1.c:			mvwprintw(vm->war, j + 1, 3 * i + 1, "%.2x", vm->arena[j * 64 + i].i);
+nc_init1.c:			wattroff(vm->war, COLOR_PAIR((int)(vm->colors[j * 64 + i])));
+nc_init1.c:	wrefresh(vm->win);
+nc_init1.c:	wrefresh(vm->war);
+nc_init1.c:	vm->win = newwin(68, 260, 0, 0);
+nc_init1.c:	vm->war = newwin(66, 190, 1, 2);
+nc_init1.c:	vm->winfo = newwin(68, 67, 0, 193);
+nc_init1.c:	wattron(vm->win, COLOR_PAIR(10));
+nc_init1.c:	wattron(vm->winfo, COLOR_PAIR(10));
+nc_init1.c:	wborder(vm->win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '); 
+nc_init1.c:	wborder(vm->winfo, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '); 	
+nc_init1.c:	if (!vm->ncurse)
+nc_init1.c:	vm->dump = -1; //ncurse overright dump
+nc_init1.c:	vm->verbose = 0;// and verbose
+nc_init2.c:	while (i < vm->nb_players)
+nc_init2.c:		wattron(vm->winfo, COLOR_PAIR(i + 1));
+nc_init2.c:		name = vm->players[i].header.prog_name;
+nc_init2.c:		mvwprintw(vm->winfo, j, 3, "Player %+d : ", vm->players[i].id);
+nc_init2.c:		mvwprintw(vm->winfo, j, 18, "%.10s", name);
+nc_init2.c:		mvwprintw(vm->winfo, j + 1, 3, "Last live :");
+nc_init2.c:		mvwprintw(vm->winfo, j + 1, 29, "%d", vm->players[i].last_live_cycle);
+nc_init2.c:		mvwprintw(vm->winfo, j + 2, 3, "Lives in current period :");
+nc_init2.c:		mvwprintw(vm->winfo, j + 2, 29, "%d", vm->players[i].live_in_ctd);
+nc_init2.c:		wattron(vm->winfo, COLOR_PAIR(10));
+nc_init2.c:	j = 10 + 4 * vm->nb_players;
+nc_init2.c:	mvwprintw(vm->winfo, j++, 3, "CYCLE_TO_DIE : % 10d", vm->ctd);
+nc_init2.c:	mvwprintw(vm->winfo, j++, 3, "CYCLE_DELTA :  % 10d", CYCLE_DELTA);
+nc_init2.c:	mvwprintw(vm->winfo, j++, 3, "NBR_LIVE :     % 10d", NBR_LIVE);
+nc_init2.c:	mvwprintw(vm->winfo, j++, 3, "MAX_CHECKS :   % 10d", MAX_CHECKS);
+nc_init2.c:	mvwprintw(vm->winfo, j + 3, 3, "Cycle/second : % 10d", vm->cps);
+nc_init2.c:	mvwprintw(vm->winfo, 3, 3, "COREWAR by team Dinosaurus");
+nc_init2.c:	mvwprintw(vm->winfo, 5, 3, "Cycle: %d", vm->cycle);
+nc_init2.c:	mvwprintw(vm->winfo, 7, 3, "Processes: %d", ft_lstlen(vm->procs));
+nc_init2.c:	wrefresh(vm->winfo);
+nc_update1.c:	if (!vm->ncurse)
+nc_update1.c:	j = proc->pc / 64;
+nc_update1.c:	i = proc->pc % 64;
+nc_update1.c:		cp = proc->cpair + 4;
+nc_update1.c:		cp = (int)(vm->colors[proc->pc]);
+nc_update1.c:	wattron(vm->war, COLOR_PAIR(cp));
+nc_update1.c:	mvwprintw(vm->war, j + 1, 3 * i + 1, "%.2x", vm->arena[proc->pc].i);	
+nc_update1.c:	wattroff(vm->war, COLOR_PAIR(cp));
+nc_update1.c:	mvwprintw(vm->winfo, 5, 10, "%d", vm->cycle);
+nc_update1.c:	i = -1;
+nc_update1.c:	mvwprintw(vm->winfo, 7, 14, "%d", ft_lstlen(vm->procs));
+nc_update1.c:	while (++i < vm->nb_players)
+nc_update1.c:		wattron(vm->winfo, COLOR_PAIR(i + 1));
+nc_update1.c:		mvwprintw(vm->winfo, j, 29, "%d", vm->players[i].last_live_cycle);
+nc_update1.c:		mvwprintw(vm->winfo, j + 1, 29, "%d", vm->players[i].live_in_ctd);
+nc_update1.c:	wattron(vm->winfo, COLOR_PAIR(10));
+nc_update1.c:	mvwprintw(vm->winfo, j, 18, "% 10d", vm->ctd);
+nc_update1.c:	wrefresh(vm->war);
+nc_update1.c:	wrefresh(vm->winfo);
+nc_update1.c:	usleep(1000000 / vm->cps);
+op.c:		"et (and)  r1, r2, r3   r1&r2 -> r3", 1, 0, 1, f_and},
+op.c:		"ou  (or)   r1, r2, r3   r1 | r2 -> r3", 1, 0, 1, f_or},
+op.c:		"ou (xor)  r1, r2, r3   r1^r2 -> r3", 1, 0, 1, f_xor},
+parse_argv.c:	static int		id = -1;
+parse_argv.c:	index = vm->nb_players;
+parse_argv.c:	vm->players[index].id = flag ? id_arg : id;
+parse_argv.c:	vm->players[index].fd = fd;
+parse_argv.c:	vm->nb_players++;
+parse_argv.c:		id--;
+parse_argv.c:	if (!ft_strcmp(argv[index], "-n"))
+parse_argv.c:	if (ft_strcmp(&argv[*aindex][tmp - 4], ".cor"))
+parse_argv.c:		if (!ft_strcmp(argv[index], "-dump")
+parse_argv.c:		|| !ft_strcmp(argv[index], "-d"))
+parse_argv.c:			ret = get_next_int(&(vm->dump), &index, argv);
+parse_argv.c:		else if (!ft_strcmp(argv[index], "-v"))
+parse_argv.c:			ret = get_next_int(&(vm->verbose), &index, argv);
+parse_argv.c:		else if (!ft_strcmp(argv[index], "-ncurse") && (vm->ncurse = 1))
+parse_argv.c:	return (vm->nb_players > 0 && vm->nb_players <= 4);
+parse_pcb_n_param.c:	ft_bzero(proc->param, 3 * sizeof(int));
+parse_pcb_n_param.c:	ft_bzero(proc->psize, 3 * sizeof(int));
+parse_pcb_n_param.c:	ft_bzero(proc->ptype, 3 * sizeof(int));
+parse_pcb_n_param.c:	proc->op_code = getnbytes(vm, proc->pc, 1);
+parse_pcb_n_param.c:	proc->pc = pc;
+parse_pcb_n_param.c:	proc->ipc = proc->pc;
+parse_pcb_n_param.c:	proc->adv = 1;
+parse_pcb_n_param.c:	proc->error_pcb = 0;
+parse_pcb_n_param.c:	if (!(proc->op_code > 0 && proc->op_code < 17))
+parse_pcb_n_param.c:		proc->op_code = -1;
+parse_pcb_n_param.c:	proc->op_code--;
+parse_pcb_n_param.c:	proc->exec_in = op_tab[proc->op_code].cycle_to_wait;
+parse_pcb_n_param.c:	if (op_tab[proc->op_code].pcb)
+parse_pcb_n_param.c:		proc->adv = 2;
+parse_pcb_n_param.c:	&& (op_tab[proc->op_code].param[i] & T_REG))
+parse_pcb_n_param.c:		proc->ptype[i] = T_REG;
+parse_pcb_n_param.c:		proc->psize[i] = 1;
+parse_pcb_n_param.c:	&& (op_tab[proc->op_code].param[i] & T_IND))
+parse_pcb_n_param.c:		proc->ptype[i] = T_IND;
+parse_pcb_n_param.c:		proc->psize[i] = IND_SIZE; 
+parse_pcb_n_param.c:	&& (op_tab[proc->op_code].param[i] & T_DIR))
+parse_pcb_n_param.c:		proc->ptype[i] = T_DIR;
+parse_pcb_n_param.c:		proc->psize[i] = op_tab[proc->op_code].var ? 2 : 4;
+parse_pcb_n_param.c:		proc->error_pcb |= 1;
+parse_pcb_n_param.c:	proc->param[i] = getnbytes(vm, proc->ipc, proc->psize[i]);
+parse_pcb_n_param.c:	inc_pc(proc, proc->psize[i]);
+parse_pcb_n_param.c:	return (proc->psize[i]);
+parse_pcb_n_param.c:	if (proc->op_code < 0)
+parse_pcb_n_param.c:	if (op_tab[proc->op_code].pcb)
+parse_pcb_n_param.c:		pcb = getnbytes(vm, proc->ipc, 1);
+parse_pcb_n_param.c:		pcb = proc->op_code == 15 ? REG_CODE : DIR_CODE;
+parse_pcb_n_param.c:	while (i < op_tab[proc->op_code].nb_params)
+parse_pcb_n_param.c:		t = (pcb >> (6 - 2 * i)) & 0x03;
+parse_pcb_n_param.c:		proc->adv += get_param(vm, proc, i, t);
+parse_pcb_n_param.c:	return (!proc->error_pcb);
+parse_player.c:	if ((ret = read(p->fd, p->header.comment, COMMENT_LENGTH)) < 0
+parse_player.c:	if ((ret = lseek(p->fd, 4, SEEK_CUR)) < 0)
+parse_player.c:	if ((ret = read(p->fd, mem.c, 4)) != 4)
+parse_player.c:	p->header.prog_size = size;
+parse_player.c:	if ((ret = read(p->fd, p->header.prog_name, PROG_NAME_LENGTH)) < 0
+parse_player.c:	if ((ret = lseek(p->fd, 4, SEEK_CUR)) < 0)
+parse_player.c:	if ((ret = read(p->fd, mem.c, 4)) != 4)
+parse_player.c:	p->header.magic = majik;
+parse_player.c:	if ((ret = read(p->fd, p->prog, CHAMP_MAX_SIZE + 1)) < 0)
+parse_player.c:	if ((unsigned int)ret != p->header.prog_size)
+tools.c:		val = (val << 8) + vm->arena[tmp].i;
+tools.c:		vm->arena[tmp].i = (val >> (8 * (n - i -1))) & 0xff;
+tools.c:	proc->ipc = (proc->ipc + n) % MEM_SIZE;
+tools.c:	if (proc->ptype[i] == T_REG)
+tools.c:		if (!is_reg(proc->param[i]))
+tools.c:		*val = proc->reg[proc->param[i] - 1];
+tools.c:	else if (proc->ptype[i] == T_DIR)
+tools.c:		if (proc->psize[i] == 2)
+tools.c:			*val = (short int)(proc->param[i]);
+tools.c:			*val = proc->param[i];
+tools.c:	else if (proc->ptype[i] == T_IND)
+tools.c:		ind = proc->param[i];
+tools.c:		if (op_tab[proc->op_code].mod)
+tools.c:		*val = getnbytes(vm, proc->pc + ind, 4);
+verbosity1.c:	if (vm->ncurse)
+verbosity1.c:	while (i < vm->nb_players)
+verbosity1.c:		h = &(vm->players[i].header);
+verbosity1.c:		ft_printf("* Player %d, weighing %d bytes, ", i + 1, h->prog_size);
+verbosity1.c:		ft_printf("\"%s\" (\"%s\") !\n", h->prog_name, h->comment);
+verbosity1.c:	if (!(vm->verbose & 2))
+verbosity1.c:	ft_printf("It is now cycle %d\n", vm->cycle);
+verbosity1.c:	p = vm->last_player_live;
+verbosity1.c:	ft_printf("Contestant %d, \"%s\", has won !\n", p->id, p->header.prog_name);
+vm_core.c:	tmp = proc->live_in_ctd;
+vm_core.c:	proc->live_in_ctd = 0;
+vm_core.c:	if (vm->ctd_cycle == vm->ctd)
+vm_core.c:		if (vm->live_in_ctd > NBR_LIVE || vm->check == MAX_CHECKS)
+vm_core.c:			vm->ctd -= CYCLE_DELTA;
+vm_core.c:			vm->check = 0;
+vm_core.c:			vm->check++;
+vm_core.c:		vm->ctd_cycle = 0;
+vm_core.c:		// and reset proc->live_in_ctd;
+vm_core.c:		ft_lstdelif(&(vm->procs), free_proc, kill_proc);
+vm_core.c:	elm = vm->procs;
+vm_core.c:		proc = (t_proc*)(elm->content);
+vm_core.c:		if (!proc->exec_in)
+vm_core.c:				op_tab[proc->op_code].f(vm, proc);
+vm_core.c:			init_proc(vm, proc, proc->ipc);
+vm_core.c:			proc->exec_in--;
+vm_core.c:		elm = elm->next;
+vm_core.c:	while (vm->dump != vm->cycle && vm->procs)
+vm_core.c:		if (!vm->play || vm->step == vm->cycle)
+vm_core.c://		ft_lstiter(vm->procs, put_proc);
+vm_core.c:		vm->cycle++;
+vm_core.c:		vm->ctd_cycle++;

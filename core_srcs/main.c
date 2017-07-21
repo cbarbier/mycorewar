@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/20 17:47:03 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/21 11:40:49 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ int		main(int argc, char **argv)
 	{
 		ft_fprintf(2, "Error: on init_vm\n");
 		put_usage(argv);
+		return(0);
 	}
+	put_vm_infos(&vm);
 	if (DEBUG && !vm.ncurse)
 		put_arena(&vm);
 	vb_introduce(&vm);

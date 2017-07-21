@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/20 17:23:07 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/21 11:35:32 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct	s_vm
 	char		colors[MEM_SIZE];
 	t_list		*procs; // list of processus
 	int			live_in_ctd;
-	int			last_player_live;
+	t_player	*last_player_live;
 	int			cycle;
 	int			check;
 	int			ctd; //cycle to die

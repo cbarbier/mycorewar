@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/20 16:06:24 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/21 11:13:14 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ static int	add_process(t_vm *vm, t_player *p, int pc)
 	return (1);
 }
 
+static int	init_vm_values(t_vm *vm)
+{
+	vm->ctd = CYCLE_TO_DIE;
+	vm->cps = 50;
+	vm->step = -2;
+	vm->last_player_live = vm->players + vm->nb_players - 1;
+	return (1);
+}
+
 int		init_vm(t_vm *vm, int argc, char **argv)
 {
 	int		ip;
@@ -48,9 +57,7 @@ int		init_vm(t_vm *vm, int argc, char **argv)
 	vm->dump = -1;
 	if (!parse_argv(vm, argc, argv))
 		return (0);
-	vm->ctd = CYCLE_TO_DIE;
-	vm->cps = 50;
-	vm->step = -2;
+	init_vm_values(vm);
 	ft_printf("parse argv ok! nb players: %d\n", vm->nb_players);
 	ip = 0;
 	while (ip < vm->nb_players)

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/20 16:09:10 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/21 11:37:28 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int			nc_event_handling(t_vm *vm)
 {
 	pthread_t		th;
 	
+	if (!vm->ncurse)
+		return (0);
 	if (pthread_create(&th, NULL, nc_event, vm))
 	{
 		ft_fprintf(2, "problem while threading the events handling\n");
