@@ -6,22 +6,25 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/24 17:26:29 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/24 18:52:15 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int	kill_proc(void *arg_proc)
+static int	kill_proc(void *arg_proc, void *arg_vm)
 {
-	t_proc *proc;
-	int	tmp;
+	t_proc		*proc;
+	t_vm		*vm;
+	int			tmp;
 
 	proc = (t_proc*)(arg_proc);
-	tmp = proc->live_in_ctd;
-	proc->live_in_ctd = 0;
+	vm = (t_vm *)arg_vm;
+	tmp = proc->alive;
 	if (!tmp)
-		ft_printf("Process %d hasn't lived for XXXX cycles (CTD XXXX)\n", proc->id);
+		ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
+				proc->id, vm->cycle - proc->last_live_cycle , vm->ctd);
+	proc->alive = 0;
 	return (!tmp);
 }
 
@@ -45,7 +48,7 @@ static int	vm_rules(t_vm *vm)
 		vm->ctd_cycle = 0;
 		//kill the one that did not execute live;
 		// and reset proc->live_in_ctd;
-		ft_lstdelif(&(vm->procs), free_proc, kill_proc);
+		ft_lstfilter(&(vm->procs), free_proc, kill_proc, vm);
 	}
 	return (1);
 }

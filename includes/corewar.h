@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/24 17:21:49 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/24 18:49:17 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct	s_proc
 	int		pc;
 	int		ipc;
 	int		carry;
-	int		live_in_ctd;
+	int		last_live_cycle;
 	int		op_code;
 	int		exec_in;
 	int		adv;
@@ -40,6 +40,7 @@ typedef struct	s_proc
 	int		ptype[3];
 	int		psize[3];
 	int		param[3];
+	int		alive;
 }				t_proc;
 
 typedef struct	s_player
@@ -50,7 +51,7 @@ typedef struct	s_player
 	int				last_live_cycle;
 	t_header		header;
 	unsigned char	prog[CHAMP_MAX_SIZE + 2];
-}				t_player;	
+}				t_player;
 
 typedef struct	s_vm
 {

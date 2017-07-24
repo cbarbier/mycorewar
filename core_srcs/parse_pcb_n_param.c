@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/24 15:41:46 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/24 19:05:33 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		init_proc(t_vm *vm, t_proc *proc, int pc)
 	{
 		proc->op_code = -1;
 		inc_pc(proc, 1);
+		proc->exec_in = 1;
 		return (0);
 	}
 	proc->op_code--;
