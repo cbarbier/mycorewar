@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/21 11:43:09 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/24 17:20:58 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,3 +55,23 @@ int			vb_winner(t_vm *vm)
 	ft_printf("Contestant %d, \"%s\", has won !\n", p->id, p->header.prog_name);
 	return (1);
 }
+
+int			vb_pc_movement(t_vm *vm, t_proc *proc)
+{
+	int			i;
+	int			tmp;
+
+	if (!(vm->verbose & 16))
+		return (0);
+	i = 0;
+	tmp = (proc->pc + proc->adv) % MEM_SIZE;
+ 	ft_printf("ADV %d (0x%.4x -> 0x%.4x)", proc->adv, proc->pc, tmp);
+	while (i < proc->adv)
+	{
+		tmp = (proc->pc + i) % MEM_SIZE;
+		ft_printf(" %.2x", vm->arena[tmp].i);
+		i++;
+	}
+	ft_printf("\n");
+	return (1);
+}  	

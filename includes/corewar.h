@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/21 11:35:32 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/24 17:21:49 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ int		get_param_value(t_vm *vm, t_proc *proc, int i, int *val);
 int		put_usage(char **argv);
 int		vb_introduce(t_vm *vm);
 int		vb_cycles(t_vm *vm);
+int		vb_pc_movement(t_vm *vm, t_proc *proc);
+int		vb_winner(t_vm *vm);
 /*
 ** 	NCURSES FUNCTIONS
 */

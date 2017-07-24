@@ -6,21 +6,23 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/21 11:40:10 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/24 17:26:29 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int	kill_proc(void *e)
+static int	kill_proc(void *arg_proc)
 {
 	t_proc *proc;
 	int	tmp;
 
-	proc = (t_proc*)(e);
+	proc = (t_proc*)(arg_proc);
 	tmp = proc->live_in_ctd;
 	proc->live_in_ctd = 0;
-	return (tmp);
+	if (!tmp)
+		ft_printf("Process %d hasn't lived for XXXX cycles (CTD XXXX)\n", proc->id);
+	return (!tmp);
 }
 
 static void	free_proc(void *e, size_t size)
@@ -31,7 +33,7 @@ static void	free_proc(void *e, size_t size)
 
 static int	vm_rules(t_vm *vm)
 {
-	if (vm->ctd_cycle == vm->ctd)
+	if (vm->ctd_cycle >= vm->ctd)
 	{
 		if (vm->live_in_ctd > NBR_LIVE || vm->check == MAX_CHECKS)
 		{
@@ -57,16 +59,15 @@ static int	vm_play(t_vm *vm)
 	while (elm)
 	{
 		proc = (t_proc*)(elm->content);
-		if (!proc->exec_in)
+		if (!--proc->exec_in)
 		{
 			if (parse_pcb_n_param(vm, proc))
 				op_tab[proc->op_code].f(vm, proc);
 //			put_proc(elm);
+			vb_pc_movement(vm, proc);
 			init_proc(vm, proc, proc->ipc);
 //			put_proc(elm);
 		}
-		else
-			proc->exec_in--;
 		elm = elm->next;
 	}
 	return (1);
@@ -79,15 +80,17 @@ int		vm_core(t_vm *vm)
 	{
 		if (vm->ncurse && (!vm->play || vm->step == vm->cycle))
 			continue;
+		vm->ctd_cycle++;
+		vm->cycle++;
+		vb_cycles(vm);
 //		ft_lstiter(vm->procs, put_proc);
 //		put_vm_infos(vm);
 		vm_rules(vm);
 		vm_play(vm);
-		vm->cycle++;
-		vb_cycles(vm);
-		vm->ctd_cycle++;
 		nc_loop(vm);
 	}
+	vb_winner(vm);
+	vm->play = -1; //to stop thread for event handling
 	put_vm_infos(vm);
 	return (1);
 }

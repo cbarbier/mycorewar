@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/21 11:37:28 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/24 13:31:07 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void		*nc_event(void *arg_vm)
 	int				key;
 
 	vm = (t_vm *)(arg_vm);
-	while (42)
+	while (vm->play != -1)
 	{
 		key = wgetch(vm->winfo);
 		if (key == ' ')

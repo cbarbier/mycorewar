@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/20 16:10:49 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/24 16:23:30 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static int	nc_update_info(t_vm *vm)
 
 int			nc_loop(t_vm *vm)
 {
+	if (!vm->ncurse)
+		return (0);
 	nc_update_info(vm);
 	wrefresh(vm->war);
 	wrefresh(vm->winfo);
