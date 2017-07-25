@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 19:21:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/25 12:02:50 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ int		f_aff(t_vm *vm, t_proc *proc)
 {
 	int	val;
 
-	(void)vm;
-	if (!is_reg(proc->param[0]))
+	if (!get_param_value(vm, proc, 0, &val))
 		return (0);
-	val = (proc->param[0]) % 256;
-	ft_printf("%c\n", val);
+	ft_printf("%c\n", val % 256);
 	return (1);
 }

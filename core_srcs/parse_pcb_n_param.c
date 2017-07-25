@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/24 19:05:33 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/25 11:59:34 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		parse_pcb_n_param(t_vm *vm, t_proc *proc)
 		inc_pc(proc, 1);
 	}
 	else
-		pcb = (proc->op_code == 15 ? 0b01000000 : 0b10000000);
+		pcb = 0b10000000;
 	i = 0;
 	while (i < op_tab[proc->op_code].nb_params)
 	{

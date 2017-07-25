@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/24 18:49:17 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/25 12:11:35 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,4 +136,5 @@ int		f_aff(t_vm *vm, t_proc *proc);
 */
 int			put_vm_infos(t_vm *vm);
 void		put_proc(t_list *e);
+int			put_regs(t_proc *p);
 #endif

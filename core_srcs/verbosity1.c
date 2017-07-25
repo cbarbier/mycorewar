@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/24 17:20:58 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/25 11:23:04 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,6 @@ int			vb_cycles(t_vm *vm)
 	ft_printf("It is now cycle %d\n", vm->cycle);
 	return (1);
 }
-
-int			vb_operations(t_proc *proc)
-{
-	(void)proc;
-	return (1);
-}	
 
 int			vb_winner(t_vm *vm)
 {

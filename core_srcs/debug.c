@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/19 14:14:11 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/25 12:12:10 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		put_vm_infos(t_vm *vm)
 {
 	int	i;
 
-	if (vm->ncurse)
+	if (vm->ncurse || !DEBUG)
 		return (0);
 	ft_printf("-----------------------------------\n");
 	ft_printf("|               VM                |\n");
@@ -44,6 +44,8 @@ void		put_proc(t_list *e)
 	t_proc	*p;
 	int	i;
 
+	if (!DEBUG)
+		return ;
 	p = (t_proc*)(e->content);
 	ft_printf("-----------------------------------\n");
 	ft_printf("|           PROC % 6d           |\n", p->id);
@@ -53,7 +55,6 @@ void		put_proc(t_list *e)
 	ft_printf("|ipc                        0x%.4x|\n", p->ipc);
 	ft_printf("|adv         % 21.7d|\n", p->adv);
 	ft_printf("|carry       % 21.7d|\n", p->carry);
-	ft_printf("|live_in_ctd % 21.7d|\n", p->live_in_ctd);
 	ft_printf("|error pcb   % 21.7d|\n", p->error_pcb);
 	ft_printf("|exec_in     % 21.7d|\n", p->exec_in);
 	ft_printf("-----------------------------------\n");
@@ -63,4 +64,18 @@ void		put_proc(t_list *e)
 	while (++i < 3 && p->psize[i])
 		ft_printf("| %.1d      | %.2d  |  %.1d  |    % 8d|\n", i, p->ptype[i], p->psize[i], p->param[i]);
 	ft_printf("-----------------------------------\n");
+}
+
+int		put_regs(t_proc *p)
+{
+	int			i;
+
+	i = 0;
+	ft_printf("REGS of PROCESS %d\n", p->id);
+	while (i < REG_NUMBER)
+	{
+		ft_printf("r%d : %d\n", i + 1, p->reg[i]);
+		i++;
+	}
+	return (1);
 }
