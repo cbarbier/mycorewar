@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/05/18 11:03:08 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/07/25 19:11:00 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ const t_op    op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0, 1, f_live},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0, 1, f_ld},
-	{"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store", 1, 0, 0, f_st},
+	{"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store", 1, 0, 1, f_st},
 	{"add", 3, {T_REG, T_REG, T_REG}, 4, 10, "addition", 1, 0, 0, f_add},
 	{"sub", 3, {T_REG, T_REG, T_REG}, 5, 10, "soustraction", 1, 0, 0, f_sub},
 	{"and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, 6,
