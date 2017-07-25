@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/25 12:05:39 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/25 15:48:30 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ int		vm_core(t_vm *vm)
 		vm_play(vm);
 		nc_loop(vm);
 	}
-	vb_winner(vm);
 	vm->play = -1; //to stop thread for event handling
-	put_vm_infos(vm);
 	return (1);
 }

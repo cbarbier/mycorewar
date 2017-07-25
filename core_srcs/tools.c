@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/05/12 19:21:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/25 17:29:50 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		setnbytes(t_vm *vm, int addr, int val, int n)
 	while (i < n)
 	{
 		tmp = (addr + i) % MEM_SIZE;
-		vm->arena[tmp].i = (val >> (8 * (n - i -1))) & 0xff;
+		vm->arena[tmp].i = (val >> (8 * (n - i - 1))) & 0xff;
 		i++;
 	}
 	return (1);
@@ -59,8 +59,7 @@ int		inc_pc(t_proc *proc, int n)
 
 int		get_param_value(t_vm *vm, t_proc *proc, int i, int *val)
 {
-	int		ind;
-
+	(void)vm;
 	if (proc->ptype[i] == T_REG)
 	{
 		if (!is_reg(proc->param[i]))
@@ -76,10 +75,9 @@ int		get_param_value(t_vm *vm, t_proc *proc, int i, int *val)
 	}
 	else if (proc->ptype[i] == T_IND)
 	{
-		ind = proc->param[i];
+		*val = proc->param[i];
 		if (op_tab[proc->op_code].mod)
-			ind %= IDX_MOD;
-		*val = getnbytes(vm, proc->pc + ind, 4);
+			*val = *val % IDX_MOD;
 	}
 	else
 		return (0);
