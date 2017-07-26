@@ -6,13 +6,13 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/07/25 19:11:00 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/26 15:12:02 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-const t_op    op_tab[17] =
+const t_op g_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0, 1, f_live},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0, 1, f_ld},
@@ -31,7 +31,7 @@ const t_op    op_tab[17] =
 	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,
 		"store index", 1, 1, 1, f_sti},
 	{"fork", 1, {T_DIR}, 12, 800, "fork", 0, 1, 1, f_fork},
-	{"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 1, 0, 0,f_lld},
+	{"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 1, 0, 0, f_lld},
 	{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50,
 		"long load index", 1, 1, 0, f_lldi},
 	{"lfork", 1, {T_DIR}, 15, 1000, "long fork", 0, 1, 0, f_lfork},

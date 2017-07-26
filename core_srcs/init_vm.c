@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_vm.c                                           :+:      :+:    :+:   */
+/*   init_vm.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/21 11:13:14 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/26 15:20:41 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	init_vm_values(t_vm *vm)
 	return (1);
 }
 
-int		init_vm(t_vm *vm, int argc, char **argv)
+int			init_vm(t_vm *vm, int argc, char **argv)
 {
 	int		ip;
 	int		pc;

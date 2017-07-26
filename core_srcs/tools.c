@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/25 17:29:50 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/26 14:11:04 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		is_reg(int reg)
 	return (1);
 }
 
-int		getnbytes(t_vm *vm, int addr, int n)
+int		getnbytes(t_vm *vm, int addr, int n, int *new_addr)
 {
 	int	i;
 	int	val;
@@ -27,12 +27,17 @@ int		getnbytes(t_vm *vm, int addr, int n)
 
 	i = 0;
 	val = 0;
+	if (addr < 0)
+		addr += MEM_SIZE;
+	addr %= MEM_SIZE;
 	while (i < n)
 	{
 		tmp = (addr + i) % MEM_SIZE;
 		val = (val << 8) + vm->arena[tmp].i;
 		i++;
 	}
+	if (new_addr)
+		*new_addr = addr;
 	return (val);
 }
 
@@ -42,13 +47,16 @@ int		setnbytes(t_vm *vm, int addr, int val, int n)
 	int	tmp;
 
 	i = 0;
+	if (addr < 0)
+		addr += MEM_SIZE;
+	addr %= MEM_SIZE;
 	while (i < n)
 	{
 		tmp = (addr + i) % MEM_SIZE;
 		vm->arena[tmp].i = (val >> (8 * (n - i - 1))) & 0xff;
 		i++;
 	}
-	return (1);
+	return (addr);
 }
 
 int		inc_pc(t_proc *proc, int n)
@@ -74,11 +82,7 @@ int		get_param_value(t_vm *vm, t_proc *proc, int i, int *val)
 			*val = proc->param[i];
 	}
 	else if (proc->ptype[i] == T_IND)
-	{
 		*val = proc->param[i];
-		if (op_tab[proc->op_code].mod)
-			*val = *val % IDX_MOD;
-	}
 	else
 		return (0);
 	return (1);

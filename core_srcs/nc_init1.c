@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/20 14:28:53 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/26 15:59:17 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	nc_init_colors(t_vm *vm)
 {
-	t_list 	*elm;
-	t_proc	 *p;
-	int		i;
+	t_list		*elm;
+	t_proc		*p;
+	int			i;
 
 	i = vm->nb_players;
 	elm = vm->procs;
@@ -24,7 +24,8 @@ static int	nc_init_colors(t_vm *vm)
 	while (elm)
 	{
 		p = (t_proc*)(elm->content);
-		ft_memset(vm->colors + p->pc, p->cpair, (int)(vm->players[--i].header.prog_size));
+		ft_memset(vm->colors + p->pc, p->cpair,
+				(int)(vm->players[--i].header.prog_size));
 		elm = elm->next;
 	}
 	return (1);
@@ -58,7 +59,8 @@ static int	nc_init_arena(t_vm *vm)
 		while (i < 64)
 		{
 			wattron(vm->war, COLOR_PAIR((int)(vm->colors[j * 64 + i])));
-			mvwprintw(vm->war, j + 1, 3 * i + 1, "%.2x", vm->arena[j * 64 + i].i);
+			mvwprintw(vm->war, j + 1, 3 * i + 1, "%.2x",
+					vm->arena[j * 64 + i].i);
 			wattroff(vm->war, COLOR_PAIR((int)(vm->colors[j * 64 + i])));
 			i++;
 		}
@@ -68,7 +70,6 @@ static int	nc_init_arena(t_vm *vm)
 	wrefresh(vm->win);
 	wrefresh(vm->war);
 	nc_init_info(vm);
-//	while (42);
 	return (1);
 }
 
@@ -79,18 +80,19 @@ static int	nc_init_win(t_vm *vm)
 	vm->winfo = newwin(68, 67, 0, 193);
 	wattron(vm->win, COLOR_PAIR(10));
 	wattron(vm->winfo, COLOR_PAIR(10));
-	wborder(vm->win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '); 
-	wborder(vm->winfo, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '); 	
+	wborder(vm->win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	wborder(vm->winfo, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	return (nc_init_arena(vm));
 }
 
 int			nc_init(t_vm *vm)
 {
 	if (!vm->ncurse)
-		return (1);	
+		return (1);
 	ft_printf("ncurse initializing\n");
 	vm->dump = -1; //ncurse overright dump
 	vm->verbose = 0;// and verbose
+	vm->aff = 0;// and aff
 	initscr();
 	cbreak();
 	curs_set(0);

@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/25 12:12:10 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/26 14:58:06 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		put_vm_infos(t_vm *vm)
+int			put_vm_infos(t_vm *vm)
 {
 	int	i;
 
@@ -33,16 +33,17 @@ int		put_vm_infos(t_vm *vm)
 	ft_printf("-----------------------------------\n");
 	ft_printf("| PLAYERS                         |\n");
 	i = -1;
-	while (++i <vm->nb_players)
-		ft_printf("|       id % 8d fd % 8d   |\n", vm->players[i].id, vm->players[i].fd);
+	while (++i < vm->nb_players)
+		ft_printf("|       id % 8d fd % 8d   |\n",
+				vm->players[i].id, vm->players[i].fd);
 	ft_printf("-----------------------------------\n\n");
 	return (1);
 }
-	
+
 void		put_proc(t_list *e)
 {
 	t_proc	*p;
-	int	i;
+	int		i;
 
 	if (!DEBUG)
 		return ;
@@ -62,11 +63,12 @@ void		put_proc(t_list *e)
 	ft_printf("| PARAMS |  T  |  S  |     VAL    |\n");
 	ft_printf("-----------------------------------\n");
 	while (++i < 3 && p->psize[i])
-		ft_printf("| %.1d      | %.2d  |  %.1d  |    % 8d|\n", i, p->ptype[i], p->psize[i], p->param[i]);
+		ft_printf("| %.1d      | %.2d  |  %.1d  |    % 8d|\n",
+				i, p->ptype[i], p->psize[i], p->param[i]);
 	ft_printf("-----------------------------------\n");
 }
 
-int		put_regs(t_proc *p)
+int			put_regs(t_proc *p)
 {
 	int			i;
 

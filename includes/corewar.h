@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/25 13:46:44 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/26 14:47:21 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 typedef union	u_byte
 {
 	unsigned char	c;
-	uint8_t		i;
+	uint8_t			i;
 }				t_byte;
 typedef struct	s_proc
 {
@@ -46,6 +46,7 @@ typedef struct	s_proc
 typedef struct	s_player
 {
 	int				id;
+	int				index;
 	int				fd;
 	int				live_in_ctd; // nb live by player in this cycle to die
 	int				last_live_cycle;
@@ -58,7 +59,7 @@ typedef struct	s_vm
 	WINDOW		*win;
 	WINDOW		*winfo;
 	WINDOW		*war;
-	t_player 	players[MAX_PLAYERS];
+	t_player	players[MAX_PLAYERS];
 	int			nb_players;
 	t_byte		arena[MEM_SIZE];
 	char		colors[MEM_SIZE];
@@ -72,69 +73,71 @@ typedef struct	s_vm
 	int			dump;
 	int			verbose;
 	int			ncurse;
+	int			aff;
 	int			cps;
 	int			play;
 	int			step;
 }				t_vm;
 typedef union	u_mem
 {
-	uint8_t i[4];
-	char 	c[4];
+	uint8_t		i[4];
+	char		c[4];
 }				t_mem;
-extern const t_op	op_tab[17];
+extern const t_op	g_tab[17];
 /*
 ** 	CORE FUNCTIONS
 */
-int		parse_argv(t_vm *vm, int argc, char **argv);
-int		parse_player(t_player *p);
-int		parse_pcb_n_param(t_vm *vm, t_proc *proc);
-int		init_vm(t_vm *vm, int argc, char **argv);
-int		init_proc(t_vm *vm, t_proc *proc, int pc);
-int		vm_core(t_vm *vm);
-int		is_reg(int reg);
-int		inc_pc(t_proc *proc, int n);
-int		getnbytes(t_vm *vm, int addr, int n);
-int		setnbytes(t_vm *vm, int addr, int val, int n);
-int		get_param_value(t_vm *vm, t_proc *proc, int i, int *val);
+int				parse_argv(t_vm *vm, int argc, char **argv);
+int				parse_player(t_player *p);
+int				parse_pcb_n_param(t_vm *vm, t_proc *proc);
+int				init_vm(t_vm *vm, int argc, char **argv);
+int				init_proc(t_vm *vm, t_proc *proc, int pc);
+int				vm_core(t_vm *vm);
+int				is_reg(int reg);
+int				inc_pc(t_proc *proc, int n);
+int				getnbytes(t_vm *vm, int addr, int n, int *new_addr);
+int				setnbytes(t_vm *vm, int addr, int val, int n);
+int				get_param_value(t_vm *vm, t_proc *proc, int i, int *val);
+int				m0d(int offset, int mod);
 /*
 ** 	VERBOSITY FUNCTIONS
 */
-int		put_usage(char **argv);
-int		vb_introduce(t_vm *vm);
-int		vb_cycles(t_vm *vm);
-int		vb_pc_movement(t_vm *vm, t_proc *proc);
-int		vb_winner(t_vm *vm);
+int				put_usage(char **argv);
+int				vb_introduce(t_vm *vm);
+int				vb_cycles(t_vm *vm);
+int				vb_pc_movement(t_vm *vm, t_proc *proc);
+int				vb_winner(t_vm *vm);
 /*
 ** 	NCURSES FUNCTIONS
 */
-int		nc_init(t_vm *vm);
-int		nc_init_info(t_vm *vm);
-int		nc_loop(t_vm *vm);
-int		nc_put_pc(t_vm *vm, t_proc *proc, int put);
-int		nc_event_handling(t_vm *vm);
+int				nc_init(t_vm *vm);
+int				nc_init_info(t_vm *vm);
+int				nc_loop(t_vm *vm);
+int				nc_put_pc(t_vm *vm, t_proc *proc, int put);
+int				nc_event_handling(t_vm *vm);
 /*
 ** 	INSTRUCTIONS FUNCTIONS
 */
-int		f_live(t_vm *vm, t_proc *proc);
-int		f_ld(t_vm *vm, t_proc *proc);
-int		f_st(t_vm *vm, t_proc *proc);
-int		f_add(t_vm *vm, t_proc *proc);
-int		f_sub(t_vm *vm, t_proc *proc);
-int		f_and(t_vm *vm, t_proc *proc);
-int		f_or(t_vm *vm, t_proc *proc);
-int		f_xor(t_vm *vm, t_proc *proc);
-int		f_zjmp(t_vm *vm, t_proc *proc);
-int		f_ldi(t_vm *vm, t_proc *proc);
-int		f_sti(t_vm *vm, t_proc *proc);
-int		f_fork(t_vm *vm, t_proc *proc);
-int		f_lld(t_vm *vm, t_proc *proc);
-int		f_lldi(t_vm *vm, t_proc *proc);
-int		f_lfork(t_vm *vm, t_proc *proc);
-int		f_aff(t_vm *vm, t_proc *proc);
+int				f_live(t_vm *vm, t_proc *proc);
+int				f_ld(t_vm *vm, t_proc *proc);
+int				f_st(t_vm *vm, t_proc *proc);
+int				f_add(t_vm *vm, t_proc *proc);
+int				f_sub(t_vm *vm, t_proc *proc);
+int				f_and(t_vm *vm, t_proc *proc);
+int				f_or(t_vm *vm, t_proc *proc);
+int				f_xor(t_vm *vm, t_proc *proc);
+int				f_zjmp(t_vm *vm, t_proc *proc);
+int				f_ldi(t_vm *vm, t_proc *proc);
+int				f_sti(t_vm *vm, t_proc *proc);
+int				f_fork(t_vm *vm, t_proc *proc);
+int				f_lld(t_vm *vm, t_proc *proc);
+int				f_lldi(t_vm *vm, t_proc *proc);
+int				f_lfork(t_vm *vm, t_proc *proc);
+int				f_aff(t_vm *vm, t_proc *proc);
 /*
 ** 	DEBUG FUNCTIONS
 */
-int			put_vm_infos(t_vm *vm);
-void		put_proc(t_list *e);
-int			put_regs(t_proc *p);
+int				put_vm_infos(t_vm *vm);
+void			put_proc(t_list *e);
+int				put_regs(t_proc *p);
 #endif

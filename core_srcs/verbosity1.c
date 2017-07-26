@@ -6,12 +6,12 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/25 11:23:04 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/26 15:30:14 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-	
+
 int			vb_introduce(t_vm *vm)
 {
 	int			i;
@@ -24,7 +24,7 @@ int			vb_introduce(t_vm *vm)
 	i = 0;
 	while (i < vm->nb_players)
 	{
-		id_p = vm->players[i].id;
+		id_p = vm->players[i].index;
 		h = &(vm->players[i].header);
 		ft_printf("* Player %d, weighing %d bytes, ", id_p, h->prog_size);
 		ft_printf("\"%s\" (\"%s\") !\n", h->prog_name, h->comment);
@@ -43,10 +43,12 @@ int			vb_cycles(t_vm *vm)
 
 int			vb_winner(t_vm *vm)
 {
+	int			win;
 	t_player	*p;
 
 	p = vm->last_player_live;
-	ft_printf("Contestant %d, \"%s\", has won !\n", p->id, p->header.prog_name);
+	win = p->index;
+	ft_printf("Contestant %d, \"%s\", has won !\n", win, p->header.prog_name);
 	return (1);
 }
 
@@ -59,7 +61,7 @@ int			vb_pc_movement(t_vm *vm, t_proc *proc)
 		return (0);
 	i = 0;
 	tmp = (proc->pc + proc->adv) % MEM_SIZE;
- 	ft_printf("ADV %d (0x%.4x -> 0x%.4x)", proc->adv, proc->pc, tmp);
+	ft_printf("ADV %d (0x%.4x -> 0x%.4x)", proc->adv, proc->pc, tmp);
 	while (i < proc->adv)
 	{
 		tmp = (proc->pc + i) % MEM_SIZE;
@@ -68,4 +70,4 @@ int			vb_pc_movement(t_vm *vm, t_proc *proc)
 	}
 	ft_printf("\n");
 	return (1);
-}  	
+}

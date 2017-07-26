@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/25 15:48:30 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/26 15:24:00 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static int	kill_proc(void *arg_proc, void *arg_vm)
 	proc = (t_proc*)(arg_proc);
 	vm = (t_vm *)arg_vm;
 	tmp = proc->alive;
-	if (!tmp)
+	if (!tmp && (vm->verbose & 8))
 		ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-				proc->id, vm->cycle - proc->last_live_cycle , vm->ctd);
+				proc->id, vm->cycle - proc->last_live_cycle, vm->ctd);
 	proc->alive = 0;
 	return (!tmp);
 }
@@ -46,8 +46,6 @@ static int	vm_rules(t_vm *vm)
 		else
 			vm->check++;
 		vm->ctd_cycle = 0;
-		//kill the one that did not execute live;
-		// and reset proc->live_in_ctd;
 		ft_lstfilter(&(vm->procs), free_proc, kill_proc, vm);
 	}
 	return (1);
@@ -66,19 +64,17 @@ static int	vm_play(t_vm *vm)
 		{
 			if (parse_pcb_n_param(vm, proc))
 			{
-				op_tab[proc->op_code].f(vm, proc);
+				g_tab[proc->op_code].f(vm, proc);
 				vb_pc_movement(vm, proc);
 			}
-//			put_proc(elm);
 			init_proc(vm, proc, proc->ipc);
-//			put_proc(elm);
 		}
 		elm = elm->next;
 	}
 	return (1);
 }
 
-int		vm_core(t_vm *vm)
+int			vm_core(t_vm *vm)
 {
 	nc_event_handling(vm);
 	while (vm->dump != vm->cycle && vm->procs)

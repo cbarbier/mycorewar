@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/24 13:31:07 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/26 15:25:03 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ static void		*nc_event(void *arg_vm)
 	return (0);
 }
 
-int			nc_event_handling(t_vm *vm)
+int				nc_event_handling(t_vm *vm)
 {
 	pthread_t		th;
-	
+
 	if (!vm->ncurse)
 		return (0);
 	if (pthread_create(&th, NULL, nc_event, vm))

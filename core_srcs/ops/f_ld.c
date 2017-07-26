@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/25 17:36:56 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/26 15:39:58 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ int		f_ld(t_vm *vm, t_proc *proc)
 	if (!get_param_value(vm, proc, 0, &val))
 		return (0);
 	if (proc->ptype[0] == T_IND)
-		val = getnbytes(vm, proc->pc + val, 4);
+		val = getnbytes(vm, proc->pc + m0d(val, IDX_MOD), 4, 0);
 	proc->reg[i_reg] = val;
 	proc->carry = !proc->reg[i_reg];
+	if (vm->verbose & 4)
+		ft_printf("P%4d | ld %d r%d\n", proc->id, val, i_reg + 1);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/24 16:23:30 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/26 15:28:37 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			nc_put_pc(t_vm *vm, t_proc *proc, int put)
 {
-	int 	j;
+	int		j;
 	int		i;
 	int		cp;
 
@@ -27,7 +27,7 @@ int			nc_put_pc(t_vm *vm, t_proc *proc, int put)
 	else
 		cp = (int)(vm->colors[proc->pc]);
 	wattron(vm->war, COLOR_PAIR(cp));
-	mvwprintw(vm->war, j + 1, 3 * i + 1, "%.2x", vm->arena[proc->pc].i);	
+	mvwprintw(vm->war, j + 1, 3 * i + 1, "%.2x", vm->arena[proc->pc].i);
 	wattroff(vm->war, COLOR_PAIR(cp));
 	return (1);
 }

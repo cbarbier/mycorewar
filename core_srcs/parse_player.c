@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/21 11:46:29 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/26 15:38:42 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	get_magik(t_player *p)
 	return (get_name(p));
 }
 
-int	parse_player(t_player *p)
+int			parse_player(t_player *p)
 {
 	int		ret;
 

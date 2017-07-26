@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/25 13:55:21 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/07/26 14:23:39 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		f_aff(t_vm *vm, t_proc *proc)
 
 	if (!get_param_value(vm, proc, 0, &val))
 		return (0);
-	ft_printf("%c\n", val % 256);
+	if (vm->aff)
+		ft_printf("Aff: %c\n", val % 256);
 	return (1);
 }
