@@ -4,12 +4,13 @@ extern t_op op_tab[17];
 
 int   ft_check_args(char *arg, int itab, int i, t_champ *champ)
 {
-  if (arg[0] == 'r' && (op_tab[itab].arg[i] == 3 || op_tab[itab].arg[i]
-    == 5 || op_tab[itab].arg[i] == 7 || op_tab[itab].arg[i] == 1))
+  if (arg[0] == 'r' && ft_isstrdigit(arg + 1) && (op_tab[itab].arg[i] == 3
+    || op_tab[itab].arg[i]    == 5 || op_tab[itab].arg[i] == 7 ||
+    op_tab[itab].arg[i] == 1))
     champ->size += REG_SIZE;
-  else if (arg[0] == DIRECT_CHAR && (op_tab[itab].arg[i] == 3 ||
-    op_tab[itab].arg[i] == 6 || op_tab[itab].arg[i] == 7 ||
-    op_tab[itab].arg[i] == 2))
+  else if (arg[0] == DIRECT_CHAR && (arg[1] == ':' || ft_isstrdigit(arg + 1)) &&
+    (op_tab[itab].arg[i] == 3 || op_tab[itab].arg[i] == 6 ||
+    op_tab[itab].arg[i] == 7 || op_tab[itab].arg[i] == 2))
   {
     if  (ft_strcmp(champ->op, "zjmp") == 0 || 
       ft_strcmp(champ->op, "sti") == 0 || 
@@ -26,11 +27,10 @@ int   ft_check_args(char *arg, int itab, int i, t_champ *champ)
   else
   {
     champ->err = 1;
-    champ->errcode = 5;
+    champ->errcode = 6;
     return (0);
   }
-  ft_printf("arg:%s champ->col:%d strlen:%d split:%d\n", arg, champ->col,  ft_strlen(arg), ft_nb_split(champ->args, champ->col - (ft_strlen(champ->op) + 1))); 
-  champ->col += ft_strlen(arg) + ft_nb_split(champ->args, champ->col - (ft_strlen(champ->op) + 1)); 
+  champ->col += ft_strlen(arg) + ft_nb_split(champ->args, ft_strlen(arg) + champ->col - (ft_strlen(champ->op) + 1)); 
   return (1);
 }
 
@@ -47,7 +47,11 @@ int   ft_check_param(char *param, int itab, t_champ *champ)
     nbtab++;
   if (nbtab < op_tab[itab].nbargs || (nbtab > op_tab[itab].nbargs
         && arg[op_tab[itab].nbargs][0] != COMMENT_CHAR))
+  {
+    champ->err = 1;
+    champ->errcode = nbtab < op_tab[itab].nbargs ? 4 : 5;
     return (0);
+  }
   while (arg[i] && i < op_tab[itab].nbargs)
   {
     if (!ft_check_args(arg[i], itab, i, champ))

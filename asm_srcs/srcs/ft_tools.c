@@ -7,12 +7,8 @@ int   ft_nb_split(char *str, int i)
   int   nb;
 
   nb = 0;
-  ft_printf("nb:%c\n", str[i + nb]);
   while (ft_split_param(str[i + nb]))
-  {
-  ft_printf("nb:%c\n", str[i + nb]);
     nb++;
-  }
   return (nb);
 }
 

@@ -108,7 +108,7 @@ int   ft_set_instr(t_champ *champ, t_champ *save)
         if ((res = ft_label(champ->arg[i] + 2, champ, save)) == -1)
         {
           champ->err = 1;
-          champ->errcode = 6;
+          champ->errcode = 7;
           ft_col(champ);
           return (0);
         }
@@ -147,7 +147,7 @@ int   ft_set_instr(t_champ *champ, t_champ *save)
 
 int   ft_instr(t_champ *champ)
 {
-  int i;
+//  int i;
   int err;
   t_champ *save;
 
@@ -155,7 +155,7 @@ int   ft_instr(t_champ *champ)
   save = champ;
   while (champ)
   {
-    i = 0;
+ //   i = 0;
     if (champ->instr == 1)
     {
       champ->param = ft_memalloc(champ->size + 2);
@@ -164,7 +164,7 @@ int   ft_instr(t_champ *champ)
         err = 1;
       if (!ft_isspe(champ->op))
         champ->param[1] = champ->codage;
-      ft_printf("op:%s\nopcode:%d\ncodage:%x\narg:\n",champ->op, champ->opcode, champ->codage);
+/*      ft_printf("op:%s\nopcode:%d\ncodage:%x\narg:\n",champ->op, champ->opcode, champ->codage);
       while (champ->arg[i])
       {
         ft_printf("    %s\n",champ->arg[i]);
@@ -178,11 +178,9 @@ int   ft_instr(t_champ *champ)
         i++;
       }
       ft_printf("\nsize:%d\n",champ->size);
+  */
     }
-    else
-      ft_printf("LELABEL:%s\n",champ->label);
-    ft_printf("\n");
-    champ = champ->next;
+  champ = champ->next;
   }
   if (err == 1)
     return (0);

@@ -49,8 +49,8 @@ void  ft_write(t_asm *sfile, t_champ *champ)
     if (champ->instr == 1)
     {
       size = ft_size(champ);
-      ft_printf("instr:%s\n",champ->op);
-      ft_printf("size:%d\n", size);
+//      ft_printf("instr:%s\n",champ->op);
+//      ft_printf("size:%d\n", size);
       ft_memcpy(tmp, champ->param, size);
       tmp += size;
       binlen += size;
@@ -59,6 +59,6 @@ void  ft_write(t_asm *sfile, t_champ *champ)
   }
   fd = open(sfile->file, O_CREAT | O_WRONLY | S_IRWXU);
   write(fd, bin, binlen);
-  ft_printf("Compilation succeeded.\n");
+  ft_printf("   Compilation succeeded.\n");
   close(fd);
 }

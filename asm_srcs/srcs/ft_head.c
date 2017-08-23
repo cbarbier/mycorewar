@@ -38,7 +38,6 @@ int		ft_head(t_asm *sfile)
     //free(line);
     i++;
   }
-  ft_printf("name:%s comment:%s\n",sfile->name, sfile->comment);
   ft_set_header(sfile);
   return (1);
 }

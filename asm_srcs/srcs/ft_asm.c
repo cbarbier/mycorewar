@@ -29,7 +29,6 @@ int		ft_parse(t_asm *sfile, t_champ *champ)
   while ((ret = get_next_line(sfile->fd, &line)) > 0)
   {
     tmp = ft_erspace(line);
-    ft_printf("lol:%s\n", tmp);
     if (tmp && tmp[0] != '\0' && tmp[0] != '\n' && tmp[0] != COMMENT_CHAR)
     {
       champ = ft_lst(sfile, champ);
