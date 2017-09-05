@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/26 13:35:07 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/05 10:58:35 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ int		f_xor(t_vm *vm, t_proc *proc)
 	|| !get_param_value(vm, proc, 1, &p1)
 	|| !is_reg(proc->param[2]))
 		return (0);
-	if (proc->ptype[0] == T_IND)
-		p0 = getnbytes(vm, proc->pc + m0d(p0, IDX_MOD), 4, 0);
-	if (proc->ptype[1] == T_IND)
-		p1 = getnbytes(vm, proc->pc + m0d(p1, IDX_MOD), 4, 0);
 	i_reg = proc->param[2] - 1;
 	proc->reg[i_reg] = p0 ^ p1;
 	proc->carry = !(proc->reg[i_reg]);

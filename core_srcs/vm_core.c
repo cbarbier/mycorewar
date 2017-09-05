@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/26 15:24:00 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/05 17:07:43 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,9 @@ static int	vm_play(t_vm *vm)
 		if (!--proc->exec_in)
 		{
 			if (parse_pcb_n_param(vm, proc))
-			{
 				g_tab[proc->op_code].f(vm, proc);
+			if (proc->op_code != -1)
 				vb_pc_movement(vm, proc);
-			}
 			init_proc(vm, proc, proc->ipc);
 		}
 		elm = elm->next;
@@ -84,7 +83,6 @@ int			vm_core(t_vm *vm)
 		vm->ctd_cycle++;
 		vm->cycle++;
 		vb_cycles(vm);
-//		ft_lstiter(vm->procs, put_proc);
 //		put_vm_infos(vm);
 		vm_rules(vm);
 		vm_play(vm);

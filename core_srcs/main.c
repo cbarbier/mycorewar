@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 14:58:36 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/26 15:18:19 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/05 14:54:46 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,8 @@ int			main(int argc, char **argv)
 {
 	t_vm		vm;
 
-	ft_printf("corewar in progress\n");
-	ft_printf("test function m0d: %d\n", m0d(-54, 512));
 	if (!init_vm(&vm, argc, argv))
-	{
-		ft_fprintf(2, "Error: on init_vm\n");
-		put_usage(argv);
-		return (0);
-	}
+		return (put_usage(argv));
 	put_vm_infos(&vm);
 	vb_introduce(&vm);
 	nc_init(&vm);

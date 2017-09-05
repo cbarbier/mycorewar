@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/26 15:59:17 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/05 14:49:55 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int			nc_init(t_vm *vm)
 	noecho();
 	start_color();
 	init_color(COLOR_YELLOW, 420, 420, 420);
+	init_color(COLOR_MAGENTA, 1000, 1000, 1000);
 	assume_default_colors(COLOR_YELLOW, COLOR_BLACK);
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	init_pair(2, COLOR_BLUE, COLOR_BLACK);
@@ -109,6 +110,6 @@ int			nc_init(t_vm *vm)
 	init_pair(7, COLOR_BLACK, COLOR_RED);
 	init_pair(8, COLOR_BLACK, COLOR_CYAN);
 	init_pair(9, COLOR_YELLOW, COLOR_BLACK);
-	init_pair(10, COLOR_WHITE, COLOR_YELLOW);
+	init_pair(10, COLOR_MAGENTA, COLOR_YELLOW);
 	return (nc_init_win(vm));
 }

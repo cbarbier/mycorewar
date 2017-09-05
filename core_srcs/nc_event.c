@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/26 15:25:03 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/05 14:21:44 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int		nc_update_cps(t_vm *vm, int key, int *p_cps)
 		*p_cps = cps - 1;
 	else if (key == 'e' && cps + 1 <= 1000)
 		*p_cps = cps + 1;
-	else if (key == 'r' && cps + 10 < 1000)
+	else if (key == 'r' && cps + 10 <= 1000)
 		*p_cps = cps + 10;
 	mvwprintw(vm->winfo, 17 + 4 * vm->nb_players, 18, "% 10d", vm->cps);
 	return (1);
@@ -38,7 +38,12 @@ static void		*nc_event(void *arg_vm)
 	while (vm->play != -1)
 	{
 		key = wgetch(vm->winfo);
-		if (key == ' ')
+		if (key == 27)
+		{
+			endwin();
+			exit(1);
+		}
+		else if (key == ' ')
 		{
 			vm->play = (vm->play && vm->step != vm->cycle ? 0 : 1);
 			vm->step = -1;

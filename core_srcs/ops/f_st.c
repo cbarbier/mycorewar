@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/08/23 17:25:03 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/05 11:13:13 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ int			f_st(t_vm *vm, t_proc *proc)
 	if (!get_param_value(vm, proc, 0, &reg_p0)
 	|| !get_param_value(vm, proc, 1, &index))
 		return (0);
+	if (proc->ptype[1] == T_IND)
+		index = proc->param[1];
 	add = m0d(proc->pc + m0d(index, IDX_MOD), MEM_SIZE);
+	while (add < 0)
+		add += MEM_SIZE;
 	setnbytes(vm, add, reg_p0, 4);
 	if (vm->ncurse)
 		nc_st(vm, proc, add);

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/24 13:57:02 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/05 14:29:32 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static int		nc_put_info_players(t_vm *vm)
 		mvwprintw(vm->winfo, j, 3, "Player % d : ", vm->players[i].id);
 		mvwprintw(vm->winfo, j, 18, "%.10s", name);
 		mvwprintw(vm->winfo, j + 1, 3, "Last live :");
-		mvwprintw(vm->winfo, j + 1, 29, "%d", vm->players[i].last_live_cycle);
-		mvwprintw(vm->winfo, j + 2, 3, "Lives in current period :");
-		mvwprintw(vm->winfo, j + 2, 29, "%d", vm->players[i].live_in_ctd);
+		mvwprintw(vm->winfo, j + 1, 18, "%d", vm->players[i].last_live_cycle);
+		mvwprintw(vm->winfo, j + 2, 3, "Lives in ctd :");
+		mvwprintw(vm->winfo, j + 2, 18, "%d", vm->players[i].live_in_ctd);
 		wattron(vm->winfo, COLOR_PAIR(10));
 		j += 4;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/26 15:28:37 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/05 14:30:09 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static int	nc_update_info(t_vm *vm)
 	while (++i < vm->nb_players)
 	{
 		wattron(vm->winfo, COLOR_PAIR(i + 1));
-		mvwprintw(vm->winfo, j, 29, "%d", vm->players[i].last_live_cycle);
-		mvwprintw(vm->winfo, j + 1, 29, "%d", vm->players[i].live_in_ctd);
+		mvwprintw(vm->winfo, j, 18, "%d", vm->players[i].last_live_cycle);
+		mvwprintw(vm->winfo, j + 1, 18, "%d", vm->players[i].live_in_ctd);
 		j += 4;
 	}
 	wattron(vm->winfo, COLOR_PAIR(10));

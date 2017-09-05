@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/04 13:47:39 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/05 11:50:49 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		getnbytes(t_vm *vm, int addr, int n, int *new_addr)
 
 	i = 0;
 	val = 0;
-	if (addr < 0)
+	while (addr < 0)
 		addr += MEM_SIZE;
 	addr %= MEM_SIZE;
 	while (i < n)
@@ -47,7 +47,7 @@ int		setnbytes(t_vm *vm, int addr, int val, int n)
 	int	tmp;
 
 	i = 0;
-	if (addr < 0)
+	while (addr < 0)
 		addr += MEM_SIZE;
 	addr %= MEM_SIZE;
 	while (i < n)
@@ -65,24 +65,25 @@ int		inc_pc(t_proc *proc, int n)
 	return (1);
 }
 
-int		get_param_value(t_vm *vm, t_proc *proc, int i, int *val)
+int		get_param_value(t_vm *vm, t_proc *prc, int i, int *val)
 {
-	(void)vm;
-	if (proc->ptype[i] == T_REG)
+	int		addr;
+
+	if (prc->ptype[i] == T_REG)
 	{
-		if (!is_reg(proc->param[i]))
+		if (!is_reg(prc->param[i]))
 			return (0);
-		*val = proc->reg[proc->param[i] - 1];
+		*val = prc->reg[prc->param[i] - 1];
 	}
-	else if (proc->ptype[i] == T_DIR)
+	else if (prc->ptype[i] == T_DIR)
+		*val = prc->psize[i] == 2 ? (short int)(prc->param[i]) : prc->param[i];
+	else if (prc->ptype[i] == T_IND)
 	{
-		if (proc->psize[i] == 2)
-			*val = (short int)(proc->param[i]);
-		else
-			*val = proc->param[i];
+		addr = m0d(prc->pc + m0d(prc->param[i], IDX_MOD), MEM_SIZE);
+		while (addr < 0)
+			addr += MEM_SIZE;
+		*val = getnbytes(vm, addr, 4, 0);
 	}
-	else if (proc->ptype[i] == T_IND)
-		*val = proc->param[i];
 	else
 		return (0);
 	return (1);

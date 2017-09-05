@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/26 14:47:21 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/05 17:04:13 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "op.h"
 # include <ncurses.h>
 # include <pthread.h>
-# define DEBUG		0
+# define DEBUG		1
 
 typedef union	u_byte
 {
