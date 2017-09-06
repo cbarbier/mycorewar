@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 14:58:36 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/05 14:54:46 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/06 19:09:15 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,15 @@ int			main(int argc, char **argv)
 
 	if (!init_vm(&vm, argc, argv))
 		return (put_usage(argv));
-	put_vm_infos(&vm);
 	vb_introduce(&vm);
 	nc_init(&vm);
 	vm_core(&vm);
+	nc_winner(&vm);
 	if (vm.dump == vm.cycle)
 		put_arena(&vm);
 	else
 		vb_winner(&vm);
+	free_vm(&vm);
 	return (0);
 }
 

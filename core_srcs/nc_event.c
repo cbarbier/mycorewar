@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/05 14:21:44 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/06 17:21:04 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ static void		*nc_event(void *arg_vm)
 	int				key;
 
 	vm = (t_vm *)(arg_vm);
-	while (vm->play != -1)
+	while (42)
 	{
 		key = wgetch(vm->winfo);
 		if (key == 27)
 		{
-			endwin();
+			free_vm(vm);
 			exit(1);
 		}
 		else if (key == ' ')
@@ -49,10 +49,7 @@ static void		*nc_event(void *arg_vm)
 			vm->step = -1;
 		}
 		else if (ft_strchr("qwer", key))
-		{
 			nc_update_cps(vm, key, &(vm->cps));
-			wrefresh(vm->winfo);
-		}
 		else if (key == 's' && (vm->play = 1))
 			vm->step = vm->cycle + 1;
 	}

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/05 17:04:13 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/06 16:53:08 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "op.h"
 # include <ncurses.h>
 # include <pthread.h>
-# define DEBUG		1
+# define DEBUG		0
 
 typedef union	u_byte
 {
@@ -99,6 +99,8 @@ int				getnbytes(t_vm *vm, int addr, int n, int *new_addr);
 int				setnbytes(t_vm *vm, int addr, int val, int n);
 int				get_param_value(t_vm *vm, t_proc *proc, int i, int *val);
 int				m0d(int offset, int mod);
+void			free_proc(void *e, size_t size);
+int				free_vm(t_vm *vm);
 /*
 ** 	VERBOSITY FUNCTIONS
 */
@@ -115,6 +117,7 @@ int				nc_init_info(t_vm *vm);
 int				nc_loop(t_vm *vm);
 int				nc_put_pc(t_vm *vm, t_proc *proc, int put);
 int				nc_event_handling(t_vm *vm);
+int				nc_winner(t_vm *vm);
 /*
 ** 	INSTRUCTIONS FUNCTIONS
 */

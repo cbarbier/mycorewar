@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/05 17:07:43 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/06 17:24:42 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,6 @@ static int	kill_proc(void *arg_proc, void *arg_vm)
 				proc->id, vm->cycle - proc->last_live_cycle, vm->ctd);
 	proc->alive = 0;
 	return (!tmp);
-}
-
-static void	free_proc(void *e, size_t size)
-{
-	(void)size;
-	ft_memdel(&e);
 }
 
 static int	vm_rules(t_vm *vm)

@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   f_lldi.c                                           :+:      :+:    :+:   */
+/*   fr33.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/06 11:57:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/06 14:58:51 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		f_lldi(t_vm *vm, t_proc *proc)
+void		free_proc(void *e, size_t size)
 {
-	int	p0;
-	int	p1;
-	int	i_reg;
+	(void)size;
+	ft_memdel(&e);
+}
 
-	if (!get_param_value(vm, proc, 0, &p0)
-	|| !get_param_value(vm, proc, 1, &p1)
-	|| !is_reg(proc->param[1]))
-		return (0);
-	i_reg = proc->param[1] - 1;
-	proc->reg[i_reg] = getnbytes(vm, proc->pc + m0d(p0 & p1, MEM_SIZE), 4, 0);
-	proc->carry = !proc->reg[i_reg];
-	if (vm->verbose & 4)
-	{
-		ft_printf("P%4d | lldi %d %d r%d\n", proc->id,
-				p0, p1, proc->param[2]);
-		ft_printf("      | -> load from %d + %d = %d (with pc %d)\n",
-				p0, p1, p0 + p1, proc->pc + p0 + p1);
-	}
+int			free_vm(t_vm *vm)
+{
+	ft_lstdel(&(vm->procs), free_proc);
+	if (vm->ncurse)
+		endwin();
 	return (1);
 }

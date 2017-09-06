@@ -5,3 +5,4 @@ ld %65, r4
 add r4, r5, r5
 aff r5
 aff r4
+live %-1

@@ -1,5 +1,7 @@
 .name "sti"
 .comment "just a basic store sti"
+ld 1, r1
+sti 3, %5, r1
 fork %5
 ld %10, r2
 ld %-4, r3
