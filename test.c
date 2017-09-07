@@ -44,8 +44,10 @@ int	main(void)
 	WINDOW	*winfo;
 
 	initscr();
-	noecho();
 	start_color();
+	printf("there are %d pairs  and %d colors available\n", COLOR_PAIRS, COLORS);
+	exit(1);
+	noecho();
 	init_color(COLOR_YELLOW, 420, 420, 420);
 	assume_default_colors(COLOR_YELLOW, COLOR_BLACK);
 	win = newwin(68, 260, 0, 0);

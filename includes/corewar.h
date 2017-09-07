@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/06 16:53:08 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/07 18:44:06 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,20 @@
 # include "op.h"
 # include <ncurses.h>
 # include <pthread.h>
-# define DEBUG		0
+# define DEBUG		1
 
 typedef union	u_byte
 {
 	unsigned char	c;
 	uint8_t			i;
 }				t_byte;
+typedef struct 	s_blk
+{
+	int		pc;
+	int		i;
+	int		j;
+	int		until;
+}				t_blk;
 typedef struct	s_proc
 {
 	int		id;
@@ -64,6 +71,7 @@ typedef struct	s_vm
 	t_byte		arena[MEM_SIZE];
 	char		colors[MEM_SIZE];
 	t_list		*procs; // list of processus
+	t_list		*blinks; // list of live byte to blink 
 	int			live_in_ctd;
 	t_player	*last_player_live;
 	int			cycle;
@@ -118,6 +126,10 @@ int				nc_loop(t_vm *vm);
 int				nc_put_pc(t_vm *vm, t_proc *proc, int put);
 int				nc_event_handling(t_vm *vm);
 int				nc_winner(t_vm *vm);
+int				make_it_blink(t_vm *vm, t_proc *proc);
+void			free_blk(void *e, size_t size);
+int				reset_blk(void *e, void *vm);
+int				is_blk(t_list *e, void *apc);
 /*
 ** 	INSTRUCTIONS FUNCTIONS
 */

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 14:58:36 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/06 19:09:15 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/07 13:51:08 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int			main(int argc, char **argv)
 		return (put_usage(argv));
 	vb_introduce(&vm);
 	nc_init(&vm);
+	put_vm_infos(&vm);
 	vm_core(&vm);
 	nc_winner(&vm);
 	if (vm.dump == vm.cycle)

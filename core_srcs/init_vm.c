@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/26 15:20:41 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/07 16:32:31 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	add_process(t_vm *vm, t_player *p, int pc)
 static int	init_vm_values(t_vm *vm)
 {
 	vm->ctd = CYCLE_TO_DIE;
-	vm->cps = 50;
+	vm->cps = 30;
 	vm->step = -2;
 	vm->last_player_live = vm->players + vm->nb_players - 1;
 	return (1);

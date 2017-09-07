@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/04 13:48:22 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/07 12:40:44 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	nc_sti(t_vm *vm, t_proc *proc, int add)
 	return (0);
 }
 
-int		f_sti(t_vm *vm, t_proc *proc)
+int			f_sti(t_vm *vm, t_proc *proc)
 {
 	int	reg_p0;
 	int	index;

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/05 18:25:43 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/07 18:25:53 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int			init_proc(t_vm *vm, t_proc *proc, int pc)
 	ft_bzero(proc->param, 3 * sizeof(int));
 	ft_bzero(proc->psize, 3 * sizeof(int));
 	ft_bzero(proc->ptype, 3 * sizeof(int));
+	if (!ft_lstany(vm->blinks, is_blk, &(proc->pc)))
+		nc_put_pc(vm, proc, 0);
 	proc->op_code = getnbytes(vm, pc, 1, 0);
-	nc_put_pc(vm, proc, 0);
 	proc->pc = pc;
 	nc_put_pc(vm, proc, 1);
 	proc->ipc = proc->pc;

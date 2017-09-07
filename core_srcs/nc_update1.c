@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/06 19:13:20 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/07 16:50:58 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,20 @@ static void	nc_winner_helper(t_vm *vm, t_player *p, int i)
 	mvwprintw(vm->war, i - 2, 50,
 			"                                 			");
 	mvwprintw(vm->war, i - 1, 50,
-			"                              			");
+			"                              			    ");
 	mvwprintw(vm->war, i, 50,
-			"                       			", p->header.prog_name);
+			"                    			            ",
+			p->header.prog_name);
 	mvwprintw(vm->war, i, 50,
-			"   THE WINNER IS %10s               ", p->header.prog_name);
+			"   THE WINNER IS %.10s", p->header.prog_name);
 	mvwprintw(vm->war, i + 1, 50,
-			"                    			");
+			"                    	                    ");
 	mvwprintw(vm->war, i + 2, 50,
-			"                    			");
+			"                    		            	");
 	mvwprintw(vm->war, i + 3, 50,
-			"press ESC to quit.   			");
+			"press ESC to quit.                         ");
 	mvwprintw(vm->war, i + 4, 50,
-			"                   	created by TEAM Dinosaurus");
+			"                 created by TEAM Dinosaurus");
 }
 
 int			nc_winner(t_vm *vm)

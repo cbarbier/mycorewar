@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/09/06 14:59:58 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/09/07 15:40:05 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIB				= libft/libft.a
 CC				= gcc
 CFLAGS				= -Wall -Wextra -Werror
 NCURSES				= -lncurses
-CORE_HDR			= includes/corewar.h
+CORE_HDR			= includes/corewar.h includes/op.h
 ASM_HDR				= includes/asm.h
 CORE_SRCS			= core_srcs/main.c \
 				  core_srcs/op.c \
@@ -33,6 +33,7 @@ CORE_SRCS			= core_srcs/main.c \
 				  core_srcs/nc_init2.c \
 				  core_srcs/nc_update1.c \
 				  core_srcs/nc_event.c \
+				  core_srcs/nc_blink.c \
 				  core_srcs/ops/f_live.c \
 				  core_srcs/ops/f_ld.c \
 				  core_srcs/ops/f_add.c \
