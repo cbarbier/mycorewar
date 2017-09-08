@@ -1,22 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_header.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/08 11:44:53 by fmaury            #+#    #+#             */
+/*   Updated: 2017/09/08 11:45:39 by fmaury           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
-int		ft_magik_nbr(char *str)
+void		ft_magik_nbr(char *str)
 {
-  int i;
-  int exe;
+	int		i;
+	int		exe;
 
-  i = 3;
-  exe = COREWAR_EXEC_MAGIC;
-  while (i >= 0)
-  {
-    str[i] = exe; 
-    exe >>= 8;
-    i--;
-  }
-	return (3);
+	i = 3;
+	exe = COREWAR_EXEC_MAGIC;
+	while (i >= 0)
+	{
+		str[i] = exe; 
+		exe >>= 8;
+		i--;
+	}
 }
 
-int		ft_dump_name(t_asm *sfile, int i)
+void		ft_dump_name(t_asm *sfile, int i)
 {
 	int		j;
 
@@ -26,10 +37,9 @@ int		ft_dump_name(t_asm *sfile, int i)
 		sfile->header[i + j] = sfile->name[j];
 		j++;
 	}
-	return (PROG_NAME_LENGTH);
 }
 
-int		ft_dump_comment(t_asm *sfile, int i)
+void		ft_dump_comment(t_asm *sfile, int i)
 {
 	int		j;
 
@@ -39,25 +49,12 @@ int		ft_dump_comment(t_asm *sfile, int i)
 		sfile->header[i + j] = sfile->comment[j];
 		j++;
 	}
-	return (PROG_NAME_LENGTH + COMMENT_LENGTH);
 }
 
-int		ft_set_header(t_asm *sfile)
+int			ft_set_header(t_asm *sfile)
 {
-	int		i;
-
-	i = 0;
-	while (i < PROG_NAME_LENGTH + COMMENT_LENGTH)
-	{
-		if (i == 0)
-			i = ft_magik_nbr(sfile->header);
-		else if (i < PROG_NAME_LENGTH)
-			i = ft_dump_name(sfile, i);
-		else if (i < COMMENT_LENGTH)
-			i = ft_dump_comment(sfile, i + 11);
-		i++;
-	}
+	ft_magik_nbr(sfile->header);
+	ft_dump_name(sfile, 4);
+	ft_dump_comment(sfile, PROG_NAME_LENGTH + 12);
 	return (1);
 }
-
-
