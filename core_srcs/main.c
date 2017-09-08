@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 14:58:36 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/07 13:51:08 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/08 15:59:33 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	put_arena(t_vm *vm)
 		while (i < 64)
 			ft_printf(" %.2x", vm->arena[64 * j + i++].i);
 		j++;
-		ft_printf("\n");
+		write(1, "\n", 1);
 	}
 	return (1);
 }
@@ -44,16 +44,16 @@ int			main(int argc, char **argv)
 {
 	t_vm		vm;
 
+	g_resize = 0;
 	if (!init_vm(&vm, argc, argv))
 		return (put_usage(argv));
 	vb_introduce(&vm);
 	nc_init(&vm);
-	put_vm_infos(&vm);
 	vm_core(&vm);
 	nc_winner(&vm);
 	if (vm.dump == vm.cycle)
 		put_arena(&vm);
-	else
+	else if (!vm.ncurse)
 		vb_winner(&vm);
 	free_vm(&vm);
 	return (0);

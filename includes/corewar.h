@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/07 18:44:06 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/08 15:56:10 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@
 # include "op.h"
 # include <ncurses.h>
 # include <pthread.h>
+# include <signal.h>
 # define DEBUG		1
 
+int				g_resize;
 typedef union	u_byte
 {
 	unsigned char	c;
 	uint8_t			i;
 }				t_byte;
-typedef struct 	s_blk
+typedef struct	s_blk
 {
 	int		pc;
 	int		i;
@@ -70,8 +72,8 @@ typedef struct	s_vm
 	int			nb_players;
 	t_byte		arena[MEM_SIZE];
 	char		colors[MEM_SIZE];
-	t_list		*procs; // list of processus
-	t_list		*blinks; // list of live byte to blink 
+	t_list		*procs;// list of processus
+	t_list		*blinks;// list of live byte to blink
 	int			live_in_ctd;
 	t_player	*last_player_live;
 	int			cycle;
@@ -85,6 +87,7 @@ typedef struct	s_vm
 	int			cps;
 	int			play;
 	int			step;
+	int			quit;
 }				t_vm;
 typedef union	u_mem
 {
@@ -130,6 +133,7 @@ int				make_it_blink(t_vm *vm, t_proc *proc);
 void			free_blk(void *e, size_t size);
 int				reset_blk(void *e, void *vm);
 int				is_blk(t_list *e, void *apc);
+void			resize_handler(int s);
 /*
 ** 	INSTRUCTIONS FUNCTIONS
 */

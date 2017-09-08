@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/07 16:50:58 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/08 16:35:50 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ int			nc_loop(t_vm *vm)
 {
 	if (!vm->ncurse)
 		return (0);
+	if (g_resize)
+	{
+		endwin();
+		nc_init(vm);
+		g_resize = 0;
+	}
 	nc_update_info(vm);
 	wrefresh(vm->war);
 	wrefresh(vm->winfo);
@@ -68,39 +74,40 @@ int			nc_loop(t_vm *vm)
 
 static void	nc_winner_helper(t_vm *vm, t_player *p, int i)
 {
-	mvwprintw(vm->war, i - 2, 50,
-			"                                 			");
-	mvwprintw(vm->war, i - 1, 50,
-			"                              			    ");
-	mvwprintw(vm->war, i, 50,
-			"                    			            ",
-			p->header.prog_name);
+	int		l;
+
+	l = 60;
+	mvwprintw(vm->war, i - 2, 50, "%*c", l, ' ');
+	mvwprintw(vm->war, i - 1, 50, "%*c", l, ' ');
+	mvwprintw(vm->war, i, 50, "%*c", l, ' ');
 	mvwprintw(vm->war, i, 50,
 			"   THE WINNER IS %.10s", p->header.prog_name);
-	mvwprintw(vm->war, i + 1, 50,
-			"                    	                    ");
-	mvwprintw(vm->war, i + 2, 50,
-			"                    		            	");
-	mvwprintw(vm->war, i + 3, 50,
-			"press ESC to quit.                         ");
-	mvwprintw(vm->war, i + 4, 50,
-			"                 created by TEAM Dinosaurus");
+	mvwprintw(vm->war, i + 1, 50, "%*c", l, ' ');
+	mvwprintw(vm->war, i + 2, 50, "%*c", l, ' ');
+	mvwprintw(vm->war, i + 3, 50, "%*c", l, ' ');
+	mvwprintw(vm->war, i + 3, 50, "press ESC to quit.");
+	mvwprintw(vm->war, i + 4, 50, "%*c", l, ' ');
+	mvwprintw(vm->war, i + 4, 50, "%60s", "created by TEAM Dinosaurus");
 }
 
 int			nc_winner(t_vm *vm)
 {
 	t_player	*p;
 	int			i;
+	static int	loop = 0;
 
-	if (!vm->ncurse)
+	if (!vm->ncurse || vm->quit)
 		return (0);
 	i = 30;
 	p = vm->last_player_live;
 	init_pair(11, COLOR_BLACK, COLOR_MAGENTA);
-	wattron(vm->war, COLOR_PAIR(11));
-	nc_winner_helper(vm, p, i);
-	wattroff(vm->war, COLOR_PAIR(1));
-	wrefresh(vm->war);
-	wgetch(vm->war);
+	while (!vm->quit)
+	{
+		wattron(vm->war, COLOR_PAIR(loop % 2 ? 11 : 9));
+		nc_winner_helper(vm, p, i);
+		wattroff(vm->war, COLOR_PAIR(loop % 2 ? 11 : 9));
+		wrefresh(vm->war);
+		loop = loop ? 0 : 1;
+	}
 	return (1);
 }

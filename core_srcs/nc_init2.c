@@ -6,11 +6,17 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/07 14:10:11 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/08 14:15:59 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+void			resize_handler(int s)
+{
+	(void)s;
+	g_resize = 1;
+}
 
 static int		nc_put_info_players(t_vm *vm)
 {

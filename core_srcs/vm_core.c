@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/07 16:51:33 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/08 15:56:38 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	vm_play(t_vm *vm)
 int			vm_core(t_vm *vm)
 {
 	nc_event_handling(vm);
-	while (vm->dump != vm->cycle && vm->procs)
+	while (!vm->quit && vm->dump != vm->cycle && vm->procs)
 	{
 		if (vm->ncurse && (!vm->play || vm->step == vm->cycle))
 			continue;

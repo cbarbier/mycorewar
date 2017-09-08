@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/07 20:15:45 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/08 11:29:17 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			is_blk(t_list *e, void *apc)
 
 static int	reset_blk_helper(t_vm *vm, t_blk *blk, int cpair)
 {
-	cpair += vm->cycle % 2 ? 4 : 11;
+	cpair += vm->cycle % 5 ? 4 : 11;
 	wattron(vm->war, COLOR_PAIR(cpair));
 	mvwprintw(vm->war, blk->j + 1, 3 * blk->i + 1, "%.2x",
 			vm->arena[blk->pc].i);

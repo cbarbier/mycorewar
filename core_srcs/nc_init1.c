@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/07 18:10:41 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/08 14:21:24 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static int	nc_init_arena(t_vm *vm)
 	int		i;
 	int		j;
 
-	nc_init_colors(vm);
+	if (!vm->cycle)
+		nc_init_colors(vm);
 	j = 0;
 	while (j < 64)
 	{
@@ -66,7 +67,8 @@ static int	nc_init_arena(t_vm *vm)
 		}
 		j++;
 	}
-	nc_init_pc(vm);
+	if (!vm->cycle)
+		nc_init_pc(vm);
 	wrefresh(vm->win);
 	wrefresh(vm->war);
 	nc_init_info(vm);
@@ -75,6 +77,10 @@ static int	nc_init_arena(t_vm *vm)
 
 static int	nc_init_helper(t_vm *vm)
 {
+	if (!vm->cycle)
+		signal(SIGWINCH, resize_handler);
+	init_pair(9, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(10, COLOR_MAGENTA, COLOR_YELLOW);
 	init_pair(12, COLOR_GREEN, COLOR_MAGENTA);
 	init_pair(13, COLOR_BLUE, COLOR_MAGENTA);
 	init_pair(14, COLOR_RED, COLOR_MAGENTA);
@@ -93,7 +99,6 @@ int			nc_init(t_vm *vm)
 {
 	if (!vm->ncurse)
 		return (1);
-	ft_printf("ncurse initializing\n");
 	vm->dump = -1; //ncurse overright dump
 	vm->verbose = 0;// and verbose
 	vm->aff = 0;// and aff
@@ -113,7 +118,5 @@ int			nc_init(t_vm *vm)
 	init_pair(6, COLOR_BLACK, COLOR_BLUE);
 	init_pair(7, COLOR_BLACK, COLOR_RED);
 	init_pair(8, COLOR_BLACK, COLOR_CYAN);
-	init_pair(9, COLOR_YELLOW, COLOR_BLACK);
-	init_pair(10, COLOR_MAGENTA, COLOR_YELLOW);
 	return (nc_init_helper(vm));
 }
