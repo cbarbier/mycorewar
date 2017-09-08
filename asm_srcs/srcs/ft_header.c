@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:44:53 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/08 11:45:39 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/08 13:16:04 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		ft_magik_nbr(char *str)
 	exe = COREWAR_EXEC_MAGIC;
 	while (i >= 0)
 	{
-		str[i] = exe; 
+		str[i] = exe;
 		exe >>= 8;
 		i--;
 	}

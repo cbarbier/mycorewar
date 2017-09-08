@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:44:23 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/08 11:44:46 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/08 16:25:44 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		ft_head(t_asm *sfile)
 			else
 				return (0);
 		}
+		ft_free_strtab(tab);
 		free(line);
 		i++;
 	}

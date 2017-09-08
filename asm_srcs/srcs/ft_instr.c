@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:45:47 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/08 11:48:31 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/08 16:24:28 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,26 @@ int		ft_postlabel(t_champ *champ, t_champ *node)
 int		ft_label(char *label, t_champ *champ, t_champ *save)
 {
 	char	*lab;
+	int		size;
 
 	lab = ft_strjoin(label, ":", 0);
 	while (save)
 	{
 		if (save == champ)
-			return (ft_prelabel(save, lab));
+		{
+			size = ft_prelabel(save, lab);
+			free(lab);
+			return (size);
+		}
 		if (save->lab == 1 && ft_strcmp(lab, save->label) == 0)
-			return (ft_postlabel(champ, save));
+		{
+			size = ft_postlabel(champ, save);
+			free(lab);
+			return (size);
+		}
 		save = save->next;
 	}
+	free(lab);
 	return (-1);
 }
 
@@ -123,7 +133,7 @@ int		ft_set_instr(t_champ *champ, t_champ *save)
 					ft_col(champ);
 					return (0);
 				}
-				champ->param[size - 1] = res >> 8; 
+				champ->param[size - 1] = res >> 8;
 				champ->param[size] = res;
 			}
 			else

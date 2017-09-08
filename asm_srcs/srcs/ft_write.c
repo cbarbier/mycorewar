@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:50:17 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/08 11:50:42 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/08 15:45:31 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void			ft_write(t_asm *sfile, t_champ *champ)
 	binlen = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
 	bin = ft_memalloc(binlen + ft_total_size(champ));
 	if (!ft_size_header(sfile->header, ft_total_size(champ)))
+	{
+		free(bin);
 		return ;
+	}
 	ft_memcpy(bin, sfile->header, binlen);
 	tmp = bin + binlen;
 	while (champ)
@@ -83,6 +86,7 @@ void			ft_write(t_asm *sfile, t_champ *champ)
 	}
 	fd = open(sfile->file, O_CREAT | O_WRONLY | S_IRWXU);
 	write(fd, bin, binlen);
+	free(bin);
 	ft_printf("   Compilation succeeded.\n");
 	close(fd);
 }

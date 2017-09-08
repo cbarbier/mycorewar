@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:42:43 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/08 11:51:42 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/08 13:49:48 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ int		ft_check_args(char *arg, int itab, int i, t_champ *champ)
 			(op_tab[itab].arg[i] == 3 || op_tab[itab].arg[i] == 6 ||
 			 op_tab[itab].arg[i] == 7 || op_tab[itab].arg[i] == 2))
 	{
-		if  (ft_strcmp(champ->op, "zjmp") == 0 || 
-				ft_strcmp(champ->op, "sti") == 0 || 
-				ft_strcmp(champ->op, "fork") == 0 || 
-				ft_strcmp(champ->op, "lfork") == 0)
+		if  (op_tab[itab].oind == 1)
 			champ->size += IND_SIZE;
 		else
 			champ->size += DIR_SIZE;
@@ -42,7 +39,8 @@ int		ft_check_args(char *arg, int itab, int i, t_champ *champ)
 		champ->errcode = 6;
 		return (0);
 	}
-	champ->col += ft_strlen(arg) + ft_nb_split(champ->args, ft_strlen(arg) + champ->col - (ft_strlen(champ->op) + 1)); 
+	champ->col += ft_strlen(arg) + ft_nb_split(champ->args, ft_strlen(arg) +
+			champ->col - (ft_strlen(champ->op) + 1)); 
 	return (1);
 }
 
@@ -71,6 +69,7 @@ int		ft_check_param(char *param, int itab, t_champ *champ)
 		champ->arg = ft_strtab(champ->arg, arg[i]);
 		i++;
 	}
+	ft_free_strtab(arg);
 	return (1);
 }
 
