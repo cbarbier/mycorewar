@@ -6,32 +6,32 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:42:43 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/10 14:57:06 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/11 11:31:09 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-extern t_op op_tab[17];
+extern t_op g_tab[17];
 
 int		ft_check_args(char *arg, int itab, int i, t_champ *champ)
 {
-	if (arg[0] == 'r' && ft_isstrdigit(arg + 1) && (op_tab[itab].arg[i] == 3
-				|| op_tab[itab].arg[i] == 5 || op_tab[itab].arg[i] == 7 ||
-				op_tab[itab].arg[i] == 1))
+	if (arg[0] == 'r' && ft_isstrdigit(arg + 1) && (g_tab[itab].arg[i] == 3
+				|| g_tab[itab].arg[i] == 5 || g_tab[itab].arg[i] == 7 ||
+				g_tab[itab].arg[i] == 1))
 		champ->size += REG_SIZE;
 	else if (arg[0] == DIRECT_CHAR && (arg[1] == ':' || ft_isstrdigit(arg + 1))
-			&& (op_tab[itab].arg[i] == 3 || op_tab[itab].arg[i] == 6 ||
-			op_tab[itab].arg[i] == 7 || op_tab[itab].arg[i] == 2))
+			&& (g_tab[itab].arg[i] == 3 || g_tab[itab].arg[i] == 6 ||
+			g_tab[itab].arg[i] == 7 || g_tab[itab].arg[i] == 2))
 	{
-		if (op_tab[itab].oind == 1)
+		if (g_tab[itab].oind == 1)
 			champ->size += IND_SIZE;
 		else
 			champ->size += DIR_SIZE;
 	}
-	else if (ft_isstrdigit(arg) && (op_tab[itab].arg[i] == 5 ||
-				op_tab[itab].arg[i] == 6 || op_tab[itab].arg[i] == 7 ||
-				op_tab[itab].arg[i] == 4))
+	else if (ft_isstrdigit(arg) && (g_tab[itab].arg[i] == 5 ||
+				g_tab[itab].arg[i] == 6 || g_tab[itab].arg[i] == 7 ||
+				g_tab[itab].arg[i] == 4))
 		champ->size += IND_SIZE;
 	else
 	{
@@ -55,15 +55,15 @@ int		ft_check_param(char *param, int itab, t_champ *champ)
 	arg = ft_strsplitif(param, ft_split_param);
 	while (arg[nbtab])
 		nbtab++;
-	if (nbtab < op_tab[itab].nbargs || (nbtab > op_tab[itab].nbargs
-				&& arg[op_tab[itab].nbargs][0] != COMMENT_CHAR))
+	if (nbtab < g_tab[itab].nbargs || (nbtab > g_tab[itab].nbargs
+				&& arg[g_tab[itab].nbargs][0] != COMMENT_CHAR))
 	{
 		champ->err = 1;
-		champ->errcode = nbtab < op_tab[itab].nbargs ? 4 : 5;
+		champ->errcode = nbtab < g_tab[itab].nbargs ? 4 : 5;
 		ft_free_strtab(arg);
 		return (0);
 	}
-	while (arg[i] && i < op_tab[itab].nbargs)
+	while (arg[i] && i < g_tab[itab].nbargs)
 	{
 		if (!ft_check_args(arg[i], itab, i, champ))
 		{

@@ -6,13 +6,13 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:49:13 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/09 14:52:18 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/11 11:31:34 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-extern t_op op_tab[17];
+extern t_op g_tab[17];
 
 int		ft_nb_split(char *str, int i)
 {
@@ -36,9 +36,9 @@ int		ft_find_op(char *op)
 	int		i;
 
 	i = 0;
-	while (op_tab[i].param && ft_strcmp(op_tab[i].param, op) != 0)
+	while (g_tab[i].param && ft_strcmp(g_tab[i].param, op) != 0)
 		i++;
-	if (op_tab[i].param == 0)
+	if (g_tab[i].param == 0)
 		return (-1);
 	return (i);
 }
