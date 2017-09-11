@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/26 14:58:06 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/11 15:54:43 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ int			put_vm_infos(t_vm *vm)
 	return (1);
 }
 
-void		put_proc(t_list *e)
+int			put_proc(t_list *e, void *d)
 {
 	t_proc	*p;
 	int		i;
 
+	(void)d;
 	if (!DEBUG)
-		return ;
+		return (0);
 	p = (t_proc*)(e->content);
 	ft_printf("-----------------------------------\n");
 	ft_printf("|           PROC % 6d           |\n", p->id);
@@ -58,6 +59,8 @@ void		put_proc(t_list *e)
 	ft_printf("|carry       % 21.7d|\n", p->carry);
 	ft_printf("|error pcb   % 21.7d|\n", p->error_pcb);
 	ft_printf("|exec_in     % 21.7d|\n", p->exec_in);
+	ft_printf("|alive       % 21.7d|\n", p->alive);
+	ft_printf("|live in ctd % 21.7d|\n", p->last_live_cycle);
 	ft_printf("-----------------------------------\n");
 	i = -1;
 	ft_printf("| PARAMS |  T  |  S  |     VAL    |\n");
@@ -66,6 +69,7 @@ void		put_proc(t_list *e)
 		ft_printf("| %.1d      | %.2d  |  %.1d  |    % 8d|\n",
 				i, p->ptype[i], p->psize[i], p->param[i]);
 	ft_printf("-----------------------------------\n");
+	return (0);
 }
 
 int			put_regs(t_proc *p)

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/08 15:56:38 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/11 17:21:28 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	kill_proc(void *arg_proc, void *arg_vm)
 
 static int	vm_rules(t_vm *vm)
 {
-	if (vm->ctd_cycle >= vm->ctd)
+	if (vm->ctd_cycle == vm->ctd)
 	{
 		if (vm->live_in_ctd > NBR_LIVE || vm->check == MAX_CHECKS)
 		{
@@ -69,9 +69,9 @@ static int	vm_play(t_vm *vm)
 
 int			vm_core(t_vm *vm)
 {
-	nc_event_handling(vm);
 	while (!vm->quit && vm->dump != vm->cycle && vm->procs)
 	{
+		nc_event_handling(vm);
 		if (vm->ncurse && (!vm->play || vm->step == vm->cycle))
 			continue;
 		vm->ctd_cycle++;
@@ -79,6 +79,8 @@ int			vm_core(t_vm *vm)
 		vb_cycles(vm);
 //		put_vm_infos(vm);
 		vm_rules(vm);
+		if (vm->cycle == -1)
+			ft_lstany(vm->procs, put_proc, 0);
 		vm_play(vm);
 		ft_lstfilter(&(vm->blinks), free_blk, reset_blk, vm);
 		nc_loop(vm);

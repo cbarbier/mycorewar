@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/08 15:56:10 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/11 15:37:30 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include "../libft/includes/libft.h"
 # include "op.h"
 # include <ncurses.h>
-# include <pthread.h>
 # include <signal.h>
 # define DEBUG		1
 
@@ -157,6 +156,6 @@ int				f_aff(t_vm *vm, t_proc *proc);
 ** 	DEBUG FUNCTIONS
 */
 int				put_vm_infos(t_vm *vm);
-void			put_proc(t_list *e);
+int				put_proc(t_list *e, void *d);
 int				put_regs(t_proc *p);
 #endif

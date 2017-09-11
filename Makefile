@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/09/08 14:11:53 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/09/11 14:16:06 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,12 +55,15 @@ ASM_SRCS			= asm_srcs/main.c
 CORE_OBJS			= $(CORE_SRCS:.c=.o)
 ASM_OBJS			= $(ASM_SRCS:.c=.o)
 
-all: $(CORE) $(ASM) 
+all: $(CORE) $(ASM)
 	@echo " / \   / \   / \   / \   / \   / \   / \ "
 	@echo "( c ) ( o ) ( r ) ( e ) ( w ) ( a ) ( r )"
 	@echo " \_/   \_/   \_/   \_/   \_/   \_/   \_/ "
 
-%.o:%.c
+core_srcs/%.o:core_srcs/%.c $(CORE_HDR)
+	@$(CC) $(CFLAGS) -c $< -o $@ -Iincludes
+
+asm_srcs/%.o:asm_srcs/%.c $(ASM_HDR)
 	@$(CC) $(CFLAGS) -c $< -o $@ -Iincludes
 
 $(CORE): $(LIB) $(CORE_OBJS) $(CORE_HDR)

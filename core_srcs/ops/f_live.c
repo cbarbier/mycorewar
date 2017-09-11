@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/07 18:56:16 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/11 17:15:26 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,6 @@ static t_player	*get_player_by_id(t_vm *vm, int id)
 	return (0);
 }
 
-static	void	pt_blks(t_vm *vm, t_list *blks)
-{
-	t_blk *e;
-
-	ft_printf("-----------------------------\n");
-	while (blks)
-	{
-		e = (t_blk*)blks->content;
-		ft_printf("i %d j %d unitl %d   cl : %d\n",
-				e->i, e->j, e->until, vm->cycle);
-		blks = blks->next;
-	}
-	ft_printf("-----------------------------\n");
-}
-
 int				f_live(t_vm *vm, t_proc *proc)
 {
 	int			id;
@@ -58,16 +43,15 @@ int				f_live(t_vm *vm, t_proc *proc)
 	pl = get_player_by_id(vm, id);
 	if (pl)
 	{
-		make_it_blink(vm, proc);
-		if (!vm->ncurse)
-			pt_blks(vm, vm->blinks);
+		if (vm->ncurse)
+			make_it_blink(vm, proc);
 		vm->last_player_live = pl;
 		pl->last_live_cycle = vm->cycle;
-		proc->last_live_cycle = vm->cycle;
 		pl->live_in_ctd++;
-		proc->alive++;
+		proc->last_live_cycle = vm->cycle;
 		vm->live_in_ctd++;
 	}
+	proc->alive++;
 	vb_operation_live(vm, proc, id);
 	if (pl && (vm->verbose & 1))
 		ft_printf("Player %d (%s) is said to be alive\n",

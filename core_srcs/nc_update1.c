@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/08 16:35:50 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/11 12:55:38 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	nc_update_info(t_vm *vm)
 	mvwprintw(vm->winfo, 7, 14, "%d", ft_lstlen(vm->procs));
 	while (++i < vm->nb_players)
 	{
-		cp = vm->last_player_live == vm->players + i ? i + 5 : i + 1;
+		cp = i + 1;
 		wattron(vm->winfo, COLOR_PAIR(cp));
 		mvwprintw(vm->winfo, j, 18, "%d", vm->players[i].last_live_cycle);
 		mvwprintw(vm->winfo, j + 1, 18, "%d", vm->players[i].live_in_ctd);
@@ -66,6 +66,7 @@ int			nc_loop(t_vm *vm)
 		g_resize = 0;
 	}
 	nc_update_info(vm);
+	wrefresh(vm->win);
 	wrefresh(vm->war);
 	wrefresh(vm->winfo);
 	usleep(1000000 / vm->cps);
@@ -103,6 +104,7 @@ int			nc_winner(t_vm *vm)
 	init_pair(11, COLOR_BLACK, COLOR_MAGENTA);
 	while (!vm->quit)
 	{
+		nc_event_handling(vm);
 		wattron(vm->war, COLOR_PAIR(loop % 2 ? 11 : 9));
 		nc_winner_helper(vm, p, i);
 		wattroff(vm->war, COLOR_PAIR(loop % 2 ? 11 : 9));

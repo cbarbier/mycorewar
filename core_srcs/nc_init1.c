@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/08 14:21:24 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/11 12:33:03 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ static int	nc_init_helper(t_vm *vm)
 	wattron(vm->winfo, COLOR_PAIR(10));
 	wborder(vm->win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 	wborder(vm->winfo, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	refresh();
 	return (nc_init_arena(vm));
 }
 
@@ -104,8 +105,9 @@ int			nc_init(t_vm *vm)
 	vm->aff = 0;// and aff
 	initscr();
 	cbreak();
-	curs_set(0);
 	noecho();
+	nodelay(stdscr, TRUE);
+	curs_set(0);
 	start_color();
 	init_color(COLOR_YELLOW, 420, 420, 420);
 	init_color(COLOR_MAGENTA, 1000, 1000, 1000);
