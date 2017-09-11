@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 16:19:01 by fmaury            #+#    #+#             */
-/*   Updated: 2017/02/27 11:48:25 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/10 17:02:29 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ft_pw(t_print *arg, t_flag *flag)
 		arg->precision--;
 	}
 	len = ft_strlen(str);
-	str = ft_strljoin(str, arg->res, len, arg->len);
+	str = ft_strlf1join(str, arg->res, len, arg->len);
 	arg->len += len;
 	ft_pm(str, arg);
 	return (str);

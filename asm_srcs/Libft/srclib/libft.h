@@ -6,7 +6,7 @@
 /*   By: fmaury <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 09:44:40 by fmaury            #+#    #+#             */
-/*   Updated: 2017/06/08 15:38:59 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/11 10:28:12 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define BUFF_SIZE 1
 
 # include <string.h>
+# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/uio.h>
@@ -34,6 +35,7 @@ void				ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+void				ft_free(char *param);
 void				ft_free_strtab(char **tab);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 char				*ft_strdup(char *src);
@@ -45,6 +47,8 @@ char				*ft_strstr(const char *big, const char *little);
 char				*ft_strnstr(const char *big, const char *little,
 								size_t len);
 char				*ft_strchr(const char *s, int c);
+char				*ft_strlf1join(char *s1, char *s2, int len1, int len2);
+char				*ft_strlf2join(char *s1, char *s2, int len1, int len2);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_itoa(long long int nb);
 char				*ft_itoa_base(unsigned long long int n, int base);

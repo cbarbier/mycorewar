@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:37:34 by fmaury            #+#    #+#             */
-/*   Updated: 2017/02/27 10:51:45 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/10 17:00:34 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char		*ft_utc(wchar_t *wsave, char *save, t_print *arg)
 		arg->usign = wsave[i];
 		type = ft_wich_stype(arg);
 		ft_sconv_utf8(arg, type);
-		save = ft_strljoin(save, arg->res, total, type);
+		save = ft_strlf1join(save, arg->res, total, type);
 		total = total + type;
 		if (total > arg->precision && arg->cprecision[0] == '.')
 		{

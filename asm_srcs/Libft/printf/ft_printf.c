@@ -6,13 +6,13 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 10:39:43 by fmaury            #+#    #+#             */
-/*   Updated: 2017/03/15 13:14:23 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/11 11:14:24 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static void		ft_free(t_print *arg, int *tab)
+static void		ft_frees(t_print *arg, int *tab)
 {
 	if (arg->err > 0)
 		tab[3]++;
@@ -21,6 +21,7 @@ static void		ft_free(t_print *arg, int *tab)
 	free(arg->cwidth);
 	free(arg->flag);
 	free(arg->length);
+	ft_strdel(&arg->res);
 }
 
 static int		ft_trt_printf(t_print *arg, t_flag *flag, char **buf, int *tab)
@@ -30,7 +31,8 @@ static int		ft_trt_printf(t_print *arg, t_flag *flag, char **buf, int *tab)
 	ft_gest_arg(arg);
 	ft_check_arg(arg, flag);
 	str = ft_trt_spec(arg, flag);
-	*buf = ft_strljoin(*buf, str, tab[2], arg->len);
+	*buf = ft_strlf1join(*buf, str, tab[2], arg->len);
+	free(str);
 	tab[2] += arg->len;
 	return (tab[1]);
 }
@@ -46,15 +48,15 @@ static void		ft_init_printf(t_print *arg, t_flag *flag, int *tab, char **buf)
 	ft_bzero(flag, sizeof(t_flag));
 }
 
-static int		ft_end(char *buf, int *tab)
+static int		ft_end(char **buf, int *tab)
 {
 	if (tab[3] > 0)
 	{
-		free(buf);
+		free(*buf);
 		return (-1);
 	}
-	write(1, buf, tab[2]);
-	free(buf);
+	write(1, *buf, tab[2]);
+	free(*buf);
 	return (tab[2]);
 }
 
@@ -75,7 +77,7 @@ int				ft_printf(char *frmt, ...)
 		{
 			tab[1] = ft_mk_str(frmt, &arg, tab[0] + 1);
 			tab[0] = ft_trt_printf(&arg, &flag, &buf, tab);
-			ft_free(&arg, tab);
+			ft_frees(&arg, tab);
 		}
 		if (frmt[tab[0]] != '\0' && frmt[tab[0]] != '%')
 			buf = ft_cljoin(buf, frmt[tab[0]++], tab[2]++);
@@ -83,5 +85,5 @@ int				ft_printf(char *frmt, ...)
 			break ;
 	}
 	va_end(ap);
-	return (ft_end(buf, tab));
+	return (ft_end(&buf, tab));
 }

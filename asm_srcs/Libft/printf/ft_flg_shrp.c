@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/23 18:00:26 by fmaury            #+#    #+#             */
-/*   Updated: 2017/02/23 16:30:08 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/11 11:06:21 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ void		ft_flg_shrp(t_print *arg)
 		arg->len += 2;
 	}
 	ft_strcat(strd, arg->res);
-	free(arg->res);
+	ft_strdel(&arg->res);
 	arg->res = strd;
 }

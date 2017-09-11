@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:50:17 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/08 15:45:31 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/10 14:49:42 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int		ft_size(t_champ *node)
 			size += node->size + 2;
 	}
 	node = node->next;
-	return(size);
+	return (size);
 }
 
 static int		ft_total_size(t_champ *champ)
@@ -84,7 +84,7 @@ void			ft_write(t_asm *sfile, t_champ *champ)
 		}
 		champ = champ->next;
 	}
-	fd = open(sfile->file, O_CREAT | O_WRONLY | S_IRWXU);
+	fd = open(sfile->file, O_CREAT | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
 	write(fd, bin, binlen);
 	free(bin);
 	ft_printf("   Compilation succeeded.\n");

@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/20 13:10:51 by fmaury            #+#    #+#             */
-/*   Updated: 2017/02/27 11:49:36 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/11 11:05:14 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ char	*ft_l(t_print *arg, t_flag *flag)
 			str[0] = '+';
 		if (flag->space == 1)
 			str[0] = ' ';
-		str = ft_strljoin(str, arg->res, 1, arg->len);
+		str = ft_strlf1join(str, arg->res, 1, arg->len);
 		arg->len++;
 	}
 	else
 	{
 		str = ft_strnew(arg->len);
 		ft_memcpy(str, arg->res, arg->len);
-		free(arg->res);
+		ft_strdel(&arg->res);
 	}
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:43:41 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/08 13:16:31 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/10 16:10:37 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	ft_error(t_asm *sfile)
 				ft_printf("Unknown mnemonique\n");
 			else if (champ->errcode == 4)
 				ft_printf("Parameter missing\n");
-			else if (champ->errcode == 4)
-				ft_printf("Parameters missing\n");
 			else if (champ->errcode == 5)
 				ft_printf("Too much parameters\n");
 			else if (champ->errcode == 6)

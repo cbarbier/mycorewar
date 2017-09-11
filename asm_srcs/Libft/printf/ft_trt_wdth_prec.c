@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 16:25:12 by fmaury            #+#    #+#             */
-/*   Updated: 2017/02/20 18:34:09 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/10 16:59:22 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_wpl(t_print *arg, t_flag *flag)
 		arg->precision--;
 	}
 	len = ft_strlen(str);
-	str = ft_strljoin(str, arg->res, len, arg->len);
+	str = ft_strlf1join(str, arg->res, len, arg->len);
 	arg->len += len;
 	ft_pm(str, arg);
 	return (str);
@@ -76,13 +76,13 @@ char	*ft_mwpl(t_print *arg, t_flag *flag)
 	while (arg->precision-- - arg->len > 0)
 		str[i++] = '0';
 	len = ft_strlen(str);
-	str = ft_strljoin(str, arg->res, len, arg->len);
+	str = ft_strlf1join(str, arg->res, len, arg->len);
 	arg->len = arg->len + len;
 	i = 0;
 	while (arg->width-- - prec > 0)
 		tmp[i++] = ' ';
 	len = ft_strlen(tmp);
-	str = ft_strljoin(str, tmp, arg->len, len);
+	str = ft_strlf2join(str, tmp, arg->len, len);
 	arg->len += len;
 	ft_pm(str, arg);
 	return (str);

@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 12:37:34 by fmaury            #+#    #+#             */
-/*   Updated: 2017/02/23 16:44:01 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/11 11:04:05 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_uox_prec(t_print *arg, t_flag *flag)
 				(flag->sharp == 0 && (arg->specifier == 'o'
 				|| arg->specifier == 'O')))
 		{
-			free(arg->res);
+			ft_strdel(&arg->res);
 			arg->res = ft_strdup("\0");
 			flag->sharp = 0;
 			arg->len = 0;

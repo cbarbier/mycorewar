@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:42:43 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/08 13:49:48 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/10 14:57:06 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ extern t_op op_tab[17];
 int		ft_check_args(char *arg, int itab, int i, t_champ *champ)
 {
 	if (arg[0] == 'r' && ft_isstrdigit(arg + 1) && (op_tab[itab].arg[i] == 3
-				|| op_tab[itab].arg[i]    == 5 || op_tab[itab].arg[i] == 7 ||
+				|| op_tab[itab].arg[i] == 5 || op_tab[itab].arg[i] == 7 ||
 				op_tab[itab].arg[i] == 1))
 		champ->size += REG_SIZE;
-	else if (arg[0] == DIRECT_CHAR && (arg[1] == ':' || ft_isstrdigit(arg + 1)) &&
-			(op_tab[itab].arg[i] == 3 || op_tab[itab].arg[i] == 6 ||
-			 op_tab[itab].arg[i] == 7 || op_tab[itab].arg[i] == 2))
+	else if (arg[0] == DIRECT_CHAR && (arg[1] == ':' || ft_isstrdigit(arg + 1))
+			&& (op_tab[itab].arg[i] == 3 || op_tab[itab].arg[i] == 6 ||
+			op_tab[itab].arg[i] == 7 || op_tab[itab].arg[i] == 2))
 	{
-		if  (op_tab[itab].oind == 1)
+		if (op_tab[itab].oind == 1)
 			champ->size += IND_SIZE;
 		else
 			champ->size += DIR_SIZE;
@@ -40,7 +40,7 @@ int		ft_check_args(char *arg, int itab, int i, t_champ *champ)
 		return (0);
 	}
 	champ->col += ft_strlen(arg) + ft_nb_split(champ->args, ft_strlen(arg) +
-			champ->col - (ft_strlen(champ->op) + 1)); 
+			champ->col - (ft_strlen(champ->op) + 1));
 	return (1);
 }
 
@@ -60,12 +60,16 @@ int		ft_check_param(char *param, int itab, t_champ *champ)
 	{
 		champ->err = 1;
 		champ->errcode = nbtab < op_tab[itab].nbargs ? 4 : 5;
+		ft_free_strtab(arg);
 		return (0);
 	}
 	while (arg[i] && i < op_tab[itab].nbargs)
 	{
 		if (!ft_check_args(arg[i], itab, i, champ))
+		{
+			ft_free_strtab(arg);
 			return (0);
+		}
 		champ->arg = ft_strtab(champ->arg, arg[i]);
 		i++;
 	}
@@ -99,6 +103,8 @@ int		ft_check(char *op, char *param, t_champ *champ)
 		}
 	}
 	champ->instr = 1;
+	champ->op = ft_strdup(ft_erspace(op));
+	champ->args = ft_strdup(param);
 	if ((i = ft_find_op(op)) == -1)
 	{
 		champ->err = 1;
@@ -107,9 +113,7 @@ int		ft_check(char *op, char *param, t_champ *champ)
 	}
 	else
 	{
-		champ->op = ft_strdup(ft_erspace(op));
 		champ->opcode = i + 1;
-		champ->args = ft_strdup(param);
 		champ->col = ft_strlen(champ->op) + 1;
 	}
 	if (!ft_check_param(param, i, champ))

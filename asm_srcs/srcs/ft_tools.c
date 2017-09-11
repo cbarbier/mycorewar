@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:49:13 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/08 11:50:06 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/09 14:52:18 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		ft_find_op(char *op)
 	int		i;
 
 	i = 0;
-	while (i < 17 && ft_strcmp(op_tab[i].param, op) != 0)
+	while (op_tab[i].param && ft_strcmp(op_tab[i].param, op) != 0)
 		i++;
 	if (op_tab[i].param == 0)
 		return (-1);

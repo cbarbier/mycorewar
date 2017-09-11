@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:45:47 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/08 16:24:28 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/09 13:28:27 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ extern t_op op_tab[17];
 
 int		ft_isspe(char *op)
 {
-	if (op && (ft_strcmp(op, "zjmp")  == 0 || ft_strcmp(op, "live") == 0 ||
+	if (op && (ft_strcmp(op, "zjmp") == 0 || ft_strcmp(op, "live") == 0 ||
 				ft_strcmp(op, "fork") == 0 || ft_strcmp(op, "lfork") == 0))
 		return (1);
 	return (0);
-
 }
+
 int		ft_prelabel(t_champ *node, char *label)
 {
 	int		size;
@@ -40,7 +40,7 @@ int		ft_prelabel(t_champ *node, char *label)
 			return (size);
 		node = node->next;
 	}
-	return(-1);
+	return (-1);
 }
 
 int		ft_postlabel(t_champ *champ, t_champ *node)
@@ -107,7 +107,7 @@ int		ft_set_instr(t_champ *champ, t_champ *save)
 	int		res;
 
 	i = 0;
-	if (!ft_isspe(champ->op) || ft_strcmp("live",champ->op) == 0)
+	if (!ft_isspe(champ->op) || ft_strcmp("live", champ->op) == 0)
 		size = 1;
 	else
 		size = 0;
@@ -119,7 +119,7 @@ int		ft_set_instr(t_champ *champ, t_champ *save)
 		{
 			size += REG_SIZE;
 			champ->param[size] = ft_atoi(champ->arg[i] + 1);
-			champ->codage |= REG_CODE; 
+			champ->codage |= REG_CODE;
 		}
 		else if (champ->arg[i][0] == DIRECT_CHAR)
 		{
@@ -148,12 +148,12 @@ int		ft_set_instr(t_champ *champ, t_champ *save)
 					size += DIR_SIZE;
 				champ->param[size] = ft_atoi(champ->arg[i] + 1);
 			}
-			champ->codage |= DIR_CODE; 
+			champ->codage |= DIR_CODE;
 		}
 		else
 		{
 			size += IND_SIZE;
-			champ->codage |= IND_CODE; 
+			champ->codage |= IND_CODE;
 			champ->param[size] = ft_atoi(champ->arg[i]);
 		}
 		i++;

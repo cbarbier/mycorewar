@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 15:28:40 by fmaury            #+#    #+#             */
-/*   Updated: 2017/02/27 11:51:12 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/11 11:07:01 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_prec_int(t_print *arg, t_flag *flag)
 	flag->zero = 0;
 	if (arg->precision == 0 && arg->sign == 0)
 	{
-		free(arg->res);
+		ft_strdel(&arg->res);
 		arg->res = ft_strdup("\0");
 		arg->len = 0;
 		arg->precision = 0;
@@ -45,7 +45,9 @@ void	ft_prec_int(t_print *arg, t_flag *flag)
 char	*ft_trt_int(t_print *arg, t_flag *flag)
 {
 	char	*str;
+	int		len;
 
+	len = 0;
 	str = NULL;
 	if (arg->specifier == 'D')
 		arg->length[0] = 'l';

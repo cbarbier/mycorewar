@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:40:56 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/08 16:25:56 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/09 15:53:53 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			ft_parse(t_asm *sfile, t_champ *champ)
 		i++;
 		free(line);
 	}
-		free(line);
+	free(line);
 	if (ret == -1 || err == 1)
 		return (0);
 	return (1);
@@ -64,7 +64,6 @@ int			ft_asm(t_asm *sfile, t_champ *champ)
 {
 	if (!ft_parse(sfile, champ))
 	{
-		champ = sfile->champ;
 		ft_error(sfile);
 		return (0);
 	}
