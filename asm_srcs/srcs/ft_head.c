@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:44:23 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/11 15:47:22 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/13 11:26:02 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		ft_head(t_asm *sfile)
 
 	i = 0;
 	flag = 0;
-	while ((ret = get_next_line(sfile->fd, &line) > 0) && flag < 2)
+	while (flag < 2 && (ret = get_next_line(sfile->fd, &line) > 0))
 	{
 		tmp = ft_erspace(line);
 		if ((flag = ft_parse_head(sfile, tmp, flag)) < 0)

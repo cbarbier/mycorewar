@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:49:13 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/11 11:31:34 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/13 16:43:07 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,3 +63,19 @@ char	*ft_erspace(char *str)
 	tmp = str + j;
 	return (tmp);
 }
+
+int		ft_forbidden_char(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] && i < (int)ft_strlen(str) - 1)
+	{
+		if (ft_strchr(LABEL_CHARS, str[i]) == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+

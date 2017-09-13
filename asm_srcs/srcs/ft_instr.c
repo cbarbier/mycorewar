@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:45:47 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/09 13:28:27 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/13 14:51:25 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,14 +139,32 @@ int		ft_set_instr(t_champ *champ, t_champ *save)
 			else
 			{
 				if (ft_strcmp(champ->op, "live") == 0)
+				{
 					size += 3;
+					res = ft_atoi(champ->arg[i] + 1);
+					champ->param[size - 3] = res >> 24;
+					champ->param[size - 2] = res >> 16;
+					champ->param[size - 1] = res >> 8;
+					champ->param[size] = res;
+				}
 				else if (ft_strcmp(champ->op, "zjmp") == 0 ||
 						ft_strcmp(champ->op, "sti") == 0 || ft_strcmp(champ->op,
 							"fork") == 0 || ft_strcmp(champ->op, "lfork") == 0)
+				{
 					size += IND_SIZE;
+					res = ft_atoi(champ->arg[i] + 1);
+					champ->param[size - 1] = res >> 8;
+					champ->param[size] = res;
+				}
 				else
+				{
 					size += DIR_SIZE;
-				champ->param[size] = ft_atoi(champ->arg[i] + 1);
+					res = ft_atoi(champ->arg[i] + 1);
+					champ->param[size - 3] = res >> 24;
+					champ->param[size - 2] = res >> 16;
+					champ->param[size - 1] = res >> 8;
+					champ->param[size] = res;
+				}	
 			}
 			champ->codage |= DIR_CODE;
 		}
@@ -154,7 +172,9 @@ int		ft_set_instr(t_champ *champ, t_champ *save)
 		{
 			size += IND_SIZE;
 			champ->codage |= IND_CODE;
-			champ->param[size] = ft_atoi(champ->arg[i]);
+			res = ft_atoi(champ->arg[i]);
+			champ->param[size - 1] = res >> 8;
+			champ->param[size] = res;
 		}
 		i++;
 	}

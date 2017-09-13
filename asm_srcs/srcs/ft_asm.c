@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:40:56 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/11 18:59:07 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/13 18:25:04 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,16 @@ t_champ		*ft_lst(t_asm *sfile, t_champ *champ)
 	if (champ == NULL)
 	{
 		champ = ft_memalloc(sizeof(t_champ));
+		champ->next = NULL;
 		sfile->champ = champ;
 	}
 	else
 	{
+		while (champ->next)
+			champ = champ->next;
 		champ->next = ft_memalloc(sizeof(t_champ));
 		champ = champ->next;
+		champ->next = NULL;
 	}
 	return (champ);
 }
@@ -34,10 +38,18 @@ int			ft_precheck(char **op_param, t_champ *champ, t_asm *sfile)
 	if (op_param[1])
 		rop_param = ft_strsplitnbif(op_param[1], ft_isspace, 1);
 	if (op_param[0] && op_param[0][ft_strlen(op_param[0]) - 1]  == LABEL_CHAR 
-			&& rop_param[0] && ft_find_op(rop_param[0]) != -1)
+			&& op_param[1] && rop_param[0])
 	{
 		champ->lab = 1;
 		champ->label = ft_strdup(ft_erspace(op_param[0]));
+		if (!ft_forbidden_char(op_param[0]))
+		{
+			champ->err = 1;
+			champ->errcode = 8;
+			return (0);
+		}
+		if (op_param[1][0] == LABEL_CHAR)
+			return (1);
 		champ = ft_lst(sfile, champ);
 		return (ft_check(rop_param[0], rop_param[1], champ));
 	}

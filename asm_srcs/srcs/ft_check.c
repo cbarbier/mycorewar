@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:42:43 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/11 11:31:09 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/13 16:42:39 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ extern t_op g_tab[17];
 
 int		ft_check_args(char *arg, int itab, int i, t_champ *champ)
 {
-	if (arg[0] == 'r' && ft_isstrdigit(arg + 1) && (g_tab[itab].arg[i] == 3
+    if (arg[0] == 'r' && ft_isstrdigit(arg + 1) && (g_tab[itab].arg[i] == 3
 				|| g_tab[itab].arg[i] == 5 || g_tab[itab].arg[i] == 7 ||
 				g_tab[itab].arg[i] == 1))
 		champ->size += REG_SIZE;
@@ -86,10 +86,16 @@ int		ft_check(char *op, char *param, t_champ *champ)
 		return (0);
 	if (param == NULL)
 	{
-		if (ft_strchr(op, LABEL_CHAR) != 0)
+		if (op[ft_strlen(op) - 1] == LABEL_CHAR)
 		{
 			champ->lab = 1;
 			champ->label = ft_strdup(ft_erspace(op));
+			if (!ft_forbidden_char(op))
+			{
+				champ->err = 1;
+				champ->errcode = 8;
+				return (0);
+			}
 			return (1);
 		}
 		else
@@ -98,7 +104,10 @@ int		ft_check(char *op, char *param, t_champ *champ)
 			if ((i = ft_find_op(op)) == -1)
 				champ->errcode = 3;
 			else
+			{
+				champ->op = ft_strdup(ft_erspace(op));
 				champ->errcode = 4;
+			}
 			return (0);
 		}
 	}

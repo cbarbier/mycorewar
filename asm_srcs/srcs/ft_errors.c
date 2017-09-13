@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:43:41 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/10 16:10:37 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/13 16:45:04 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,19 @@
 void	ft_error(t_asm *sfile)
 {
 	t_champ	*champ;
+	char *op;
 
 	champ = sfile->champ;
 	while (champ)
 	{
 		if (champ->err == 1)
 		{
+			if (champ->lab == 1)
+				op = champ->label;
+			else
+				op = champ->op;
+			if (!champ->args)
+				champ->args = ft_strdup("");
 			ft_printf("\033[1m\033[37m%s:%d:%d: \033[1m\033[31merror:\x1b[0m ",
 					sfile->origin, champ->ligne, champ->col + 1);
 			if (champ->errcode == 1)
@@ -37,7 +44,9 @@ void	ft_error(t_asm *sfile)
 				ft_printf("Wrong parameters\n");
 			else if (champ->errcode == 7)
 				ft_printf("Unknown label\n");
-			ft_printf("   %s %s\n%*c\n", champ->op, champ->args, champ->col + 4,
+			else if (champ->errcode == 8)
+				ft_printf("Unauthorized char in label\n");
+			ft_printf("   %s %s\n%*c\n", op, champ->args, champ->col + 4,
 					'^');
 		}
 		champ = champ->next;
