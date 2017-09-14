@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:44:23 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/13 11:26:02 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/14 12:58:14 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,27 @@ static int ft_error_header(t_asm *sfile, int flag)
 	return (0);
 }
 
+int		ft_isgood_fmt(char *str)
+{
+	int	i;
+
+	i = 1;
+	if (str && str[0] == '"')
+	{
+		while (str[i] && str[i] != '"')
+			i++;
+		if (str[i] != '"')
+			return (0);
+		if (str[i + 1] == '\0')
+			return (1);
+		while (ft_isspace(str[i + 1]))
+				i++;
+		if (str[i + 1] == '\0' || str[i + 1] == COMMENT_CHAR)
+			return (1);
+	}
+	return (0);
+}
+
 int		ft_parse_head(t_asm *sfile, char *line, int flag)
 {
 	char	**tab;
@@ -43,8 +64,7 @@ int		ft_parse_head(t_asm *sfile, char *line, int flag)
 					NAME_CMD_STRING) == 0)
 		{
 			flag++;
-			if (tab && tab[1] && tab[1][0] && tab[1][ft_strlen(tab[1]) - 1]
-					== '"')
+			if (ft_isgood_fmt(tab[1]))
 				sfile->name = ft_strdup(ft_erase_dc(tab[1]));
 			else
 			{
@@ -56,8 +76,7 @@ int		ft_parse_head(t_asm *sfile, char *line, int flag)
 					COMMENT_CMD_STRING) == 0)
 		{
 			flag++;
-			if (tab && tab[1] && tab[1][0] && tab[1][ft_strlen(tab[1]) - 1]
-					== '"')
+			if (ft_isgood_fmt(tab[1]))
 				sfile->comment = ft_strdup(ft_erase_dc(line + 9));
 			else
 			{
