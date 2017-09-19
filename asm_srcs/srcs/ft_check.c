@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:42:43 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/13 16:42:39 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/19 13:08:49 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,59 @@ int		ft_check_args(char *arg, int itab, int i, t_champ *champ)
 	return (1);
 }
 
+int		ft_check_separator(char *param, t_champ *champ)
+{
+	int		i;
+	int		flag;
+	char	**arg;
+	char	*tmp;
+
+	i = 0;
+	flag = 0;
+	arg = ft_strsplitnbif(param, ft_iscom, 1);
+	tmp = ft_erspace(arg[0]);
+	champ->err = 0;
+	while (tmp[i])
+	{
+		if (tmp[i] == SEPARATOR_CHAR)
+		{
+			if (!flag)
+				flag++;
+			else
+			{
+				champ->err = 1;
+				champ->errcode = 9;
+				champ->col = ft_strlen(champ->op) + 1 + i;
+				ft_free_strtab(arg);
+				return (0);
+			}
+		}
+		else
+			flag = 0;
+		i++;
+	}
+	if (tmp[ft_strlen(tmp) - 1] == SEPARATOR_CHAR)
+	{
+		champ->err = 1;
+		champ->errcode = 9;
+		champ->col = ft_strlen(champ->op) + ft_strlen(tmp);
+		ft_free_strtab(arg);
+		return (0);
+	}
+	ft_free_strtab(arg);
+	return (1);
+}
+
 int		ft_check_param(char *param, int itab, t_champ *champ)
 {
+	int		i;
 	char	**arg;
 	int		nbtab;
-	int		i;
 
 	i = 0;
 	nbtab = 0;
+	if (!ft_check_separator(param, champ))
+		return (0);
 	arg = ft_strsplitif(param, ft_split_param);
 	while (arg[nbtab])
 		nbtab++;

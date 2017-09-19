@@ -1,15 +1,3 @@
-#******************************************************************************#
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: fmaury <marvin@42.fr>                      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/11/04 11:00:31 by fmaury            #+#    #+#              #
-#    Updated: 2017/05/13 14:30:42 by fmaury           ###   ########.fr        #
-#                                                                              #
-#******************************************************************************#
-
 NAME			= asm
 
 COMPILER		= gcc
@@ -23,12 +11,13 @@ SRC_DIR			= ./srcs
 
 SRC				=	main.c \
 					ft_asm.c \
-          ft_tools.c \
+				    ft_tools.c \
+				    ft_tools2.c \
 					ft_head.c \
 					ft_check.c \
-          ft_write.c \
-          ft_instr.c \
-          ft_errors.c \
+				    ft_write.c \
+				    ft_instr.c \
+				    ft_errors.c \
 					ft_header.c \
 					op.c \
 					ft_launcher.c
@@ -42,29 +31,29 @@ NEWLINE			= @echo ""
 all : $(NAME)
 
 $(NAME): $(OBJ) $(INC)
-	@$(NEWLINE)
-	@echo "Compilation de la libft..."
-	@$(NEWLINE)
-	@echo "Compilation de l'asm..."
-	@$(COMPILER) $(CC_FLAGS) $(OBJ) ./Libft/libft.a -o $(NAME)
-	@$(NEWLINE)
-	@echo "asm cree !"
-	$(NEWLINE)
+		@$(NEWLINE)
+		@echo "Compilation de la libft..."
+		@$(NEWLINE)
+		@echo "Compilation de l'asm..."
+		@$(COMPILER) $(CC_FLAGS) $(OBJ) ./Libft/libft.a -o $(NAME)
+		@$(NEWLINE)
+		@echo "asm cree !"
+		$(NEWLINE)
 
 %.o: $(SRC_DIR)/%.c
-	@$(COMPILER) $(CC_FLAGS) -I includes -c $< -o $@
+		@$(COMPILER) $(CC_FLAGS) -I includes -c $< -o $@
 
 clean:
-	@echo "Suppression des objets"
-	$(NEWLINE)
-	@rm -rf $(OBJ)
+		@echo "Suppression des objets"
+		$(NEWLINE)
+		@rm -rf $(OBJ)
 
 fclean: clean
-	@echo "Suppression de l'executable"
-	$(NEWLINE)
-	@rm -rf $(NAME)
+		@echo "Suppression de l'executable"
+		$(NEWLINE)
+		@rm -rf $(NAME)
 
 re: fclean 
-	@$(MAKE) all
+		@$(MAKE) all
 
 .PHONY: all clean fclean re

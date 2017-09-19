@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 16:51:57 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/11 12:32:16 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/19 13:26:23 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,13 @@ int		ft_launcher(char *file)
 {
 	t_asm	sfile;
 	t_champ	*champ;
+	int		i;
 
+	i = 0;
 	champ = NULL;
 	ft_bzero(&sfile, sizeof(t_asm));
-	if (ft_check_error(file, &sfile) && ft_head(&sfile) &&
-			ft_asm(&sfile, champ))
+	if (ft_check_error(file, &sfile) && (i = ft_head(&sfile)) &&
+			ft_asm(&sfile, champ, i))
 		ft_write(&sfile, sfile.champ);
 	ft_free_lst(sfile.champ);
 	ft_free_struct(&sfile);

@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 13:29:11 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/08 13:45:44 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/19 13:27:57 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,15 @@ typedef struct		s_op
 int				ft_launcher(char *file);
 int				ft_head(t_asm *sfile);
 int				ft_set_header(t_asm *sfile);
-int				ft_asm(t_asm *sfile, t_champ *champ);
+int				ft_asm(t_asm *sfile, t_champ *champ, int i);
 void			ft_write(t_asm *sfile, t_champ *champ);
 int				ft_instr(t_champ *champ);
 int				ft_check(char *op, char *param, t_champ *champ);
 int				ft_split_param(char c);
 int				ft_nb_split(char *str, int i);
 int				ft_find_op(char *op);
+int		ft_forbidden_char(char *str);
+int				ft_iscom(char  c);
 char			*ft_erspace(char *str);
 void			ft_error(t_asm *sfile);
 
