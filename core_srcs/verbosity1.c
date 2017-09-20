@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/07 12:17:21 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/20 20:05:29 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			vb_pc_movement(t_vm *vm, t_proc *proc)
 	if (!(vm->verbose & 16))
 		return (0);
 	i = 0;
-	tmp = (proc->pc + proc->adv) % MEM_SIZE;
+	tmp = (proc->pc + proc->adv);
 	ft_printf("ADV %d (0x%.4x -> 0x%.4x)", proc->adv, proc->pc, tmp);
 	while (i < proc->adv)
 	{
@@ -68,6 +68,6 @@ int			vb_pc_movement(t_vm *vm, t_proc *proc)
 		ft_printf(" %.2x", vm->arena[tmp].i);
 		i++;
 	}
-	ft_printf("\n");
+	ft_printf(" \n");
 	return (1);
 }

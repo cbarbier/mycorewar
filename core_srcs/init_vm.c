@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/07 16:32:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/20 17:44:28 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int			init_vm(t_vm *vm, int argc, char **argv)
 	if (!parse_argv(vm, argc, argv))
 		return (0);
 	init_vm_values(vm);
-	ft_printf("parse argv ok! nb players: %d\n", vm->nb_players);
+//	ft_printf("parse argv ok! nb players: %d\n", vm->nb_players);
 	ip = 0;
 	while (ip < vm->nb_players)
 	{

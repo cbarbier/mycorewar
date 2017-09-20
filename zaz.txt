@@ -1,0 +1,100 @@
+Introducing contestants...
+* Player 1, weighing 609 bytes, "Octobre Rouge V4.2" ("And the winner is ...") !
+P    1 | st r1 19
+ADV 5 (0x0000 -> 0x0005) 03 70 01 00 13 
+P    1 | ld 0 r15
+ADV 7 (0x0005 -> 0x000c) 02 90 00 00 00 00 0f 
+P    1 | fork 6 (18)
+ADV 3 (0x000c -> 0x000f) 0c 00 06 
+P    2 | live -1
+Player 1 (Octobre Rouge V4.2) is said to be alive
+ADV 5 (0x0012 -> 0x0017) 01 ff ff ff ff 
+P    1 | zjmp 396 OK
+P    1 | live 42
+ADV 5 (0x019b -> 0x01a0) 01 00 00 00 2a 
+P    2 | fork 388 (411)
+ADV 3 (0x0017 -> 0x001a) 0c 01 84 
+P    3 | live 42
+ADV 5 (0x019b -> 0x01a0) 01 00 00 00 2a 
+P    2 | zjmp -8 OK
+P    1 | fork 43 (459)
+ADV 3 (0x01a0 -> 0x01a3) 0c 00 2b 
+P    4 | live 42
+ADV 5 (0x01cb -> 0x01d0) 01 00 00 00 2a 
+P    2 | live -1
+Player 1 (Octobre Rouge V4.2) is said to be alive
+ADV 5 (0x0012 -> 0x0017) 01 ff ff ff ff 
+P    1 | live 42
+ADV 5 (0x01a3 -> 0x01a8) 01 00 00 00 2a 
+P    3 | fork 43 (459)
+ADV 3 (0x01a0 -> 0x01a3) 0c 00 2b 
+P    5 | live 42
+ADV 5 (0x01cb -> 0x01d0) 01 00 00 00 2a 
+P    3 | live 42
+ADV 5 (0x01a3 -> 0x01a8) 01 00 00 00 2a 
+P    4 | fork -53 (411)
+ADV 3 (0x01d0 -> 0x01d3) 0c ff cb 
+P    2 | fork 388 (411)
+ADV 3 (0x0017 -> 0x001a) 0c 01 84 
+P    1 | fork 82 (506)
+ADV 3 (0x01a8 -> 0x01ab) 0c 00 52 
+P    8 | live 42
+ADV 5 (0x01fa -> 0x01ff) 01 00 00 00 2a 
+P    7 | live 42
+ADV 5 (0x019b -> 0x01a0) 01 00 00 00 2a 
+P    6 | live 42
+ADV 5 (0x019b -> 0x01a0) 01 00 00 00 2a 
+P    4 | live 42
+ADV 5 (0x01d3 -> 0x01d8) 01 00 00 00 2a 
+P    1 | live 42
+ADV 5 (0x01ab -> 0x01b0) 01 00 00 00 2a 
+P    2 | zjmp -8 OK
+P    2 | live -1
+Player 1 (Octobre Rouge V4.2) is said to be alive
+ADV 5 (0x0012 -> 0x0017) 01 ff ff ff ff 
+P    5 | fork -53 (411)
+ADV 3 (0x01d0 -> 0x01d3) 0c ff cb 
+P    3 | fork 82 (506)
+ADV 3 (0x01a8 -> 0x01ab) 0c 00 52 
+P   10 | live 42
+ADV 5 (0x01fa -> 0x01ff) 01 00 00 00 2a 
+P    9 | live 42
+ADV 5 (0x019b -> 0x01a0) 01 00 00 00 2a 
+P    5 | live 42
+ADV 5 (0x01d3 -> 0x01d8) 01 00 00 00 2a 
+P    3 | live 42
+ADV 5 (0x01ab -> 0x01b0) 01 00 00 00 2a 
+P    8 | fork -370 (141)
+ADV 3 (0x01ff -> 0x0202) 0c fe 8e 
+P    7 | fork 43 (459)
+ADV 3 (0x01a0 -> 0x01a3) 0c 00 2b 
+P    6 | fork 43 (459)
+ADV 3 (0x01a0 -> 0x01a3) 0c 00 2b 
+P    4 | fork -443 (29)
+ADV 3 (0x01d8 -> 0x01db) 0c fe 45 
+P    1 | fork 120 (552)
+ADV 3 (0x01b0 -> 0x01b3) 0c 00 78 
+P   15 | st r1 3
+ADV 4 (0x0228 -> 0x022c) 03 50 01 03 
+P    8 | ld -65214 r3
+ADV 7 (0x0202 -> 0x0209) 02 90 ff ff 01 42 03 
+P    4 | ld 251883526 r3
+ADV 7 (0x01db -> 0x01e2) 02 90 0f 03 70 06 03 
+P    1 | ld 57672448 r3
+ADV 7 (0x01b3 -> 0x01ba) 02 90 03 70 03 00 03 
+P   15 | ld 251883526 r6
+ADV 7 (0x022c -> 0x0233) 02 90 0f 03 70 06 06 
+P   14 | live 42
+ADV 5 (0x001d -> 0x0022) 01 00 00 00 2a 
+P   13 | live 42
+ADV 5 (0x01cb -> 0x01d0) 01 00 00 00 2a 
+P   12 | live 42
+ADV 5 (0x01cb -> 0x01d0) 01 00 00 00 2a 
+P   11 | live 42
+ADV 5 (0x008d -> 0x0092) 01 00 00 00 2a 
+P    8 | ld 436432902 r6
+ADV 7 (0x0209 -> 0x0210) 02 90 1a 03 70 06 06 
+P    7 | live 42
+ADV 5 (0x01a3 -> 0x01a8) 01 00 00 00 2a 
+P    6 | live 42
+ADV 5 (0x01a3 -> 0x01a8) 01 00 00 00 2a 

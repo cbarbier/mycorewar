@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/07 18:25:53 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/20 19:18:00 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,5 @@ int			parse_pcb_n_param(t_vm *vm, t_proc *proc)
 		proc->adv += get_param(vm, proc, i, t);
 		i++;
 	}
-	return (1);
+	return (!proc->error_pcb);
 }

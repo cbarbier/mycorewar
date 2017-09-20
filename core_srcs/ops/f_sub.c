@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/26 12:58:16 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/20 18:10:56 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		f_sub(t_vm *vm, t_proc *proc)
 	proc->reg[i_reg] = p0 - p1;
 	proc->carry = !(proc->reg[i_reg]);
 	if (vm->verbose & 4)
-		ft_printf("p%4d | add r%d r%d r%d\n", proc->id,
+		ft_printf("P%5d | sub r%d r%d r%d\n", proc->id,
 				proc->param[0], proc->param[1], i_reg + 1);
 	return (1);
 }

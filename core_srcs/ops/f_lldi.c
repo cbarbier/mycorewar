@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/06 11:57:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/20 18:01:06 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		f_lldi(t_vm *vm, t_proc *proc)
 	proc->carry = !proc->reg[i_reg];
 	if (vm->verbose & 4)
 	{
-		ft_printf("P%4d | lldi %d %d r%d\n", proc->id,
+		ft_printf("P%5d | lldi %d %d r%d\n", proc->id,
 				p0, p1, proc->param[2]);
 		ft_printf("      | -> load from %d + %d = %d (with pc %d)\n",
 				p0, p1, p0 + p1, proc->pc + p0 + p1);

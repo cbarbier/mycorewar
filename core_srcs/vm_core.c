@@ -6,11 +6,17 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/11 17:21:28 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/20 20:10:53 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+static void	reset_players_live(t_vm *vm, int nb_pl)
+{
+	while (nb_pl--)
+		vm->players[nb_pl].live_in_ctd = 0;
+}
 
 static int	kill_proc(void *arg_proc, void *arg_vm)
 {
@@ -23,7 +29,7 @@ static int	kill_proc(void *arg_proc, void *arg_vm)
 	tmp = proc->alive;
 	if (!tmp && (vm->verbose & 8))
 		ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-				proc->id, vm->cycle - proc->last_live_cycle, vm->ctd);
+		proc->id, vm->cycle - proc->last_live_cycle, vm->ctd + CYCLE_DELTA);
 	proc->alive = 0;
 	return (!tmp);
 }
@@ -41,6 +47,7 @@ static int	vm_rules(t_vm *vm)
 			vm->check++;
 		vm->ctd_cycle = 0;
 		ft_lstfilter(&(vm->procs), free_proc, kill_proc, vm);
+		reset_players_live(vm, vm->nb_players);
 	}
 	return (1);
 }

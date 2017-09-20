@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/11 17:15:26 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/20 20:17:52 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int		vb_operation_live(t_vm *vm, t_proc *proc, int id)
 {
 	if (!(vm->verbose & 4))
 		return (0);
-	ft_printf("P%4d | live %d\n", proc->id, id);
+	ft_printf("P%5d | live %d\n", proc->id, id);
 	return (1);
 }
 
@@ -40,21 +40,20 @@ int				f_live(t_vm *vm, t_proc *proc)
 	t_player	*pl;
 
 	id = proc->param[0];
-	pl = get_player_by_id(vm, id);
-	if (pl)
+	if ((pl = get_player_by_id(vm, id)))
 	{
 		if (vm->ncurse)
 			make_it_blink(vm, proc);
 		vm->last_player_live = pl;
 		pl->last_live_cycle = vm->cycle;
 		pl->live_in_ctd++;
-		proc->last_live_cycle = vm->cycle;
 		vm->live_in_ctd++;
 	}
+	proc->last_live_cycle = vm->cycle;
 	proc->alive++;
 	vb_operation_live(vm, proc, id);
 	if (pl && (vm->verbose & 1))
 		ft_printf("Player %d (%s) is said to be alive\n",
-				pl->id, pl->header.prog_name);
+				pl->index, pl->header.prog_name);
 	return (1);
 }

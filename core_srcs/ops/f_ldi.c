@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/06 11:55:12 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/20 18:35:03 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int		f_ldi(t_vm *vm, t_proc *proc)
 		return (0);
 	i_reg = proc->param[2] - 1;
 	proc->reg[i_reg] = getnbytes(vm,
-			proc->pc + m0d((p0 & p1), IDX_MOD), 4, &addr);
+			proc->pc + m0d((p0 + p1), IDX_MOD), 4, &addr);
 	if (vm->verbose & 4)
 	{
-		ft_printf("P%4d | ldi %d %d r%d\n", proc->id,
+		ft_printf("P%5d | ldi %d %d r%d\n", proc->id,
 				p0, p1, proc->param[2]);
-		ft_printf("      | -> load from %d + %d = %d (with pc and mod %d)\n",
+		ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
 				p0, p1, p0 + p1, addr);
 	}
 	return (1);
