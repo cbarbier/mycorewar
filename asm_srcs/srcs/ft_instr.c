@@ -6,183 +6,54 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:45:47 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/13 14:51:25 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/20 14:16:15 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-extern t_op op_tab[17];
+extern t_op g_tab[17];
 
-int		ft_isspe(char *op)
+void	ft_fill_param(t_champ *champ, int res, int size, int i)
 {
-	if (op && (ft_strcmp(op, "zjmp") == 0 || ft_strcmp(op, "live") == 0 ||
-				ft_strcmp(op, "fork") == 0 || ft_strcmp(op, "lfork") == 0))
-		return (1);
-	return (0);
-}
-
-int		ft_prelabel(t_champ *node, char *label)
-{
-	int		size;
-
-	size = 0;
-	while (node)
+	while (i >= 0)
 	{
-		if (node->instr == 1)
-		{
-			if (ft_isspe(node->op))
-				size += node->size + 1;
-			else
-				size += node->size + 2;
-		}
-		if (node->lab == 1 && ft_strcmp(node->label, label) == 0)
-			return (size);
-		node = node->next;
+		champ->param[size - i] = res >> (i * 8);
+		i--;
 	}
-	return (-1);
 }
 
-int		ft_postlabel(t_champ *champ, t_champ *node)
+void	ft_fill_codage(t_champ *champ, int i)
 {
-	int		size;
-
-	size = 0;
-	while (node)
+	while (i < 4)
 	{
-		if (champ == node)
-			return (-size);
-		if (node->instr == 1)
-		{
-			if (ft_isspe(node->op))
-				size += node->size + 1;
-			else
-				size += node->size + 2;
-		}
-		node = node->next;
-	}
-	return (-1);
-}
-
-int		ft_label(char *label, t_champ *champ, t_champ *save)
-{
-	char	*lab;
-	int		size;
-
-	lab = ft_strjoin(label, ":", 0);
-	while (save)
-	{
-		if (save == champ)
-		{
-			size = ft_prelabel(save, lab);
-			free(lab);
-			return (size);
-		}
-		if (save->lab == 1 && ft_strcmp(lab, save->label) == 0)
-		{
-			size = ft_postlabel(champ, save);
-			free(lab);
-			return (size);
-		}
-		save = save->next;
-	}
-	free(lab);
-	return (-1);
-}
-
-void	ft_col(t_champ *champ)
-{
-	int		i;
-
-	i = 0;
-	while (champ->line[i] != LABEL_CHAR)
+		champ->codage <<= 2;
 		i++;
-	champ->col = i - 1;
+	}
 }
 
 int		ft_set_instr(t_champ *champ, t_champ *save)
 {
 	int		i;
 	int		size;
-	int		res;
 
 	i = 0;
-	if (!ft_isspe(champ->op) || ft_strcmp("live", champ->op) == 0)
-		size = 1;
-	else
-		size = 0;
-	res = 0;
+	size = !ft_isspe(champ->op) || !ft_strcmp("live", champ->op) ? 1 : 0;
 	while (champ->arg[i])
 	{
 		champ->codage <<= 2;
 		if (champ->arg[i][0] == 'r')
-		{
-			size += REG_SIZE;
-			champ->param[size] = ft_atoi(champ->arg[i] + 1);
-			champ->codage |= REG_CODE;
-		}
+			size = ft_gest_reg(champ, size, i);
 		else if (champ->arg[i][0] == DIRECT_CHAR)
 		{
-			if (champ->arg[i][1] == LABEL_CHAR)
-			{
-				size += IND_SIZE;
-				if ((res = ft_label(champ->arg[i] + 2, champ, save)) == -1)
-				{
-					champ->err = 1;
-					champ->errcode = 7;
-					ft_col(champ);
-					return (0);
-				}
-				champ->param[size - 1] = res >> 8;
-				champ->param[size] = res;
-			}
-			else
-			{
-				if (ft_strcmp(champ->op, "live") == 0)
-				{
-					size += 3;
-					res = ft_atoi(champ->arg[i] + 1);
-					champ->param[size - 3] = res >> 24;
-					champ->param[size - 2] = res >> 16;
-					champ->param[size - 1] = res >> 8;
-					champ->param[size] = res;
-				}
-				else if (ft_strcmp(champ->op, "zjmp") == 0 ||
-						ft_strcmp(champ->op, "sti") == 0 || ft_strcmp(champ->op,
-							"fork") == 0 || ft_strcmp(champ->op, "lfork") == 0)
-				{
-					size += IND_SIZE;
-					res = ft_atoi(champ->arg[i] + 1);
-					champ->param[size - 1] = res >> 8;
-					champ->param[size] = res;
-				}
-				else
-				{
-					size += DIR_SIZE;
-					res = ft_atoi(champ->arg[i] + 1);
-					champ->param[size - 3] = res >> 24;
-					champ->param[size - 2] = res >> 16;
-					champ->param[size - 1] = res >> 8;
-					champ->param[size] = res;
-				}	
-			}
-			champ->codage |= DIR_CODE;
+			if (!(size = ft_gest_dir(champ, save, size, i)))
+				return (0);
 		}
 		else
-		{
-			size += IND_SIZE;
-			champ->codage |= IND_CODE;
-			res = ft_atoi(champ->arg[i]);
-			champ->param[size - 1] = res >> 8;
-			champ->param[size] = res;
-		}
+			size = ft_gest_ind(champ, size, i);
 		i++;
 	}
-	while (i < 4)
-	{
-		champ->codage <<= 2;
-		i++;
-	}
+	ft_fill_codage(champ, i);
 	return (1);
 }
 

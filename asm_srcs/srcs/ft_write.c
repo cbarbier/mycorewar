@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:50:17 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/10 14:49:42 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/19 16:39:42 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int		ft_size(t_champ *node)
 
 static int		ft_total_size(t_champ *champ)
 {
-	int		total;
+	int				total;
 
 	total = 0;
 	while (champ)
@@ -56,21 +56,16 @@ int				ft_size_header(char *str, int size)
 	return (1);
 }
 
-void			ft_write(t_asm *sfile, t_champ *champ)
+void			ft_fill_bin(t_asm *sfile, t_champ *champ)
 {
-	int				size;
 	int				binlen;
 	int				fd;
+	int				size;
 	unsigned char	*bin;
 	unsigned char	*tmp;
 
 	binlen = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
 	bin = ft_memalloc(binlen + ft_total_size(champ));
-	if (!ft_size_header(sfile->header, ft_total_size(champ)))
-	{
-		free(bin);
-		return ;
-	}
 	ft_memcpy(bin, sfile->header, binlen);
 	tmp = bin + binlen;
 	while (champ)
@@ -87,6 +82,13 @@ void			ft_write(t_asm *sfile, t_champ *champ)
 	fd = open(sfile->file, O_CREAT | O_WRONLY, S_IRWXU | S_IRWXG | S_IRWXO);
 	write(fd, bin, binlen);
 	free(bin);
-	ft_printf("   Compilation succeeded.\n");
 	close(fd);
+}
+
+void			ft_write(t_asm *sfile, t_champ *champ)
+{
+	if (!ft_size_header(sfile->header, ft_total_size(champ)))
+		return ;
+	ft_fill_bin(sfile, champ);
+	ft_printf("   Compilation succeeded.\n");
 }

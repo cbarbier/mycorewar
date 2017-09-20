@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:42:43 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/19 13:08:49 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/20 09:58:53 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,14 @@ extern t_op g_tab[17];
 
 int		ft_check_args(char *arg, int itab, int i, t_champ *champ)
 {
-    if (arg[0] == 'r' && ft_isstrdigit(arg + 1) && (g_tab[itab].arg[i] == 3
+	if (arg[0] == 'r' && ft_isstrdigit(arg + 1) && (g_tab[itab].arg[i] == 3
 				|| g_tab[itab].arg[i] == 5 || g_tab[itab].arg[i] == 7 ||
 				g_tab[itab].arg[i] == 1))
 		champ->size += REG_SIZE;
 	else if (arg[0] == DIRECT_CHAR && (arg[1] == ':' || ft_isstrdigit(arg + 1))
 			&& (g_tab[itab].arg[i] == 3 || g_tab[itab].arg[i] == 6 ||
 			g_tab[itab].arg[i] == 7 || g_tab[itab].arg[i] == 2))
-	{
-		if (g_tab[itab].oind == 1)
-			champ->size += IND_SIZE;
-		else
-			champ->size += DIR_SIZE;
-	}
+		champ->size += g_tab[itab].oind == 1 ? IND_SIZE : DIR_SIZE;
 	else if (ft_isstrdigit(arg) && (g_tab[itab].arg[i] == 5 ||
 				g_tab[itab].arg[i] == 6 || g_tab[itab].arg[i] == 7 ||
 				g_tab[itab].arg[i] == 4))
@@ -44,60 +39,11 @@ int		ft_check_args(char *arg, int itab, int i, t_champ *champ)
 	return (1);
 }
 
-int		ft_check_separator(char *param, t_champ *champ)
+int		ft_param_err(t_champ *champ, char **arg, int itab)
 {
-	int		i;
-	int		flag;
-	char	**arg;
-	char	*tmp;
-
-	i = 0;
-	flag = 0;
-	arg = ft_strsplitnbif(param, ft_iscom, 1);
-	tmp = ft_erspace(arg[0]);
-	champ->err = 0;
-	while (tmp[i])
-	{
-		if (tmp[i] == SEPARATOR_CHAR)
-		{
-			if (!flag)
-				flag++;
-			else
-			{
-				champ->err = 1;
-				champ->errcode = 9;
-				champ->col = ft_strlen(champ->op) + 1 + i;
-				ft_free_strtab(arg);
-				return (0);
-			}
-		}
-		else
-			flag = 0;
-		i++;
-	}
-	if (tmp[ft_strlen(tmp) - 1] == SEPARATOR_CHAR)
-	{
-		champ->err = 1;
-		champ->errcode = 9;
-		champ->col = ft_strlen(champ->op) + ft_strlen(tmp);
-		ft_free_strtab(arg);
-		return (0);
-	}
-	ft_free_strtab(arg);
-	return (1);
-}
-
-int		ft_check_param(char *param, int itab, t_champ *champ)
-{
-	int		i;
-	char	**arg;
 	int		nbtab;
 
-	i = 0;
 	nbtab = 0;
-	if (!ft_check_separator(param, champ))
-		return (0);
-	arg = ft_strsplitif(param, ft_split_param);
 	while (arg[nbtab])
 		nbtab++;
 	if (nbtab < g_tab[itab].nbargs || (nbtab > g_tab[itab].nbargs
@@ -108,6 +54,20 @@ int		ft_check_param(char *param, int itab, t_champ *champ)
 		ft_free_strtab(arg);
 		return (0);
 	}
+	return (1);
+}
+
+int		ft_check_param(char *param, int itab, t_champ *champ)
+{
+	int		i;
+	char	**arg;
+
+	i = 0;
+	if (!ft_check_separator(param, champ))
+		return (0);
+	arg = ft_strsplitif(param, ft_split_param);
+	if (!ft_param_err(champ, arg, itab))
+		return (0);
 	while (arg[i] && i < g_tab[itab].nbargs)
 	{
 		if (!ft_check_args(arg[i], itab, i, champ))
@@ -122,6 +82,35 @@ int		ft_check_param(char *param, int itab, t_champ *champ)
 	return (1);
 }
 
+int		ft_no_param(char *op, t_champ *champ)
+{
+	int		i;
+
+	i = 0;
+	if (op[ft_strlen(op) - 1] == LABEL_CHAR)
+	{
+		champ->lab = 1;
+		champ->label = ft_strdup(ft_erspace(op));
+		if (!ft_forbidden_char(op))
+		{
+			champ->err = 1;
+			champ->errcode = 8;
+			return (0);
+		}
+		return (1);
+	}
+	else
+	{
+		champ->err = 1;
+		champ->op = ft_strdup(ft_erspace(op));
+		if ((i = ft_find_op(op)) == -1)
+			champ->errcode = 3;
+		else
+			champ->errcode = 4;
+		return (0);
+	}
+}
+
 int		ft_check(char *op, char *param, t_champ *champ)
 {
 	int		i;
@@ -130,32 +119,7 @@ int		ft_check(char *op, char *param, t_champ *champ)
 	if (op == NULL)
 		return (0);
 	if (param == NULL)
-	{
-		if (op[ft_strlen(op) - 1] == LABEL_CHAR)
-		{
-			champ->lab = 1;
-			champ->label = ft_strdup(ft_erspace(op));
-			if (!ft_forbidden_char(op))
-			{
-				champ->err = 1;
-				champ->errcode = 8;
-				return (0);
-			}
-			return (1);
-		}
-		else
-		{
-			champ->err = 1;
-			if ((i = ft_find_op(op)) == -1)
-				champ->errcode = 3;
-			else
-			{
-				champ->op = ft_strdup(ft_erspace(op));
-				champ->errcode = 4;
-			}
-			return (0);
-		}
-	}
+		return (ft_no_param(op, champ));
 	champ->instr = 1;
 	champ->op = ft_strdup(ft_erspace(op));
 	champ->args = ft_strdup(param);

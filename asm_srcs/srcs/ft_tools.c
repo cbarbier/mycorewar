@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:49:13 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/13 16:43:07 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/19 16:33:29 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_erspace(char *str)
 			str[i] = '\0';
 		i--;
 	}
-	while (str[j] && str[j] == ' ')
+	while (str[j] && ft_isspace(str[j]))
 		j++;
 	tmp = str + j;
 	return (tmp);
@@ -77,5 +77,3 @@ int		ft_forbidden_char(char *str)
 	}
 	return (1);
 }
-
-
