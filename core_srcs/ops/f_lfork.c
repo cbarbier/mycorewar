@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/21 17:15:08 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/09/21 22:21:40 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int		f_lfork(t_vm *vm, t_proc *proc)
 	ft_lstadd(&(vm->procs), elm);
 	new = (t_proc*)(vm->procs->content);
 	new->id = id;
+	if (vm->verbose & 4)
+		ft_printf("P %4d | lfork %d (%d)\n", proc->id, p0, new->pc + p0);
 	new->pc = proc->pc + m0d(p0, MEM_SIZE);
 	while (new->pc < 0)
 		new->pc += MEM_SIZE;
 	new->pc %= MEM_SIZE;
 	init_proc(vm, new, new->pc);
-	if (vm->verbose & 4)
-		ft_printf("P %4d | lfork %d (%d)\n", proc->id, p0, new->pc);
 	return (1);
 }
