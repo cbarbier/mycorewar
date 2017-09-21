@@ -36,6 +36,7 @@ all : $(NAME)
 $(NAME): $(OBJ) $(INC)
 		@$(NEWLINE)
 		@echo "Compilation de la libft..."
+		@Make -C Libft/
 		@$(NEWLINE)
 		@echo "Compilation de l'asm..."
 		@$(COMPILER) $(CC_FLAGS) $(OBJ) ./Libft/libft.a -o $(NAME)
@@ -48,11 +49,13 @@ $(NAME): $(OBJ) $(INC)
 
 clean:
 		@echo "Suppression des objets"
+		@Make clean -C Libft/
 		$(NEWLINE)
 		@rm -rf $(OBJ)
 
 fclean: clean
 		@echo "Suppression de l'executable"
+		@Make fclean -C Libft/
 		$(NEWLINE)
 		@rm -rf $(NAME)
 
