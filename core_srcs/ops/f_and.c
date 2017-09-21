@@ -6,11 +6,27 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/05 11:54:11 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/21 14:01:54 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+static void	put_type(t_proc *proc, int val, int i)
+{
+	if (proc->ptype[i] == T_REG)
+		ft_printf("%d ", proc->reg[val - 1]);
+	else
+		ft_printf("%d ", val);
+}
+
+static void	print(t_proc *proc, int i_reg, int p0, int p1)
+{
+	ft_printf("P %4d | and ", proc->id);
+	put_type(proc, p0, 0);
+	put_type(proc, p1, 1);
+	ft_printf("r%d\n", i_reg + 1);
+}
 
 int		f_and(t_vm *vm, t_proc *proc)
 {
@@ -26,7 +42,10 @@ int		f_and(t_vm *vm, t_proc *proc)
 	proc->reg[i_reg] = p0 & p1;
 	proc->carry = !(proc->reg[i_reg]);
 	if (vm->verbose & 4)
-		ft_printf("p%4d | and %d %d r%d\n", proc->id,
-				p0, p1, i_reg + 1);
+		print(proc, i_reg, p0, p1);
 	return (1);
 }
+/*
+		ft_printf("P %4d | and %d %d r%d\n", proc->id,
+				p0, p1, i_reg + 1);
+				*/

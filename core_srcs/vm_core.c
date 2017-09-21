@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/20 20:10:53 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/21 15:19:58 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,25 @@ static int	kill_proc(void *arg_proc, void *arg_vm)
 	tmp = proc->alive;
 	if (!tmp && (vm->verbose & 8))
 		ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-		proc->id, vm->cycle - proc->last_live_cycle, vm->ctd + CYCLE_DELTA);
+		proc->id, vm->cycle - proc->last_live_cycle, vm->ctd);
 	proc->alive = 0;
 	return (!tmp);
 }
 
 static int	vm_rules(t_vm *vm)
 {
-	if (vm->ctd_cycle == vm->ctd)
+	if (vm->ctd_cycle == vm->ctd || vm->ctd <= 0)
 	{
-		if (vm->live_in_ctd > NBR_LIVE || vm->check == MAX_CHECKS)
+		if (vm->live_in_ctd >= NBR_LIVE || vm->check == MAX_CHECKS - 1)
 		{
 			vm->ctd -= CYCLE_DELTA;
 			vm->check = 0;
+			if (vm->verbose & 2)
+				ft_printf("Cycle to die is now %d\n", vm->ctd);
 		}
 		else
 			vm->check++;
+		vm->live_in_ctd = 0;
 		vm->ctd_cycle = 0;
 		ft_lstfilter(&(vm->procs), free_proc, kill_proc, vm);
 		reset_players_live(vm, vm->nb_players);

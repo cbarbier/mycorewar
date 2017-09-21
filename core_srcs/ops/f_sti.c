@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/20 18:42:30 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/21 13:56:10 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			f_sti(t_vm *vm, t_proc *proc)
 		nc_sti(vm, proc, addr);
 	if (vm->verbose & 4)
 	{
-		ft_printf("P%5d | sti r%d %d %d\n", proc->id,
+		ft_printf("P %4d | sti r%d %d %d\n", proc->id,
 				proc->param[0], index, index2);
 		ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
 				index, index2, index + index2, proc->pc +

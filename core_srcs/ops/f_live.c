@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/20 20:17:52 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/21 15:13:29 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int		vb_operation_live(t_vm *vm, t_proc *proc, int id)
 {
 	if (!(vm->verbose & 4))
 		return (0);
-	ft_printf("P%5d | live %d\n", proc->id, id);
+	ft_printf("P %4d | live %d\n", proc->id, id);
 	return (1);
 }
 
@@ -25,7 +25,7 @@ static t_player	*get_player_by_id(t_vm *vm, int id)
 	int		i;
 
 	i = 0;
-	while (i < MAX_PLAYERS)
+	while (i < vm->nb_players)
 	{
 		if (vm->players[i].id == id)
 			return (vm->players + i);
