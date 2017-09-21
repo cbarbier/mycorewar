@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/20 20:05:29 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/21 18:14:24 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int			vb_introduce(t_vm *vm)
 
 int			vb_cycles(t_vm *vm)
 {
-	if (!(vm->verbose & 2))
+	if (!vm->procs || !(vm->verbose & 2))
 		return (0);
 	ft_printf("It is now cycle %d\n", vm->cycle);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/21 13:55:19 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/09/21 17:15:08 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		f_lfork(t_vm *vm, t_proc *proc)
 	if (!get_param_value(vm, proc, 0, &p0)
 	|| !(elm = ft_lstnew(proc, sizeof(t_proc))))
 		return (0);
-	id = ((t_proc*)(vm->procs->content))->id + 1;
+	id = ++vm->proc_cnt;
 	ft_lstadd(&(vm->procs), elm);
 	new = (t_proc*)(vm->procs->content);
 	new->id = id;

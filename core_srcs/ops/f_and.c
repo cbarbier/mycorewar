@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/21 14:01:54 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/09/21 16:37:00 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ int		f_and(t_vm *vm, t_proc *proc)
 	|| !is_reg(proc->param[2]))
 		return (0);
 	i_reg = proc->param[2] - 1;
+	if (vm->verbose & 4)
+		print(proc, i_reg, proc->param[0], p1);
 	proc->reg[i_reg] = p0 & p1;
 	proc->carry = !(proc->reg[i_reg]);
-	if (vm->verbose & 4)
-		print(proc, i_reg, p0, p1);
 	return (1);
 }
 /*

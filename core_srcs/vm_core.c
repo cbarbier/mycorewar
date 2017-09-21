@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/21 15:19:58 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/09/21 18:28:47 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	vm_rules(t_vm *vm)
 {
 	if (vm->ctd_cycle == vm->ctd || vm->ctd <= 0)
 	{
+		ft_lstfilter(&(vm->procs), free_proc, kill_proc, vm);
 		if (vm->live_in_ctd >= NBR_LIVE || vm->check == MAX_CHECKS - 1)
 		{
 			vm->ctd -= CYCLE_DELTA;
@@ -49,10 +50,9 @@ static int	vm_rules(t_vm *vm)
 			vm->check++;
 		vm->live_in_ctd = 0;
 		vm->ctd_cycle = 0;
-		ft_lstfilter(&(vm->procs), free_proc, kill_proc, vm);
 		reset_players_live(vm, vm->nb_players);
 	}
-	return (1);
+	return (vm->procs ? 1 : 0);
 }
 
 static int	vm_play(t_vm *vm)
@@ -84,11 +84,11 @@ int			vm_core(t_vm *vm)
 		nc_event_handling(vm);
 		if (vm->ncurse && (!vm->play || vm->step == vm->cycle))
 			continue;
-		vm->ctd_cycle++;
+		vm_rules(vm);
 		vm->cycle++;
+		vm->ctd_cycle++;
 		vb_cycles(vm);
 //		put_vm_infos(vm);
-		vm_rules(vm);
 		if (vm->cycle == -1)
 			ft_lstany(vm->procs, put_proc, 0);
 		vm_play(vm);

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/20 17:44:28 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/21 17:13:51 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	add_process(t_vm *vm, t_player *p, int pc)
 
 	ft_bzero(&proc, sizeof(t_proc));
 	proc.id = id_proc;
+	vm->proc_cnt = id_proc;
 	proc.cpair = id_proc++;
 	proc.reg[0] = p->id;
 	proc.pc = pc;

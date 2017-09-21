@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/11 15:37:30 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/21 17:14:09 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct	s_vm
 	int			play;
 	int			step;
 	int			quit;
+	int			proc_cnt;
 }				t_vm;
 typedef union	u_mem
 {

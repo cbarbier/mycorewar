@@ -1,3 +1,5 @@
-./corewar ../cw/zaz/champs/Gagnant.cor -v 29 | head -n $1 > dino.txt
-../cw/zaz/corewar ../cw/zaz/champs/Gagnant.cor -v 29 | head -n $1 > zaz.txt
+./corewar $1 -v 31 | head -n $2 > dino.txt
+../corewar.zaz/corewar $1 -v 31 | head -n $2 > zaz.txt
 diff dino.txt zaz.txt
+rm dino.txt
+rm zaz.txt
