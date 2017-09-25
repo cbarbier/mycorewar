@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/25 16:15:59 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/25 18:50:28 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
-# include "../core_srcs/libft/include/libft.h"
+# include "../core_srcs/libft/includes/libft.h"
 # include "core_op.h"
 # include <ncurses.h>
 # include <signal.h>

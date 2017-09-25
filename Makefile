@@ -92,17 +92,19 @@ CORE_OBJS			= $(addprefix $(CORE_OBJS_DIR)/, $(CORE_OBJ))
 all : $(ASM) $(COREWAR)
 
 .asm_objs/%.o:asm_srcs/srcs/%.c
-	$(COMPILER) $(CC_FLAGS) -Iasm_includes -c $< -o $@
+	@mkdir -p .asm_objs
+	@$(COMPILER) $(CC_FLAGS) -Iasm_includes -c $< -o $@
 
 .core_objs/%.o:core_srcs/srcs/%.c
-	$(COMPILER) $(CC_FLAGS) -Icore_includes -c $< -o $@
+	@mkdir -p .core_objs/ops
+	@$(COMPILER) $(CC_FLAGS) -Icore_includes -c $< -o $@
 
 $(ASM): $(ASM_OBJS) $(ASM_INC) $(ASM_LIBFT)/libft.a
-	$(COMPILER) $(CC_FLAGS) $(ASM_OBJS) -L $(ASM_LIBFT) -lft -o $(ASM)
+	@$(COMPILER) $(CC_FLAGS) $(ASM_OBJS) -L $(ASM_LIBFT) -lft -o $(ASM)
 	@echo "asm created !"
 
 $(COREWAR): $(CORE_OBJS) $(CORE_INC) $(CORE_LIBFT)/libft.a
-	$(COMPILER) $(CC_FLAGS) $(NCURSES) $(CORE_OBJS) -L $(CORE_LIBFT) -lft -o $(COREWAR)
+	@$(COMPILER) $(CC_FLAGS) $(NCURSES) $(CORE_OBJS) -L $(CORE_LIBFT) -lft -o $(COREWAR)
 	@echo "corewar created !"
 
 ifneq ($(shell make -q -C asm_srcs/libft;echo $$?), 0)

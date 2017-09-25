@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/25 16:09:24 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/25 19:10:35 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ int			vm_core(t_vm *vm)
 		vm->cycle++;
 		vm->ctd_cycle++;
 		vb_cycles(vm);
-		if (vm->cycle == -1)
-			ft_lstany(vm->procs, put_proc, 0);
 		vm_play(vm);
 		vm_rules(vm);
 		ft_lstfilter(&(vm->blinks), free_blk, reset_blk, vm);
