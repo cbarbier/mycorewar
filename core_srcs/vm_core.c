@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/21 21:46:51 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/09/25 13:28:33 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,11 @@ static int	vm_play(t_vm *vm)
 		proc = (t_proc*)(elm->content);
 		if (!--proc->exec_in)
 		{
-			if (parse_pcb_n_param(vm, proc))
-				g_tab[proc->op_code].f(vm, proc);
 			if (proc->op_code != -1)
+			{
+				g_tab[proc->op_code].f(vm, proc);
 				vb_pc_movement(vm, proc);
+			}
 			init_proc(vm, proc, proc->ipc);
 		}
 		elm = elm->next;
