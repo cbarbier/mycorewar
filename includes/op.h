@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/11 14:17:06 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/25 12:09:36 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ typedef struct			s_op
 	int		ope_code;
 	int		cycle_to_wait;
 	char	*description;
-	int		pcb;//has a param coding byte
-	int		var;//are the DIR param on 4 or 2 bytes.
-	int		mod;//is modulo IDX_MOD
+	int		pcb;
+	int		var;
+	int		mod;
 	int		(*f)(t_vm *vm, t_proc *proc);
 }						t_op;
 
