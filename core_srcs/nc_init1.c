@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/11 12:33:03 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/25 14:03:58 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int			nc_init(t_vm *vm)
 {
 	if (!vm->ncurse)
 		return (1);
+	system("killall afplay 2&>/dev/null >/dev/null\n afplay ./sounds/soundtrack_cor.mp3&");
 	vm->dump = -1; //ncurse overright dump
 	vm->verbose = 0;// and verbose
 	vm->aff = 0;// and aff

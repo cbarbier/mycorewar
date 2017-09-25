@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/08 16:25:12 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/25 13:51:57 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void		free_proc(void *e, size_t size)
 
 int			free_vm(t_vm *vm)
 {
+
+	system("killall afplay 2&>/dev/null >/dev/null\n");
 	ft_lstdel(&(vm->procs), free_proc);
 	ft_lstdel(&(vm->blinks), free_blk);
 	if (vm->ncurse)
