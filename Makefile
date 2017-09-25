@@ -90,10 +90,10 @@ CORE_OBJS			=   $(addprefix $(CORE_OBJS_DIR)/, $(CORE_OBJ))
 
 all : $(ASM) $(COREWAR)
 
-$(ASM_OBJS_DIR)/%.o: $(ASM_SRC_DIR)/srcs%.c $(ASM_INC)
+$(ASM_OBJS_DIR)/%.o: $(ASM_OBJS) $(ASM_INC)
 	$(COMPILER) $(CC_FLAGS) -I asm_includes -c $< -o $@
 
-$(CORE_OBJS_DIR)/%.o: $(CORE_SRC_DIR)/srcs/%.c $(CORE_INC)
+$(CORE_OBJS_DIR)/%.o: $(CORE_OBJS) $(CORE_INC)
 	$(COMPILER) $(CC_FLAGS) -I core_includes -c $< -o $@
 
 $(ASM): $(ASM_OBJS) $(ASM_INC) $(ASM_LIBFT)/libft.a
