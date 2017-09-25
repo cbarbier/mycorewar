@@ -1,57 +1,142 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/05/12 18:37:35 by cbarbier         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+ASM					= asm
 
-CORE			= corewar
-ASM			= asm
-LIB				= libft/libft.a
-CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror
-CORE_HDR			= includes/corewar.h
-ASM_HDR				= includes/asm.h
-CORE_SRCS			= core_srcs/main.c
+COREWAR				= corewar
+COMPILER			= gcc
 
-ASM_SRCS			= asm_srcs/main.c
+CC_FLAGS			= -Wall -Werror -Wextra -g
 
-CORE_OBJS			= $(CORE_SRCS:.c=.o)
-ASM_OBJS			= $(ASM_SRCS:.c=.o)
+LIBFT				=	libft/
 
-all: $(CORE) $(ASM) 
-	@echo " / \   / \   / \   / \   / \   / \   / \ "
-	@echo "( c ) ( o ) ( r ) ( e ) ( w ) ( a ) ( r )"
-	@echo " \_/   \_/   \_/   \_/   \_/   \_/   \_/ "
+ASM_INC				= asm_includes/asm.h \
+					  asm_includes/asm_op.h
 
-%.o:%.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+CORE_INC			= core_includes/core_op.h \
+					  core_includes/corewar.h
 
-$(CORE): $(LIB) $(CORE_OBJS) $(CORE_HDR)
-	@$(CC) $(CFLAGS) -o $(CORE) $(CORE_OBJS) -Llibft -lft
-	@echo "COREWAR BUILT\t\t\033[0;32m✓\033[0m"
+ASM_SRC_DIR			= asm_src/srcs
 
-$(ASM): $(LIB) $(ASM_OBJS) $(ASM_HDR)
-	@$(CC) $(CFLAGS) -o $(ASM) $(ASM_OBJS) -Llibft -lft
-	@echo "ASM BUILT\t\t\033[0;32m✓\033[0m"
-$(LIB):
-	@make -C libft
+CORE_SRC_DIR		= core_src/srcs
+
+ASM_SRC				=	main.c \
+						ft_asm.c \
+						ft_tools.c \
+						ft_tools2.c \
+						ft_label.c \
+						ft_separator.c \
+						ft_gest_instr.c \
+						ft_head.c \
+						ft_check.c \
+						ft_write.c \
+						ft_instr.c \
+						ft_errors.c \
+						ft_header.c \
+						op.c \
+						ft_launcher.c
+
+CORE_SRC			= main.c \
+					  op.c \
+					  parse_argv.c \
+					  parse_player.c \
+					  parse_pcb_n_param.c \
+					  init_vm.c \
+					  vm_core.c \
+					  tools.c \
+					  debug.c \
+					  fr33.c \
+					  verbosity1.c \
+					  nc_init1.c \
+					  nc_init2.c \
+					  nc_update1.c \
+					  nc_event.c \
+					  nc_blink.c \
+					  ops/f_live.c \
+					  ops/f_ld.c \
+					  ops/f_add.c \
+					  ops/f_sub.c \
+					  ops/f_and.c \
+					  ops/f_st.c \
+					  ops/f_or.c \
+					  ops/f_xor.c \
+					  ops/f_sti.c \
+					  ops/f_ldi.c \
+					  ops/f_zjmp.c \
+					  ops/f_fork.c \
+					  ops/f_lld.c \
+					  ops/f_lldi.c \
+					  ops/f_lfork.c \
+					  ops/f_aff.c
+
+
+ASM_SRCS			= $(addprefix $(ASM_SRC_DIR)/, $(ASM_SRC))
+
+CORE_SRCS			= $(addprefix $(CORE_SRC_DIR)/, $(CORE_SRC))
+
+ASM_LIBFT			= $(addprefix $(ASM_SRC_DIR)/, $(LIBFT))
+
+CORE_LIBFT			= $(addprefix $(CORE_SRC_DIR)/, $(LIBFT))
+
+ASM_OBJ				= $(ASM_SRC:.c=.o)
+
+CORE_OBJ			= $(CORE_SRC:.c=.o)
+
+ASM_OBJS_DIR		= .asm_objs
+
+CORE_OBJS_DIR		= .core_objs
+
+ASM_OBJS			=   $(addprefix $(ASM_OBJS_DIR)/, $(ASM_OBJ))
+
+CORE_OBJS			=   $(addprefix $(CORE_OBJS_DIR)/, $(CORE_OBJ))
+
+all : $(ASM) $(COREWAR)
+
+$(ASM): $(ASM_OBJS) $(ASM_INC) $(ASM_LIBFT)/libft.a
+	$(COMPILER) $(CC_FLAGS) $(ASM_OBJ) -L $(ASM_LIBFT) -lft -o $(ASM)
+	@echo "asm created !"
+
+$(COREWAR): $(CORE_OBJS) $(CORE_INC) $(CORE_LIBFT)/libft.a
+	$(COMPILER) $(CC_FLAGS) $(CORE_OBJ) -L $(CORE_LIBFT) -lft -o $(COREWAR)
+	@echo "corewar created !"
+
+$(ASM_OBJS_DIR):
+	mkdir -p $(ASM_OBJS_DIR)
+
+$(ASM_OBJS): | $(ASM_OBJS_DIR)
+
+$(CORE_OBJS_DIR):
+	mkdir -p $(CORE_OBJS_DIR)
+
+$(CORE_OBJS): | $(CORE_OBJS_DIR)
+
+$(ASM_OBJS_DIR)/%.o: $(ASM_SRC_DIR)/%.c $(ASM_INC)
+	$(COMPILER) $(CC_FLAGS) -I includes -c $< -o $@
+
+$(CORE_OBJS_DIR)/%.o: $(CORE_SRC_DIR)/%.c $(CORE_INC)
+	$(COMPILER) $(CC_FLAGS) -I includes -c $< -o $@
+
+ifneq ($(shell $(MAKE) -q -C ./$(ASM_LIBFT) ; echo $$?), 0)
+	.PHONY: $(ASM_LIBFT)/libft.a
+endif
+
+ifneq ($(shell $(MAKE) -q -C ./$(CORE_LIBFT) ; echo $$?), 0)
+	.PHONY: $(CORE_LIBFT)/libft.a
+endif
+
+$(ASM_LIBFT)/libft.a:
+	Make -C $(ASM_LIBFT)
+
+$(CORE_LIBFT)/libft.a:
+	Make -C $(CORE_LIBFT)
 
 clean:
-	@/bin/rm -rf $(CORE_OBJS)
-	@/bin/rm -rf $(ASM_OBJS)
-	@make -C libft clean
+	@echo "Suppression des objets"
+	Make clean -C $(CORE_LIBFT)
+	Make clean -C $(ASM_LIBFT)
+	@rm -rf $(OBJ)
 
 fclean: clean
-	@/bin/rm -rf $(CORE)
-	@/bin/rm -rf $(ASM)
-	@make -C libft fclean
+	@echo "Suppression de l'executable"
+	@rm -rf $(NAME)
 
-re: fclean all
-
-.PHONY: clean fclean all re
+re: fclean 
+	@$(MAKE) all
+.PHONY: all clean fclean re
