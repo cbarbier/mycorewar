@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/09/11 14:16:06 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/09/25 12:18:44 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ CORE_SRCS			= core_srcs/main.c \
 					  core_srcs/init_vm.c \
 					  core_srcs/vm_core.c \
 					  core_srcs/tools.c \
-					  core_srcs/debug.c \
 					  core_srcs/fr33.c \
 					  core_srcs/verbosity1.c \
 					  core_srcs/nc_init1.c \
