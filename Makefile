@@ -1,9 +1,10 @@
 ASM					= asm
 
 COREWAR				= corewar
+
 COMPILER			= gcc
 
-CC_FLAGS			= -Wall -Werror -Wextra -g
+CC_FLAGS			= -Wall -Werror -Wextra
 
 LIBFT				=	libft/
 
@@ -13,9 +14,9 @@ ASM_INC				= asm_includes/asm.h \
 CORE_INC			= core_includes/core_op.h \
 					  core_includes/corewar.h
 
-ASM_SRC_DIR			= asm_src/srcs
+ASM_SRC_DIR			= asm_srcs/
 
-CORE_SRC_DIR		= core_src/srcs
+CORE_SRC_DIR		= core_srcs/
 
 ASM_SRC				=	main.c \
 						ft_asm.c \
@@ -67,9 +68,9 @@ CORE_SRC			= main.c \
 					  ops/f_aff.c
 
 
-ASM_SRCS			= $(addprefix $(ASM_SRC_DIR)/, $(ASM_SRC))
+ASM_SRCS			= $(addprefix $(ASM_SRC_DIR)/srcs, $(ASM_SRC))
 
-CORE_SRCS			= $(addprefix $(CORE_SRC_DIR)/, $(CORE_SRC))
+CORE_SRCS			= $(addprefix $(CORE_SRC_DIR)/srcs, $(CORE_SRC))
 
 ASM_LIBFT			= $(addprefix $(ASM_SRC_DIR)/, $(LIBFT))
 
@@ -89,12 +90,18 @@ CORE_OBJS			=   $(addprefix $(CORE_OBJS_DIR)/, $(CORE_OBJ))
 
 all : $(ASM) $(COREWAR)
 
+$(ASM_OBJS_DIR)/%.o: $(ASM_SRC_DIR)/srcs%.c $(ASM_INC)
+	$(COMPILER) $(CC_FLAGS) -I asm_includes -c $< -o $@
+
+$(CORE_OBJS_DIR)/%.o: $(CORE_SRC_DIR)/srcs/%.c $(CORE_INC)
+	$(COMPILER) $(CC_FLAGS) -I core_includes -c $< -o $@
+
 $(ASM): $(ASM_OBJS) $(ASM_INC) $(ASM_LIBFT)/libft.a
-	$(COMPILER) $(CC_FLAGS) $(ASM_OBJ) -L $(ASM_LIBFT) -lft -o $(ASM)
+	$(COMPILER) $(CC_FLAGS) $(ASM_OBJS) -L $(ASM_LIBFT) -lft -o $(ASM)
 	@echo "asm created !"
 
 $(COREWAR): $(CORE_OBJS) $(CORE_INC) $(CORE_LIBFT)/libft.a
-	$(COMPILER) $(CC_FLAGS) $(CORE_OBJ) -L $(CORE_LIBFT) -lft -o $(COREWAR)
+	$(COMPILER) $(CC_FLAGS) $(CORE_OBJS) -L $(CORE_LIBFT) -lft -o $(COREWAR)
 	@echo "corewar created !"
 
 $(ASM_OBJS_DIR):
@@ -106,12 +113,6 @@ $(CORE_OBJS_DIR):
 	mkdir -p $(CORE_OBJS_DIR)
 
 $(CORE_OBJS): | $(CORE_OBJS_DIR)
-
-$(ASM_OBJS_DIR)/%.o: $(ASM_SRC_DIR)/%.c $(ASM_INC)
-	$(COMPILER) $(CC_FLAGS) -I includes -c $< -o $@
-
-$(CORE_OBJS_DIR)/%.o: $(CORE_SRC_DIR)/%.c $(CORE_INC)
-	$(COMPILER) $(CC_FLAGS) -I includes -c $< -o $@
 
 ifneq ($(shell $(MAKE) -q -C ./$(ASM_LIBFT) ; echo $$?), 0)
 	.PHONY: $(ASM_LIBFT)/libft.a
@@ -128,14 +129,17 @@ $(CORE_LIBFT)/libft.a:
 	Make -C $(CORE_LIBFT)
 
 clean:
-	@echo "Suppression des objets"
+	@echo "Removing objects"
 	Make clean -C $(CORE_LIBFT)
 	Make clean -C $(ASM_LIBFT)
 	@rm -rf $(OBJ)
 
 fclean: clean
-	@echo "Suppression de l'executable"
-	@rm -rf $(NAME)
+	@echo "Removing exe"
+	@rm -rf $(CORE_LIBFT)/libft.a
+	@rm -rf $(ASM_LIBFT)/libft.a
+	@rm -rf $(ASM)
+	@rm -rf $(COREWAR)
 
 re: fclean 
 	@$(MAKE) all
