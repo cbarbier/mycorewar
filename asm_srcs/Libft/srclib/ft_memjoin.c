@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 17:20:00 by fmaury            #+#    #+#             */
-/*   Updated: 2017/02/22 17:22:11 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/25 12:03:18 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void		*ft_memjoin(void *s1, void *s2, int len1, int len2)
 {
-	int		j;
+	int				j;
 	unsigned char	*str;
-  unsigned char *s2b;
+	unsigned char	*s2b;
 
-s2b = (unsigned char*)s2;
+	s2b = (unsigned char*)s2;
 	j = 0;
 	if (!(str = ft_memalloc(len1 + len2)))
 		return (NULL);

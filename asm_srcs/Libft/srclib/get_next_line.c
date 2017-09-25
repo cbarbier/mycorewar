@@ -6,13 +6,13 @@
 /*   By: fmaury <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 15:06:22 by fmaury            #+#    #+#             */
-/*   Updated: 2017/03/15 10:36:11 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/25 12:13:49 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_lecture(int fd, char *buf, char **line, int ret)
+int				ft_lecture(int fd, char *buf, char **line, int ret)
 {
 	int			i;
 	int			save_ret;
@@ -41,7 +41,7 @@ int		ft_lecture(int fd, char *buf, char **line, int ret)
 	return (save_ret);
 }
 
-void	ft_check2(int i, int len, char **line, char *str)
+void			ft_check2(int i, int len, char **line, char *str)
 {
 	int			j;
 	char		tmp[BUFF_SIZE];
@@ -94,7 +94,7 @@ static int		ft_check(char **line, char *str)
 	return (-1);
 }
 
-void	ft_cpy_buf(char *buf, char *str)
+void			ft_cpy_buf(char *buf, char *str)
 {
 	int			i;
 	int			j;
@@ -113,7 +113,7 @@ void	ft_cpy_buf(char *buf, char *str)
 	str[j] = '\0';
 }
 
-int		get_next_line(const int fd, char **line)
+int				get_next_line(const int fd, char **line)
 {
 	char			buf[BUFF_SIZE + 1];
 	int				ret;

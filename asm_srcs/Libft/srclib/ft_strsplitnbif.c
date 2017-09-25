@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplitnbif.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbarbier et fmaury <marvin@42.fr>          +#+  +:+       +#+        */
+/*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/12 12:31:51 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/06/09 14:40:35 by fmaury           ###   ########.fr       */
+/*   Created: 2017/09/25 12:03:49 by fmaury            #+#    #+#             */
+/*   Updated: 2017/09/25 12:11:33 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int nb_words(char **aptr, int (*f)(char))
+static int				nb_words(char **aptr, int (*f)(char))
 {
-	unsigned int nbwords;
-	char*ptr;
+	unsigned int	nbwords;
+	char			*ptr;
 
 	ptr = *aptr;
 	nbwords = 0;

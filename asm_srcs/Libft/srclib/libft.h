@@ -6,7 +6,7 @@
 /*   By: fmaury <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 09:44:40 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/11 10:28:12 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/25 12:12:53 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ char				*ft_cmjoin(char *str, char c, int len);
 char				*ft_strjoin(char const *s1, char const *s2, int fr);
 char				*ft_strljoin(char *s1, char *s2, int len1, int len2);
 char				*ft_strtrim(char const *s);
-void	    	*ft_memjoin(void *s1, void *s2, int len1, int len2);
+void				*ft_memjoin(void *s1, void *s2, int len1, int len2);
 char				**ft_strsplit(char const *s, char c);
 char				**ft_strsplitif(char const *s, int (*f)(char));
-char				**ft_strsplitnbif(char const *s, int (*f)(char),int n);
+char				**ft_strsplitnbif(char const *s, int (*f)(char), int n);
 char				**ft_strtab(char **tab, char *str);
 int					ft_sqrt(int nb);
 int					ft_isalpha(int c);
