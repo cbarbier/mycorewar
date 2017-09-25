@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/20 20:00:04 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/25 15:06:32 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int			nc_winner(t_vm *vm)
 
 	if (!vm->ncurse || vm->quit)
 		return (0);
+	system("killall afplay 2&>/dev/null >/dev/null\n afplay \
+			./sounds/endgame.mp3&");
 	i = 30;
 	p = vm->last_player_live;
 	init_pair(11, COLOR_BLACK, COLOR_MAGENTA);
