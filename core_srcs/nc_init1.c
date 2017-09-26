@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/25 14:54:58 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/09/26 10:33:35 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ static int	nc_init_helper(t_vm *vm)
 	init_pair(14, COLOR_RED, COLOR_MAGENTA);
 	init_pair(15, COLOR_CYAN, COLOR_MAGENTA);
 	vm->win = newwin(68, 260, 0, 0);
-	vm->war = newwin(66, 190, 1, 2);
-	vm->winfo = newwin(68, 67, 0, 193);
+	vm->war = newwin(66, 194, 1, 2);
+	vm->winfo = newwin(68, 67, 0, 196);
 	wattron(vm->win, COLOR_PAIR(10));
 	wattron(vm->winfo, COLOR_PAIR(10));
 	wborder(vm->win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
