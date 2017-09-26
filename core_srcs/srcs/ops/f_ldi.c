@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/21 13:55:03 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/09/25 17:18:16 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		f_ldi(t_vm *vm, t_proc *proc)
 		ft_printf("P %4d | ldi %d %d r%d\n", proc->id,
 				p0, p1, proc->param[2]);
 		ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
-				p0, p1, p0 + p1, addr);
+				p0, p1, p0 + p1, proc->pc + m0d(p0 + p1, IDX_MOD));
 	}
 	return (1);
 }

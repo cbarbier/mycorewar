@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/25 16:07:21 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/21 21:40:40 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int				f_live(t_vm *vm, t_proc *proc)
 		pl->last_live_cycle = vm->cycle;
 		pl->live_in_ctd++;
 	}
-	vm->live_in_ctd++;
+		vm->live_in_ctd++;
 	proc->last_live_cycle = vm->cycle;
 	proc->alive++;
 	vb_operation_live(vm, proc, id);

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/25 16:08:32 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/20 17:43:43 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static int	get_player(t_vm *vm, int *aindex, char **argv)
 		return (0);
 	if ((fd = open(argv[*aindex], O_RDONLY)) < 0)
 		return (0);
+//	ft_printf("fd %d\n", fd);
 	tmp = (*aindex > index ? 1 : 0);
 	*aindex = *aindex + 1;
 	return (add_player(vm, fd, tmp, id_arg));
@@ -74,6 +75,7 @@ int			parse_argv(t_vm *vm, int argc, char **argv)
 	ret = 1;
 	while (index < argc)
 	{
+//		ft_printf("arg %s ", argv[index]);
 		if (!ft_strcmp(argv[index], "-dump")
 		|| !ft_strcmp(argv[index], "-d"))
 			ret = get_next_int(&(vm->dump), &index, argv);
@@ -85,6 +87,7 @@ int			parse_argv(t_vm *vm, int argc, char **argv)
 			ret = ++index;
 		else if (!get_player(vm, &index, argv))
 			ret = 0;
+//		ft_printf("ret: %d\n", ret);
 		if (!ret)
 			return (0);
 	}

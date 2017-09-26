@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 14:58:36 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/25 16:05:26 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/26 11:06:38 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	put_arena(t_vm *vm)
 	return (1);
 }
 
-static void	inthandler(int sig)
+static void	sigint_handler(int sig)
 {
 	(void)sig;
 	system("killall afplay 2&>/dev/null >/dev/null\n");
@@ -56,7 +56,7 @@ int			main(int argc, char **argv)
 	g_resize = 0;
 	if (!init_vm(&vm, argc, argv))
 		return (put_usage(argv));
-	signal(SIGINT, inthandler);
+	signal(SIGINT, sigint_handler);
 	vb_introduce(&vm);
 	nc_init(&vm);
 	vm_core(&vm);

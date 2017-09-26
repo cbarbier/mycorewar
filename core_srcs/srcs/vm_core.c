@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/25 19:10:35 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/26 11:04:09 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static int	kill_proc(void *arg_proc, void *arg_vm)
 		}
 	}
 	proc->alive = 0;
+	if (!tmp)
+		nc_put_pc(vm, proc, 0);
 	if (vm->ctd <= 0)
 		return (1);
 	return (!tmp);

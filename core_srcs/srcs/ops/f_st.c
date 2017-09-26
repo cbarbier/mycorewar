@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/25 16:08:11 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/21 21:01:40 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int			f_st(t_vm *vm, t_proc *proc)
 	if (vm->ncurse)
 		nc_st(vm, proc, add);
 	if (vm->verbose & 4)
-		ft_printf("P %4d | st r%d %d\n", proc->id, proc->param[0],
-				proc->param[1]);
+		ft_printf("P %4d | st r%d %d\n", proc->id, proc->param[0], proc->param[1]);
 	return (1);
 }

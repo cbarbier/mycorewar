@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/25 16:07:46 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/21 16:52:27 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	print(t_proc *proc, int i_reg, int p0, int p1)
 	ft_printf("r%d\n", i_reg + 1);
 }
 
-int			f_or(t_vm *vm, t_proc *proc)
+int		f_or(t_vm *vm, t_proc *proc)
 {
 	int	p0;
 	int	p1;
@@ -45,3 +45,6 @@ int			f_or(t_vm *vm, t_proc *proc)
 	proc->carry = !(proc->reg[i_reg]);
 	return (1);
 }
+		/*ft_printf("P %4d | or %d %d r%d\n", proc->id,
+				p0, p1, i_reg + 1);
+				*/
