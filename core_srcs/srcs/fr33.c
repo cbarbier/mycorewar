@@ -29,6 +29,5 @@ int			free_vm(t_vm *vm)
 		curs_set(1);
 		endwin();
 	}
-	while (42);
 	return (1);
 }

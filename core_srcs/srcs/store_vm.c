@@ -59,9 +59,12 @@ int			apply_new_vm(t_vm **avm)
 	store = (*avm)->store;
 	if (!store || !*store)
 		return (0);
+	ft_lstdel(&(*avm)->procs, free_proc);
+	ft_lstdel(&(*avm)->blinks, free_blk);
 	*avm = ft_memcpy(*avm, (*store)->content, sizeof(t_vm));
 	(*avm)->prec = 0;
 	(*avm)->play = 0;
+	(*avm)->step = -1;
 	tmp = *store;
 	*store = (*store)->next;
 	ft_memdel((void **)&(tmp->content));
