@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/26 10:34:47 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/26 14:40:54 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static int	kill_proc(void *arg_proc, void *arg_vm)
 	tmp = proc->alive;
 	if (vm->ctd <= 0 || !tmp)
 	{
-		if (vm->ncurse)
-			system("afplay ./sounds/process_kill.mp3&");
+		if (vm->ncurse && vm->sound++ < 2)
+			system("afplay ./sounds/process_kill.mp3&");//ft_printf("\a");
 		if (vm->verbose & 8)
 		{
 			ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
@@ -60,6 +60,7 @@ static int	vm_rules(t_vm *vm)
 		}
 		else
 			vm->check++;
+		vm->sound = 0;
 		vm->live_in_ctd = 0;
 		vm->ctd_cycle = 0;
 		reset_players_live(vm, vm->nb_players);
