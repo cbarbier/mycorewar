@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 14:29:09 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/26 11:02:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/26 18:44:33 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ typedef struct		s_op
 	int				oind;
 }					t_op;
 
-int					ft_launcher(char *file);
+int					ft_size(t_champ *node);
+int					ft_total_size(t_champ *champ);
+int					ft_launcher(char *file, char *rnm, int oa);
 int					ft_head(t_asm *sfile);
 int					ft_set_header(t_asm *sfile);
 int					ft_asm(t_asm *sfile, t_champ *champ, int i);
@@ -87,5 +89,6 @@ void				ft_fill_param(t_champ *champ, int res, int size, int i);
 void				ft_write(t_asm *sfile, t_champ *champ);
 void				ft_error(t_asm *sfile);
 void				ft_col(t_champ *champ);
+void				ft_aff(t_asm *sfile, t_champ *champ);
 
 #endif
