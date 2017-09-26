@@ -50,6 +50,7 @@ CORE_SRC			= main.c \
 					  nc_init2.c \
 					  nc_update1.c \
 					  nc_event.c \
+					  store_vm.c \
 					  nc_blink.c \
 					  ops/f_live.c \
 					  ops/f_ld.c \

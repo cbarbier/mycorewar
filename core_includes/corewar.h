@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/25 18:50:28 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/26 22:12:08 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <ncurses.h>
 # include <signal.h>
 # define DEBUG		1
+# define MAX_STORE	10
 
 int				g_resize;
 typedef union	u_byte
@@ -88,6 +89,8 @@ typedef struct	s_vm
 	int			step;
 	int			quit;
 	int			proc_cnt;
+	t_list		**store;
+	int			prec;
 }				t_vm;
 typedef union	u_mem
 {
@@ -103,7 +106,7 @@ int				parse_player(t_player *p);
 int				parse_pcb_n_param(t_vm *vm, t_proc *proc);
 int				init_vm(t_vm *vm, int argc, char **argv);
 int				init_proc(t_vm *vm, t_proc *proc, int pc);
-int				vm_core(t_vm *vm);
+int				vm_core(t_vm **avm);
 int				is_reg(int reg);
 int				inc_pc(t_proc *proc, int n);
 int				getnbytes(t_vm *vm, int addr, int n, int *new_addr);
@@ -123,14 +126,17 @@ int				vb_winner(t_vm *vm);
 /*
 ** 	NCURSES FUNCTIONS
 */
+int				nc_init_arena(t_vm *vm);
+int				nc_init_pc(t_vm *vm);
 int				nc_init(t_vm *vm);
 int				nc_init_info(t_vm *vm);
 int				nc_loop(t_vm *vm);
 int				nc_put_pc(t_vm *vm, t_proc *proc, int put);
-int				nc_event_handling(t_vm *vm);
-int				nc_winner(t_vm *vm);
+int				nc_event_handling(t_vm **avm);
+int				nc_winner(t_vm **avm);
 int				make_it_blink(t_vm *vm, t_proc *proc);
 void			free_blk(void *e, size_t size);
+void			del_vm(void *e, size_t size);
 int				reset_blk(void *e, void *vm);
 int				is_blk(t_list *e, void *apc);
 void			resize_handler(int s);
@@ -153,6 +159,11 @@ int				f_lld(t_vm *vm, t_proc *proc);
 int				f_lldi(t_vm *vm, t_proc *proc);
 int				f_lfork(t_vm *vm, t_proc *proc);
 int				f_aff(t_vm *vm, t_proc *proc);
+/*
+** 	STORE FUNCTIONS
+*/
+void			store_vm(t_vm **avm);
+int				apply_new_vm(t_vm **avm);
 /*
 ** 	DEBUG FUNCTIONS
 */

@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstshift.c                                      :+:      :+:    :+:   */
+/*   ft_lstcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/21 12:04:13 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/26 17:18:33 by cbarbier         ###   ########.fr       */
+/*   Created: 2016/07/12 12:31:51 by cbarbier          #+#    #+#             */
+/*   Updated: 2017/09/26 19:40:14 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_lstshift(t_list **alst, void (*del)(void *, size_t))
+t_list		*ft_lstcpy(t_list *lst, size_t content_size)
 {
-	t_list *lst;
+	t_list			*new;
+	t_list			*tmp;
 
-	if (!alst || !del || !*alst)
-		return ;
-	lst = (*alst)->next;
-	del((*alst)->content, (*alst)->content_size);
-	ft_memdel((void **)alst);
-	*alst = lst;
+	new = 0;
+	while (lst)
+	{
+		if (!(tmp = ft_lstnew(lst->content, content_size)))
+			return (0);
+		ft_lstpushback(&new, tmp);
+		lst = lst->next;
+	}
+	return (new);
 }

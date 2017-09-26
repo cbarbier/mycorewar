@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/26 11:04:09 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/26 21:58:10 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static int	kill_proc(void *arg_proc, void *arg_vm)
 	tmp = proc->alive;
 	if (vm->ctd <= 0 || !tmp)
 	{
-		if (vm->ncurse)
-			system("afplay ./sounds/process_kill.mp3&");
+//		if (vm->ncurse)
+//			system("afplay ./sounds/process_kill.mp3&");
 		if (vm->verbose & 8)
 		{
 			ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
@@ -88,21 +88,26 @@ static int	vm_play(t_vm *vm)
 	return (1);
 }
 
-int			vm_core(t_vm *vm)
+int			vm_core(t_vm **avm)
 {
-	while (!vm->quit && vm->dump != vm->cycle && vm->procs)
+	while (!(*avm)->quit && (*avm)->dump != (*avm)->cycle && (*avm)->procs)
 	{
-		nc_event_handling(vm);
-		if (vm->ncurse && (!vm->play || vm->step == vm->cycle))
+		nc_event_handling(avm);
+		if ((*avm)->ncurse && (!(*avm)->play || (*avm)->step == (*avm)->cycle))
+		{
+			if ((*avm)->prec)
+				apply_new_vm(avm);
 			continue;
-		vm->cycle++;
-		vm->ctd_cycle++;
-		vb_cycles(vm);
-		vm_play(vm);
-		vm_rules(vm);
-		ft_lstfilter(&(vm->blinks), free_blk, reset_blk, vm);
-		nc_loop(vm);
+		}
+		store_vm(avm);
+		(*avm)->cycle++;
+		(*avm)->ctd_cycle++;
+		vb_cycles(*avm);
+		vm_play(*avm);
+		vm_rules(*avm);
+		ft_lstfilter(&((*avm)->blinks), free_blk, reset_blk, *avm);
+		nc_loop(*avm);
 	}
-	vm->play = -1;
+	(*avm)->play = -1;
 	return (1);
 }

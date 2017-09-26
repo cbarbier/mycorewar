@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/26 11:07:23 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/26 21:54:26 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	nc_init_colors(t_vm *vm)
 	return (1);
 }
 
-static int	nc_init_pc(t_vm *vm)
+int			nc_init_pc(t_vm *vm)
 {
 	t_list		*elm;
 	t_proc		*p;
@@ -46,7 +46,7 @@ static int	nc_init_pc(t_vm *vm)
 	return (1);
 }
 
-static int	nc_init_arena(t_vm *vm)
+int			nc_init_arena(t_vm *vm)
 {
 	int		i;
 	int		j;
@@ -100,8 +100,8 @@ int			nc_init(t_vm *vm)
 {
 	if (!vm->ncurse)
 		return (1);
-	system("killall afplay 2&>/dev/null >/dev/null\n afplay \
-			./sounds/soundtrack.mp3&");
+//	system("killall afplay 2&>/dev/null >/dev/null\n afplay \
+//			./sounds/soundtrack.mp3&");
 	vm->dump = -1;
 	vm->verbose = 0;
 	vm->aff = 0;

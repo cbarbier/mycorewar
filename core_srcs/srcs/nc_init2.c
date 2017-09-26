@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/08 14:15:59 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/26 21:59:20 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int		nc_put_info_const(t_vm *vm)
 int				nc_init_info(t_vm *vm)
 {
 	mvwprintw(vm->winfo, 3, 3, "COREWAR by team Dinosaurus");
-	mvwprintw(vm->winfo, 5, 3, "Cycle: %d", vm->cycle);
+	mvwprintw(vm->winfo, 5, 3, "Cycle: %-10d", vm->cycle);
 	mvwprintw(vm->winfo, 7, 3, "Processes: %d", ft_lstlen(vm->procs));
 	nc_put_info_players(vm);
 	nc_put_info_const(vm);

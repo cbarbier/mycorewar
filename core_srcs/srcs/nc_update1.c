@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/25 15:06:32 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/09/26 22:00:31 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	nc_update_info(t_vm *vm)
 	int		i;
 	int		cp;
 
-	mvwprintw(vm->winfo, 5, 10, "%d", vm->cycle);
+	mvwprintw(vm->winfo, 5, 10, "%-10d", vm->cycle);
 	j = 10;
 	i = -1;
 	mvwprintw(vm->winfo, 7, 14, "%d", ft_lstlen(vm->procs));
@@ -91,22 +91,24 @@ static void	nc_winner_helper(t_vm *vm, t_player *p, int i)
 	mvwprintw(vm->war, i + 4, 50, "%60s", "created by TEAM Dinosaurus");
 }
 
-int			nc_winner(t_vm *vm)
+int			nc_winner(t_vm **avm)
 {
 	t_player	*p;
 	int			i;
 	static int	loop = 0;
+	t_vm		*vm;
 
+	vm = *avm;
 	if (!vm->ncurse || vm->quit)
 		return (0);
-	system("killall afplay 2&>/dev/null >/dev/null\n afplay \
-			./sounds/endgame.mp3&");
+//	system("killall afplay 2&>/dev/null >/dev/null\n afplay \
+//			./sounds/endgame.mp3&");
 	i = 30;
 	p = vm->last_player_live;
 	init_pair(11, COLOR_BLACK, COLOR_MAGENTA);
 	while (!vm->quit)
 	{
-		nc_event_handling(vm);
+		nc_event_handling(avm);
 		wattron(vm->war, COLOR_PAIR(loop % 2 ? 11 : 9));
 		nc_winner_helper(vm, p, i);
 		wattroff(vm->war, COLOR_PAIR(loop % 2 ? 11 : 9));

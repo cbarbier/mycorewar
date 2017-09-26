@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 14:58:36 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/26 12:26:43 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/26 18:44:34 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,33 @@ static int	put_arena(t_vm *vm)
 static void	sigint_handler(int sig)
 {
 	(void)sig;
-	system("killall afplay 2&>/dev/null >/dev/null\n");
-	system("reset\n");
+//	system("killall afplay 2&>/dev/null >/dev/null\n");
+//	system("reset\n");
 	exit(0);
 }
 
 int			main(int argc, char **argv)
 {
 	t_vm		vm;
+	t_vm		*avm;
+	t_list		*store;
 
 	g_resize = 0;
-	if (!init_vm(&vm, argc, argv))
+	avm = &vm;
+	store = 0;
+	if (!init_vm(avm, argc, argv))
 		return (put_usage(argv));
+	vm.store = &store;
 	signal(SIGINT, sigint_handler);
-	vb_introduce(&vm);
-	nc_init(&vm);
-	vm_core(&vm);
-	nc_winner(&vm);
+	vb_introduce(avm);
+	nc_init(avm);
+	vm_core(&avm);
+	nc_winner(&avm);
 	if (vm.dump == vm.cycle)
-		put_arena(&vm);
+		put_arena(avm);
 	else if (!vm.ncurse)
-		vb_winner(&vm);
-	free_vm(&vm);
+		vb_winner(avm);
+	free_vm(avm);
 	return (0);
 }
 
