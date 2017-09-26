@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 14:58:36 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/26 11:06:38 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/26 12:26:43 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int			main(int argc, char **argv)
 int			put_usage(char **argv)
 {
 	ft_fprintf(2, "Usage: {red}%s{no} [-d N -v N -ncurse] ", argv[0]);
-	ft_fprintf(2, "< [-n N] champion1.cor> <...>\n");
+	ft_fprintf(2, "< [-n N] champion1.cor> <...>{1, 4}\n");
 	ft_fprintf(2, "#### TEXT OUTPUT MODE ##############################");
 	ft_fprintf(2, "############################\n");
 	ft_fprintf(2, "-{grn}d{no} N  : Dumps memory after N cycles then ");
