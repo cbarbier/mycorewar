@@ -92,21 +92,21 @@ CORE_OBJS			= $(addprefix $(CORE_OBJS_DIR)/, $(CORE_OBJ))
 
 all : $(ASM) $(COREWAR)
 
-.asm_objs/%.o:asm_srcs/srcs/%.c
+.asm_objs/%.o:asm_srcs/srcs/%.c $(ASM_INC)
 	@mkdir -p .asm_objs
 	@$(COMPILER) $(CC_FLAGS) -Iasm_includes -c $< -o $@
 
-.core_objs/%.o:core_srcs/srcs/%.c
+.core_objs/%.o:core_srcs/srcs/%.c $(CORE_INC)
 	@mkdir -p .core_objs/ops
 	@$(COMPILER) $(CC_FLAGS) -Icore_includes -c $< -o $@
 
 $(ASM): $(ASM_OBJS) $(ASM_INC) $(ASM_LIBFT)/libft.a
 	@$(COMPILER) $(CC_FLAGS) $(ASM_OBJS) -L $(ASM_LIBFT) -lft -o $(ASM)
-	@echo "asm created !"
+	@echo "ASM BUILT\t\t\033[0;32m✓\033[0m"
 
 $(COREWAR): $(CORE_OBJS) $(CORE_INC) $(CORE_LIBFT)/libft.a
 	@$(COMPILER) $(CC_FLAGS) $(NCURSES) $(CORE_OBJS) -L $(CORE_LIBFT) -lft -o $(COREWAR)
-	@echo "corewar created !"
+	@echo "COREWAR BUILT\t\t\033[0;32m✓\033[0m"
 
 ifneq ($(shell make -q -C asm_srcs/libft;echo $$?), 0)
 .PHONY: asm_srcs/libft/libft.a
@@ -117,21 +117,21 @@ ifneq ($(shell make -q -C core_srcs/libft;echo $$?), 0)
 endif
 
 $(ASM_LIBFT)/libft.a:
-	Make -C $(ASM_LIBFT)
+	@Make -C $(ASM_LIBFT)
 
 $(CORE_LIBFT)/libft.a:
-	Make -C $(CORE_LIBFT)
+	@Make -C $(CORE_LIBFT)
 
 clean:
-	@echo "Removing objects"
+	@echo "OBJECTS REMOVED\t\t\033[0;32m✓\033[0m"
 	@rm -rf $(CORE_OBJS)
 	@rm -rf $(ASM_OBJS)
-	Make clean -C $(CORE_LIBFT)
-	Make clean -C $(ASM_LIBFT)
+	@Make clean -C $(CORE_LIBFT)
+	@Make clean -C $(ASM_LIBFT)
 	@rm -rf $(OBJ)
 
 fclean: clean
-	@echo "Removing exe"
+	@echo "BINARIES REMOVED\t\033[0;32m✓\033[0m"
 	@rm -rf $(CORE_LIBFT)/libft.a
 	@rm -rf $(ASM_LIBFT)/libft.a
 	@rm -rf $(ASM)
