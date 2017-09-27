@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/20 19:18:00 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/27 16:33:36 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int			init_proc(t_vm *vm, t_proc *proc, int pc)
 	if (!ft_lstany(vm->blinks, is_blk, &(proc->pc)))
 		nc_put_pc(vm, proc, 0);
 	proc->op_code = getnbytes(vm, pc, 1, 0);
+//	if (proc->id == 75)
+//		ft_printf("op = %i %2.x should be %i", getnbytes(vm, 0x8a, 1, 0), pc, getnbytes(vm, 0x0008a, 1, 0));
 	proc->pc = pc;
 	nc_put_pc(vm, proc, 1);
 	proc->ipc = proc->pc;

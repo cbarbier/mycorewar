@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/26 10:34:47 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/27 19:04:21 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,18 @@ static int	vm_rules(t_vm *vm)
 	return (vm->procs ? 1 : 0);
 }
 
+static int	reset_proc(t_list *e, void *d)
+{
+	t_proc		*p;
+	t_vm		*vm;
+
+	vm = (t_vm *)d;
+	p = (t_proc *)(e->content);
+	if (!p->exec_in)
+		init_proc(vm, p, p->ipc);
+	return (1);
+}
+
 static int	vm_play(t_vm *vm)
 {
 	t_list	*elm;
@@ -82,10 +94,16 @@ static int	vm_play(t_vm *vm)
 				g_tab[proc->op_code].f(vm, proc);
 			if (proc->op_code != -1)
 				vb_pc_movement(vm, proc);
-			init_proc(vm, proc, proc->ipc);
+			//if (vm->cycle == 8920)
+			//	ft_printf("POP******************************* %d", getnbytes(vm, 0x008a, 1, 0));
+		if (proc->id == 964 && vm->cycle >= 23544)
+		{
+			put_proc(elm, vm);
+		}
 		}
 		elm = elm->next;
 	}
+	ft_lstany(vm->procs, reset_proc, vm);
 	return (1);
 }
 
@@ -99,13 +117,14 @@ int			vm_core(t_vm *vm)
 		vm->cycle++;
 		vm->ctd_cycle++;
 		vb_cycles(vm);
-		//		put_vm_infos(vm);
 		if (vm->cycle == -1)
 			ft_lstany(vm->procs, put_proc, 0);
 		vm_play(vm);
 		vm_rules(vm);
 		ft_lstfilter(&(vm->blinks), free_blk, reset_blk, vm);
 		nc_loop(vm);
+//		if (vm->cycle == 25346)
+//			exit(0);
 	}
 	vm->play = -1; //to stop thread for event handling
 	return (1);

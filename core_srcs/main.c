@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 14:58:36 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/25 14:33:32 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/09/27 15:08:13 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	put_arena(t_vm *vm)
 		while (i < 64)
 			ft_printf(" %.2x", vm->arena[64 * j + i++].i);
 		j++;
-		write(1, "\n", 1);
+		write(1, " \n", 2);
 	}
 	return (1);
 }

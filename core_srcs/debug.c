@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/11 15:54:43 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/27 19:01:33 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ int			put_vm_infos(t_vm *vm)
 int			put_proc(t_list *e, void *d)
 {
 	t_proc	*p;
+	t_vm	*vm;
 	int		i;
 
-	(void)d;
+	vm = (t_vm *)d;
 	if (!DEBUG)
 		return (0);
 	p = (t_proc*)(e->content);
@@ -68,6 +69,8 @@ int			put_proc(t_list *e, void *d)
 	while (++i < 3 && p->psize[i])
 		ft_printf("| %.1d      | %.2d  |  %.1d  |    % 8d|\n",
 				i, p->ptype[i], p->psize[i], p->param[i]);
+	ft_printf("-----------------------------------\n");
+	ft_printf("vm->cycle %d\n", vm->cycle);
 	ft_printf("-----------------------------------\n");
 	return (0);
 }
