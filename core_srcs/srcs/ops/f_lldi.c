@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/25 17:47:40 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/09/27 08:13:36 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		f_lldi(t_vm *vm, t_proc *proc)
 	if (!get_param_value(vm, proc, 0, &p0)
 	|| !get_param_value(vm, proc, 1, &p1)
 	|| !is_reg(proc->param[2]))
-			return (0);
+		return (0);
 	i_reg = proc->param[2] - 1;
 	proc->reg[i_reg] = getnbytes(vm, proc->pc + m0d(p0 & p1, MEM_SIZE), 4, 0);
 	proc->carry = !proc->reg[i_reg];

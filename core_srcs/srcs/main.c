@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 14:58:36 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/26 18:44:34 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/27 08:33:20 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ static int	put_arena(t_vm *vm)
 static void	sigint_handler(int sig)
 {
 	(void)sig;
-//	system("killall afplay 2&>/dev/null >/dev/null\n");
-//	system("reset\n");
-	exit(0);
+	system("killall afplay 2&>/dev/null >/dev/null\n");
 }
 
 int			main(int argc, char **argv)
@@ -80,22 +78,23 @@ int			put_usage(char **argv)
 	ft_fprintf(2, "< [-n N] champion1.cor> <...>{1, 4}\n");
 	ft_fprintf(2, "#### TEXT OUTPUT MODE ##############################");
 	ft_fprintf(2, "############################\n");
-	ft_fprintf(2, "-{grn}d{no} N  : Dumps memory after N cycles then ");
-	ft_fprintf(2, "exits\n");
+	ft_fprintf(2, "-{grn}d{no} N  : Dumps memory after N cycles then exits\n");
 	ft_fprintf(2, "-{grn}n{no} N  : Gives the given id to the following");
 	ft_fprintf(2, " champion (file .cor)\n");
 	ft_fprintf(2, "-{grn}v{no} N  : Verbosity levels, can be added ");
 	ft_fprintf(2, "together to enable several\n");
-	ft_fprintf(2, " - {yel}0{no}  : Show only essentials\n");
-	ft_fprintf(2, " - {yel}1{no}  : Show lives\n");
-	ft_fprintf(2, " - {yel}2{no}  : Show cycles\n");
-	ft_fprintf(2, " - {yel}4{no}  : Show operations ");
+	ft_fprintf(2, " - {yel}0{no}  : Shows only essentials\n");
+	ft_fprintf(2, " - {yel}1{no}  : Shows lives\n");
+	ft_fprintf(2, " - {yel}2{no}  : Shows cycles\n");
+	ft_fprintf(2, " - {yel}4{no}  : Shows operations ");
 	ft_fprintf(2, "(Params are NOT litteral ...)\n");
 	ft_fprintf(2, " - {yel}8{no}  : Show deaths\n");
-	ft_fprintf(2, " - {yel}16{no} : Show PC movements (Except for jumps)\n");
+	ft_fprintf(2, " - {yel}16{no} : Shows PC movements (Except for jumps)\n");
+	ft_fprintf(2, "-{grn}a{no}    : Prints operation Aff on the terminal\n");
 	ft_fprintf(2, "#### NCURSES OUTPUT MODE ##############################");
 	ft_fprintf(2, "##########################\n");
-	ft_fprintf(2, "-{blu}ncurse{no} : Ncurses output mode with some ");
+	ft_fprintf(2, "-{blu}ncurse{no}    : Ncurses output mode with some ");
 	ft_fprintf(2, "cool features\n");
+	ft_fprintf(2, "-{blu}sound{no} : puts some cool music on");
 	return (1);
 }

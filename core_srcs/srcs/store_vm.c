@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 15:33:17 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/26 22:25:55 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/27 08:12:42 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void				store_vm(t_vm **avm)
 	new_vm->blinks = ft_lstcpy((*avm)->blinks, sizeof(t_blk));
 	ft_lstadd((*avm)->store, new);
 	lst = *((*avm)->store);
-	i = 0;
+	i = 1;
 	while (lst->next && i < MAX_STORE)
 	{
 		i++;
@@ -51,7 +51,7 @@ void				store_vm(t_vm **avm)
 	}
 }
 
-int			apply_new_vm(t_vm **avm)
+int					apply_new_vm(t_vm **avm)
 {
 	t_list		**store;
 	t_list		*tmp;

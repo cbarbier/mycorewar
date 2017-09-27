@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/26 22:12:08 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/27 08:34:43 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct	s_blk
 typedef struct	s_proc
 {
 	int		id;
-	int		cpair;//index color pair
+	int		cpair;
 	int		player_id;
 	int		reg[REG_NUMBER];
 	int		pc;
@@ -57,7 +57,7 @@ typedef struct	s_player
 	int				id;
 	int				index;
 	int				fd;
-	int				live_in_ctd; // nb live by player in this cycle to die
+	int				live_in_ctd;
 	int				last_live_cycle;
 	t_header		header;
 	unsigned char	prog[CHAMP_MAX_SIZE + 2];
@@ -72,13 +72,13 @@ typedef struct	s_vm
 	int			nb_players;
 	t_byte		arena[MEM_SIZE];
 	char		colors[MEM_SIZE];
-	t_list		*procs;// list of processus
-	t_list		*blinks;// list of live byte to blink
+	t_list		*procs;
+	t_list		*blinks;
 	int			live_in_ctd;
 	t_player	*last_player_live;
 	int			cycle;
 	int			check;
-	int			ctd; //cycle to die
+	int			ctd;
 	int			ctd_cycle;
 	int			dump;
 	int			verbose;
@@ -91,6 +91,7 @@ typedef struct	s_vm
 	int			proc_cnt;
 	t_list		**store;
 	int			prec;
+	int			sound;
 }				t_vm;
 typedef union	u_mem
 {

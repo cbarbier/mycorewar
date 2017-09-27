@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/21 16:56:46 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/09/27 08:14:57 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	print(t_proc *proc, int i_reg, int p0, int p1)
 	ft_printf("r%d\n", i_reg + 1);
 }
 
-int		f_xor(t_vm *vm, t_proc *proc)
+int			f_xor(t_vm *vm, t_proc *proc)
 {
 	int	p0;
 	int	p1;

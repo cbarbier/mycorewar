@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op.h                                               :+:      :+:    :+:   */
+/*   core_op.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/11 14:17:06 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/27 09:04:59 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** Toutes les tailles sont en octets.
-** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
+** VM HEADER
 */
 
-#ifndef OP_H
-# define OP_H
+#ifndef CORE_OP_H
+# define CORE_OP_H
 
 # define IND_SIZE				2
 # define REG_SIZE				4
@@ -37,7 +36,7 @@
 # define NAME_CMD_STRING			".name"
 # define COMMENT_CMD_STRING		".comment"
 # define REG_NUMBER				16
-# define CYCLE_TO_DIE			1536
+# define CYCLE_TO_DIE			10 //1536
 # define CYCLE_DELTA				50
 # define NBR_LIVE				21
 # define MAX_CHECKS				10

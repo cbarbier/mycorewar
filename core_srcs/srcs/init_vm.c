@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/26 12:24:44 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/27 08:57:38 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ static int	init_vm_values(t_vm *vm)
 	vm->cps = 30;
 	vm->step = -2;
 	vm->last_player_live = vm->players + vm->nb_players - 1;
+	if (vm->sound)
+		vm->sound = vm->ncurse;
+	if (vm->ncurse)
+	{
+		vm->aff = 0;
+		vm->verbose = 0;
+		vm->dump = -1;
+	}
 	return (1);
 }
 

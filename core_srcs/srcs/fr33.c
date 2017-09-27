@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/26 22:11:21 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/27 08:58:50 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int			free_vm(t_vm *vm)
 	if (vm->ncurse)
 	{
 		ft_lstdel(vm->store, del_vm);
-		system("killall afplay 2&>/dev/null >/dev/null\n");
+		if (vm->sound)
+			system("killall afplay 2&>/dev/null >/dev/null\n");
 		curs_set(1);
 		endwin();
 	}

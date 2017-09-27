@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/26 21:45:30 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/27 08:07:51 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int				nc_event_handling(t_vm **avm)
 		return (0);
 	if ((key = getch()) == ERR)
 		return (0);
-	if (key == 97 && vm->cycle > 0 && !vm->play)
-		(*avm)->prec  = 1;
+	if (key == 97 && vm->cycle > 0 && (!vm->play || vm->step > 0))
+		(*avm)->prec = 1;
 	else if (key == 27 || vm->play == -1)
 		vm->quit = 1;
 	else if (key == ' ')
@@ -52,6 +52,5 @@ int				nc_event_handling(t_vm **avm)
 		nc_update_cps(vm, key, &(vm->cps));
 	else if (key == 's' && (vm->play = 1))
 		vm->step = vm->cycle + 1;
-//	mvwprintw(vm->winfo, 1, 1, "key : %10d\n", key);
 	return (1);
 }
