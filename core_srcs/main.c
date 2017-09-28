@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 14:58:36 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/27 15:08:13 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/28 12:37:17 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ int			main(int argc, char **argv)
 	if (!init_vm(&vm, argc, argv))
 		return (put_usage(argv));
 	signal(SIGINT, INThandler);
+	if (vm.ncurse)
+		system("killall afplay 2&>/dev/null >/dev/null\n afplay \
+		                        ./sounds/soundtrack.mp3&");
 	vb_introduce(&vm);
 	nc_init(&vm);
 	vm_core(&vm);
