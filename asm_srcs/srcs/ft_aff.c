@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:48:53 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/27 18:14:31 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/28 16:04:35 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		ft_print_instr(unsigned char tmp, t_champ *champ, int op, int size)
 		ft_printf("%d ", champ->param[size + j]);
 		j++;
 	}
+	(j < 3) ? ft_putstr("\t\t\t") : ft_putstr("\t\t");
 	return (i);
 }
 
@@ -52,7 +53,6 @@ void	ft_aff_param(t_champ *champ, int i)
 	{
 		tmp = champ->param[1] >> 2 * j;
 		tmp = tmp & 0x03;
-		ft_putstr("\t\t");
 		size += ft_print_instr(tmp, champ, i, size);
 		j--;
 	}
@@ -74,7 +74,7 @@ void	ft_byte_instr(t_champ *champ)
 		}
 		return ;
 	}
-	ft_printf("  %d", champ->codage);
+	ft_printf("  %d\t\t", champ->codage);
 	ft_aff_param(champ, i);
 }
 
@@ -86,7 +86,7 @@ void	ft_aff_instr(t_champ *champ, int size)
 	ft_printf("%d	(%d):		%s", size, ft_size(champ), champ->op);
 	while (champ->arg[i])
 	{
-		ft_printf("\t\t%s", champ->arg[i]);
+		ft_printf("\t\t%s\t", champ->arg[i]);
 		i++;
 	}
 	ft_printf("\n\t\t\t%d", champ->opcode);

@@ -6,66 +6,11 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 13:16:47 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/27 18:56:52 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/28 14:53:03 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-int		ft_isopt(char c)
-{
-	if (c == 'o')
-		return (1);
-	if (c == 'a')
-		return (2);
-	if (c == '-')
-		return (3);
-	return (0);
-}
-
-int				ft_res(int flag, int res)
-{
-	if (flag == 1)
-	{
-		if (res == 0 || res == 2)
-			return (1);
-	}
-	else if (flag == 2)
-	{
-		if (res < 2)
-			return (2);
-	}
-	return (0);
-}
-
-static int		ft_check_main_args(char *str)
-{
-	int i;
-	int	flag;
-	int dash;
-	int	res;
-
-	i = 0;
-	res = 0;
-	dash = 0;
-	if (str[0] != '-' || !ft_strcmp(str, "--"))
-		return (0);
-	while (str[i])
-	{
-		flag = 0;
-		if (str[i] == '-')
-			dash++;
-		if (dash > 1 || !(flag = ft_isopt(str[i])))
-		{
-			ft_printf("asm: illegal option -- %c\n", str[i]);
-			return (-1);
-		}
-		else
-			res += ft_res(flag, res);
-		i++;
-	}
-	return (res);
-}
 
 int		ft_msg_err(void)
 {
@@ -75,52 +20,62 @@ int		ft_msg_err(void)
 	return (0);
 }
 
+char	*ft_pick_str(char **av, int i)
+{
+	if (ft_strcmp("--", av[i]))
+		return (av[i]);
+	else
+	{
+		if (av[i + 1])
+			return (av[i + 1]);
+	}
+	return (NULL);
+}
+
+int		ft_parse_arg(int res, char **str_rnm, char **av, int i)
+{
+	if (res == -1)
+		return (ft_msg_err());
+	else if (res == 1 || res == 3)
+	{
+		if (av[i + 1])
+		{
+			if (av[i + 1][0] == '-')
+				return (ft_msg_err());
+			str_rnm[1] = av[i + 1];
+		}
+		i++;
+	}
+	else if (res == 0)
+		str_rnm[0] = ft_pick_str(av, i);
+	return (1);
+}
+
 int		main(int ac, char **av)
 {
 	int		i;
 	int		oa;
 	int		res;
-	char	*str;
-	char	*rnm;
+	char	*str_rnm[3];
 
 	oa = 0;
 	i = 1;
-	str = NULL;
-	rnm = NULL;
+	ft_bzero(str_rnm, sizeof(char*) * 3);
 	if (ac < 2)
 		return (ft_msg_err());
 	while (av[i])
 	{
 		res = ft_check_main_args(av[i]);
-		if (res == -1)
-			return (ft_msg_err());
-		else if (res == 1 || res == 3)
-		{
-			if (av[i + 1])
-			{
-				if (av[i + 1][0] == '-')
-					return (ft_msg_err());
-				rnm = av[i + 1];
-			}
-			i++;
-		}
-		else if (res == 0)
-		{
-			if (ft_strcmp("--", av[i]))
-				str = av[i];
-			else
-			{
-				if (av[i + 1])
-					str = av[i + 1];
-			}
+		if (!ft_parse_arg(res, str_rnm, av, i))
+			return (0);
+		if (res == 0)
 			break ;
-		}
-		i++;
+		(res == 1 || res == 3) ? i += 2 : i++;
 		if (oa < res)
 			oa = res;
 	}
-	if (!str || (oa == 1 && !rnm))
+	if (!str_rnm[0] || (oa == 1 && !str_rnm[1]))
 		return (ft_msg_err());
-	ft_launcher(str, rnm, oa);
+	ft_launcher(str_rnm[0], str_rnm[1], oa);
 	return (0);
 }
