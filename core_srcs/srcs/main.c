@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 14:58:36 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/27 08:33:20 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/29 09:44:11 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	sigint_handler(int sig)
 {
 	(void)sig;
 	system("killall afplay 2&>/dev/null >/dev/null\n");
+	exit(0);
 }
 
 int			main(int argc, char **argv)
@@ -95,6 +96,6 @@ int			put_usage(char **argv)
 	ft_fprintf(2, "##########################\n");
 	ft_fprintf(2, "-{blu}ncurse{no}    : Ncurses output mode with some ");
 	ft_fprintf(2, "cool features\n");
-	ft_fprintf(2, "-{blu}sound{no} : puts some cool music on");
+	ft_fprintf(2, "-{blu}sound{no} : puts some cool music on\n");
 	return (1);
 }

@@ -6,17 +6,11 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/27 08:56:00 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/29 09:04:27 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-static void	reset_players_live(t_vm *vm, int nb_pl)
-{
-	while (nb_pl--)
-		vm->players[nb_pl].live_in_ctd = 0;
-}
 
 static int	kill_proc(void *arg_proc, void *arg_vm)
 {
@@ -47,6 +41,9 @@ static int	kill_proc(void *arg_proc, void *arg_vm)
 
 static int	vm_rules(t_vm *vm)
 {
+	int			nb_pl;
+
+	nb_pl = vm->nb_players;
 	if (vm->ctd_cycle == vm->ctd || vm->ctd <= 0)
 	{
 		ft_lstfilter(&(vm->procs), free_proc, kill_proc, vm);
@@ -61,9 +58,22 @@ static int	vm_rules(t_vm *vm)
 			vm->check++;
 		vm->live_in_ctd = 0;
 		vm->ctd_cycle = 0;
-		reset_players_live(vm, vm->nb_players);
+		while (nb_pl--)
+			vm->players[nb_pl].live_in_ctd = 0;
 	}
 	return (vm->procs ? 1 : 0);
+}
+
+static int	reset_proc(t_list *e, void *d)
+{
+	t_proc		*p;
+	t_vm		*vm;
+
+	p = (t_proc *)(e->content);
+	vm = (t_vm *)d;
+	if (!p->exec_in)
+		init_proc(vm, p, p->ipc);
+	return (1);
 }
 
 static int	vm_play(t_vm *vm)
@@ -81,10 +91,10 @@ static int	vm_play(t_vm *vm)
 				g_tab[proc->op_code].f(vm, proc);
 			if (proc->op_code != -1)
 				vb_pc_movement(vm, proc);
-			init_proc(vm, proc, proc->ipc);
 		}
 		elm = elm->next;
 	}
+	ft_lstany(vm->procs, reset_proc, vm);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2017/09/27 09:04:59 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/29 11:04:28 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define NAME_CMD_STRING			".name"
 # define COMMENT_CMD_STRING		".comment"
 # define REG_NUMBER				16
-# define CYCLE_TO_DIE			10 //1536
+# define CYCLE_TO_DIE			1536
 # define CYCLE_DELTA				50
 # define NBR_LIVE				21
 # define MAX_CHECKS				10
@@ -68,9 +68,9 @@ typedef struct			s_op
 	int		ope_code;
 	int		cycle_to_wait;
 	char	*description;
-	int		pcb;//has a param coding byte
-	int		var;//are the DIR param on 4 or 2 bytes.
-	int		mod;//is modulo IDX_MOD
+	int		pcb;
+	int		var;
+	int		mod;
 	int		(*f)(t_vm *vm, t_proc *proc);
 }						t_op;
 

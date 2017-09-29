@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/25 17:02:12 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/09/29 11:03:40 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int			f_sti(t_vm *vm, t_proc *proc)
 	|| !get_param_value(vm, proc, 1, &index)
 	|| !get_param_value(vm, proc, 2, &index2))
 		return (0);
-	//if (proc->ptype[1] == T_IND)
-	//	index = getnbytes(vm, proc->pc + m0d(index, IDX_MOD), 4, 0);
 	addr = setnbytes(vm, proc->pc + m0d(index + index2, IDX_MOD), reg_p0, 4);
 	if (vm->ncurse)
 		nc_sti(vm, proc, addr);

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 15:33:17 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/27 08:12:42 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/09/29 10:59:22 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void				store_vm(t_vm **avm)
 	t_list		*lst;
 	int			i;
 
-	if (!(new = ft_lstnew(*avm, sizeof(t_vm))))
+	if (!(*avm)->ncurse || !(new = ft_lstnew(*avm, sizeof(t_vm))))
 		return ;
 	new_vm = (t_vm *)(new->content);
 	new_vm->prec = 0;
