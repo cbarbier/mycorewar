@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:43:41 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/19 13:43:58 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/29 16:17:21 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_error(t_asm *sfile)
 			if (!champ->args)
 				champ->args = ft_strdup("");
 			ft_printf("\033[1m\033[37m%s:%d:%d: \033[1m\033[31merror:\x1b[0m ",
-					sfile->origin, champ->ligne, champ->col + 1);
+					sfile->origin, champ->ligne + 1, champ->col + 1);
 			ft_printf_errcode(champ->errcode);
 			ft_printf("   %s %s\n%*c\n", op, champ->args, champ->col + 4,
 					'^');

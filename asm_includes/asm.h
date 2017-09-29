@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 14:29:09 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/26 18:44:33 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/29 16:13:45 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int					ft_check_separator(char *param, t_champ *champ);
 int					ft_gest_dir(t_champ *champ, t_champ *save, int size, int i);
 int					ft_gest_ind(t_champ *champ, int size, int i);
 int					ft_gest_reg(t_champ *champ, int size, int i);
+int					ft_check_main_args(char *str);
 char				*ft_erspace(char *str);
 char				*ft_erase_dc(char *str);
 void				ft_fill_codage(t_champ *champ, int i);
@@ -90,5 +91,7 @@ void				ft_write(t_asm *sfile, t_champ *champ);
 void				ft_error(t_asm *sfile);
 void				ft_col(t_champ *champ);
 void				ft_aff(t_asm *sfile, t_champ *champ);
+void				ft_aff_param(t_champ *champ);
+void				ft_aff_res(t_champ *champ);
 
 #endif

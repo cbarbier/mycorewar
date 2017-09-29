@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 17:48:53 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/28 16:04:35 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/29 16:14:31 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,12 @@
 
 extern t_op g_tab[17];
 
-int		ft_print_instr(unsigned char tmp, t_champ *champ, int op, int size)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	if (tmp == 1)
-		i = 1;
-	else if (tmp == 2)
-	{
-		if (g_tab[op].oind)
-			i = 2;
-		else
-			i = 4;
-	}
-	else if (tmp == 3)
-		i = 2;
-	while (j < i)
-	{
-		ft_printf("%d ", champ->param[size + j]);
-		j++;
-	}
-	(j < 3) ? ft_putstr("\t\t\t") : ft_putstr("\t\t");
-	return (i);
-}
-
-void	ft_aff_param(t_champ *champ, int i)
-{
-	int				j;
-	int				size;
-	unsigned char	tmp;
-
-	j = 3;
-	size = 2;
-	while (j > 0)
-	{
-		tmp = champ->param[1] >> 2 * j;
-		tmp = tmp & 0x03;
-		size += ft_print_instr(tmp, champ, i, size);
-		j--;
-	}
-}
-
 void	ft_byte_instr(t_champ *champ)
 {
 	int				i;
+	int				res;
 
+	res = 0;
 	i = ft_find_op(champ->op);
 	if (!g_tab[i].ocod)
 	{
@@ -70,12 +28,18 @@ void	ft_byte_instr(t_champ *champ)
 		while (i < champ->size)
 		{
 			ft_printf("%d  ", champ->param[i + 1]);
+			res <<= 8;
+			res |= champ->param[i + 1];
 			i++;
 		}
+		champ->size == 4 ? ft_printf("\n\t\t\t\t\t%d\n", res)
+			: ft_printf("\n\t\t\t\t\t%hd\n", res);
 		return ;
 	}
 	ft_printf("  %d\t\t", champ->codage);
-	ft_aff_param(champ, i);
+	ft_aff_param(champ);
+	ft_printf("\n\t\t\t%d  %d\t\t", champ->opcode, champ->codage);
+	ft_aff_res(champ);
 }
 
 void	ft_aff_instr(t_champ *champ, int size)
@@ -108,7 +72,9 @@ void	ft_aff(t_asm *sfile, t_champ *champ)
 		if (champ->lab)
 			ft_printf("%d	   :	%s\n", size, champ->label);
 		else if (champ->instr)
+		{
 			ft_aff_instr(champ, size);
+		}
 		size += ft_size(champ);
 		champ = champ->next;
 	}
