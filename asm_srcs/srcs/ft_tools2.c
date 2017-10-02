@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 11:05:09 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/20 14:16:22 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/02 15:54:35 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,14 @@ void	ft_col(t_champ *champ)
 	while (champ->line[i] != LABEL_CHAR)
 		i++;
 	champ->col = i - 1;
+}
+
+int		ft_space_bef(char *line)
+{
+	int		i;
+
+	i = 0;
+	while (ft_isspace(line[i]))
+		i++;
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:40:56 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/27 10:56:04 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/02 16:00:07 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ int			ft_parse(t_asm *sfile, t_champ *champ, int i)
 		{
 			champ = ft_lst(sfile, champ);
 			champ->line = ft_strdup(tmp);
+			champ->spbf = ft_space_bef(line);
 			champ->ligne = i;
 			op_param = ft_strsplitnbif(tmp, ft_isspace, 1);
-			if (!ft_precheck(op_param, champ, sfile))
-				err = 1;
+			err = !ft_precheck(op_param, champ, sfile) ? 1 : err;
 			ft_free_strtab(op_param);
 		}
 		i++;
