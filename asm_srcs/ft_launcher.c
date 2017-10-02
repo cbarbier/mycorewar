@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 16:51:57 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/27 18:03:27 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/02 17:04:10 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int		ft_check_error(char *file, t_asm *sfile, char *rnm, int oa)
 		file[ft_strlen(file) - 1] = '\0';
 	}
 	if (oa == 1)
-		sfile->file = ft_strjoin(rnm, ".cor", 0);
+		sfile->file = ft_strjoin(rnm, ".cor");
 	else
-		sfile->file = ft_strjoin(file, "cor", 0);
+		sfile->file = ft_strjoin(file, "cor");
 	return (1);
 }
 

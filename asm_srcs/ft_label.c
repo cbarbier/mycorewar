@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 11:35:23 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/20 11:38:37 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/02 17:03:41 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		ft_label(char *label, t_champ *champ, t_champ *save)
 	char	*lab;
 	int		size;
 
-	lab = ft_strjoin(label, ":", 0);
+	lab = ft_strjoin(label, ":");
 	while (save)
 	{
 		if (save == champ)

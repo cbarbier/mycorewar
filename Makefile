@@ -74,9 +74,9 @@ CORE_SRC			= main.c \
 					  ops/f_aff.c
 
 
-ASM_SRCS			= $(addprefix $(ASM_SRC_DIR)/srcs/, $(ASM_SRC))
+ASM_SRCS			= $(addprefix $(ASM_SRC_DIR)/, $(ASM_SRC))
 
-CORE_SRCS			= $(addprefix $(CORE_SRC_DIR)/srcs/, $(CORE_SRC))
+CORE_SRCS			= $(addprefix $(CORE_SRC_DIR)/, $(CORE_SRC))
 
 ASM_OBJ				= $(ASM_SRC:.c=.o)
 
@@ -92,11 +92,11 @@ CORE_OBJS			= $(addprefix $(CORE_OBJS_DIR)/, $(CORE_OBJ))
 
 all : $(ASM) $(COREWAR)
 
-.asm_objs/%.o:asm_srcs/srcs/%.c $(ASM_INC)
+.asm_objs/%.o:asm_srcs/%.c $(ASM_INC)
 	@mkdir -p .asm_objs
 	@$(COMPILER) $(CC_FLAGS) -Iasm_includes -c $< -o $@
 
-.core_objs/%.o:core_srcs/srcs/%.c $(CORE_INC)
+.core_objs/%.o:core_srcs/%.c $(CORE_INC)
 	@mkdir -p .core_objs/ops
 	@$(COMPILER) $(CC_FLAGS) -Icore_includes -c $< -o $@
 
