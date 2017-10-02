@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/29 18:39:07 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/10/02 18:13:14 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,6 @@ static int	vm_play(t_vm *vm)
 	while (elm)
 	{
 		proc = (t_proc*)(elm->content);
-		if (!getnbytes(vm, proc->pc, 1, 0) && proc->op_code != -1 && !proc->error_pcb)
-		{
-			proc->exec_in = 1;
-			proc->op_code = -1;
-			proc->adv = 1;
-			proc->ipc = (proc->pc + 1) % MEM_SIZE;
-		}
 		if (!--proc->exec_in)
 		{
 			if (parse_pcb_n_param(vm, proc))

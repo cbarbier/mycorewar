@@ -6,15 +6,14 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 14:29:09 by fmaury            #+#    #+#             */
-/*   Updated: 2017/10/02 15:54:59 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/02 17:02:14 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 # include "asm_op.h"
-# include "../asm_srcs/libft/printf/printf.h"
-# include "../asm_srcs/libft/srclib/libft.h"
+# include "../libft/includes/libft.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
