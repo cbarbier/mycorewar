@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 14:29:09 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/26 11:02:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/10/02 15:54:59 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct		s_champ
 	int				errcode;
 	int				ligne;
 	int				col;
+	int				spbf;
 }					t_champ;
 
 typedef struct		s_asm
@@ -63,7 +64,9 @@ typedef struct		s_op
 	int				oind;
 }					t_op;
 
-int					ft_launcher(char *file);
+int					ft_size(t_champ *node);
+int					ft_total_size(t_champ *champ);
+int					ft_launcher(char *file, char *rnm, int oa);
 int					ft_head(t_asm *sfile);
 int					ft_set_header(t_asm *sfile);
 int					ft_asm(t_asm *sfile, t_champ *champ, int i);
@@ -80,6 +83,8 @@ int					ft_check_separator(char *param, t_champ *champ);
 int					ft_gest_dir(t_champ *champ, t_champ *save, int size, int i);
 int					ft_gest_ind(t_champ *champ, int size, int i);
 int					ft_gest_reg(t_champ *champ, int size, int i);
+int					ft_check_main_args(char *str);
+int					ft_space_bef(char *line);
 char				*ft_erspace(char *str);
 char				*ft_erase_dc(char *str);
 void				ft_fill_codage(t_champ *champ, int i);
@@ -87,5 +92,8 @@ void				ft_fill_param(t_champ *champ, int res, int size, int i);
 void				ft_write(t_asm *sfile, t_champ *champ);
 void				ft_error(t_asm *sfile);
 void				ft_col(t_champ *champ);
+void				ft_aff(t_asm *sfile, t_champ *champ);
+void				ft_aff_param(t_champ *champ);
+void				ft_aff_res(t_champ *champ);
 
 #endif

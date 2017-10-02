@@ -24,12 +24,16 @@ ASM_SRC				= main.c \
 					  ft_asm.c \
 					  ft_tools.c \
 					  ft_tools2.c \
+					  ft_tools3.c \
 					  ft_label.c \
 					  ft_separator.c \
 					  ft_gest_instr.c \
 					  ft_head.c \
 					  ft_check.c \
+					  ft_check_main_args.c \
 					  ft_write.c \
+					  ft_aff.c \
+					  ft_aff_print_res.c \
 					  ft_instr.c \
 					  ft_errors.c \
 					  ft_header.c \

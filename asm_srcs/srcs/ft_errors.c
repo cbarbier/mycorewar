@@ -6,11 +6,23 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:43:41 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/19 13:43:58 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/02 15:55:54 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+int		ft_col_cursor(t_champ *champ)
+{
+	int		postop;
+	int		i;
+
+	i = 0;
+	postop = ft_strlen(champ->op) + 1;
+	while (ft_isspace(champ->line[postop + i]))
+		i++;
+	return (champ->col + i + 1 + champ->spbf);
+}
 
 void	ft_printf_errcode(int err)
 {
@@ -51,7 +63,7 @@ void	ft_error(t_asm *sfile)
 			if (!champ->args)
 				champ->args = ft_strdup("");
 			ft_printf("\033[1m\033[37m%s:%d:%d: \033[1m\033[31merror:\x1b[0m ",
-					sfile->origin, champ->ligne, champ->col + 1);
+					sfile->origin, champ->ligne + 1, ft_col_cursor(champ));
 			ft_printf_errcode(champ->errcode);
 			ft_printf("   %s %s\n%*c\n", op, champ->args, champ->col + 4,
 					'^');

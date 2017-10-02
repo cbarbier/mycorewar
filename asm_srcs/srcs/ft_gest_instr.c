@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 14:11:19 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/20 14:13:44 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/27 18:03:03 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ int		ft_gest_dir(t_champ *champ, t_champ *save, int size, int i)
 	res = 0;
 	if (champ->arg[i][1] == LABEL_CHAR)
 	{
-		size += IND_SIZE;
+		if (!ft_strcmp(champ->op, "live"))
+			size += 3;
+		else
+			size += IND_SIZE;
 		if ((res = ft_label(champ->arg[i] + 2, champ, save)) == -1)
 		{
 			champ->err = 1;
@@ -75,7 +78,10 @@ int		ft_gest_dir(t_champ *champ, t_champ *save, int size, int i)
 			ft_col(champ);
 			return (0);
 		}
-		ft_fill_param(champ, res, size, 1);
+		if (!ft_strcmp(champ->op, "live"))
+			ft_fill_param(champ, res, size, 3);
+		else
+			ft_fill_param(champ, res, size, 1);
 	}
 	else
 		size = ft_gest_index(champ, size, i);

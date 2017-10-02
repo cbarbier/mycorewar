@@ -6,16 +6,15 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 16:51:57 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/19 13:26:23 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/09/27 18:03:27 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		ft_check_error(char *file, t_asm *sfile)
+int		ft_check_error(char *file, t_asm *sfile, char *rnm, int oa)
 {
 	int		len;
-	char	**tab;
 
 	len = ft_strlen(file);
 	if (len < 2 || file[len - 1] != 's' || file[len - 2] != '.')
@@ -28,10 +27,15 @@ int		ft_check_error(char *file, t_asm *sfile)
 		ft_printf("Erreur lors de l'ouverture du fichier\n");
 		return (0);
 	}
-	tab = ft_strsplit(file, '.');
-	sfile->origin = ft_strdup(file);
-	sfile->file = ft_strjoin(tab[0], ".cor", 0);
-	ft_free_strtab(tab);
+	if (file)
+	{
+		sfile->origin = ft_strdup(file);
+		file[ft_strlen(file) - 1] = '\0';
+	}
+	if (oa == 1)
+		sfile->file = ft_strjoin(rnm, ".cor", 0);
+	else
+		sfile->file = ft_strjoin(file, "cor", 0);
 	return (1);
 }
 
@@ -71,7 +75,7 @@ void	ft_free_struct(t_asm *sfile)
 		free(sfile->comment);
 }
 
-int		ft_launcher(char *file)
+int		ft_launcher(char *file, char *rnm, int oa)
 {
 	t_asm	sfile;
 	t_champ	*champ;
@@ -80,9 +84,14 @@ int		ft_launcher(char *file)
 	i = 0;
 	champ = NULL;
 	ft_bzero(&sfile, sizeof(t_asm));
-	if (ft_check_error(file, &sfile) && (i = ft_head(&sfile)) &&
+	if (ft_check_error(file, &sfile, rnm, oa) && (i = ft_head(&sfile)) &&
 			ft_asm(&sfile, champ, i))
-		ft_write(&sfile, sfile.champ);
+	{
+		if (oa > 1)
+			ft_aff(&sfile, sfile.champ);
+		else
+			ft_write(&sfile, sfile.champ);
+	}
 	ft_free_lst(sfile.champ);
 	ft_free_struct(&sfile);
 	return (0);
