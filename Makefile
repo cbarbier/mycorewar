@@ -35,6 +35,8 @@ ASM_SRC				= main.c \
 					  ft_aff.c \
 					  ft_aff_print_res.c \
 					  ft_instr.c \
+					  ft_reverse.c \
+					  ft_reverse_code.c \
 					  ft_errors.c \
 					  ft_header.c \
 					  op.c \

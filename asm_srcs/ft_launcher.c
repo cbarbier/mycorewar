@@ -6,20 +6,20 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 16:51:57 by fmaury            #+#    #+#             */
-/*   Updated: 2017/10/02 17:04:10 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/03 14:53:52 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		ft_check_error(char *file, t_asm *sfile, char *rnm, int oa)
+static int		ft_check_error(char *file, t_asm *sfile, char *rnm, int oa)
 {
 	int		len;
 
 	len = ft_strlen(file);
 	if (len < 2 || file[len - 1] != 's' || file[len - 2] != '.')
 	{
-		ft_printf("Mauvaise extension de fichier\n");
+		ft_putstr("Bad file extension, should be a '.s'");
 		return (0);
 	}
 	else if ((sfile->fd = open(file, O_RDONLY)) == -1)
@@ -84,14 +84,19 @@ int		ft_launcher(char *file, char *rnm, int oa)
 	i = 0;
 	champ = NULL;
 	ft_bzero(&sfile, sizeof(t_asm));
-	if (ft_check_error(file, &sfile, rnm, oa) && (i = ft_head(&sfile)) &&
-			ft_asm(&sfile, champ, i))
+	if (oa < 4)
 	{
-		if (oa > 1)
-			ft_aff(&sfile, sfile.champ);
-		else
-			ft_write(&sfile, sfile.champ);
+		if (ft_check_error(file, &sfile, rnm, oa) && (i = ft_head(&sfile)) &&
+				ft_asm(&sfile, champ, i))
+		{
+			if (oa > 1)
+				ft_aff(&sfile, sfile.champ);
+			else
+				ft_write(&sfile, sfile.champ);
+		}
 	}
+	else
+		ft_reverse(file, &sfile);
 	ft_free_lst(sfile.champ);
 	ft_free_struct(&sfile);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 14:49:54 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/28 14:50:30 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/03 13:54:56 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int				ft_isopt(char c)
 		return (2);
 	if (c == '-')
 		return (3);
+	if (c == 'r')
+		return (4);
 	return (0);
 }
 
@@ -34,6 +36,11 @@ int				ft_res(int flag, int res)
 	{
 		if (res < 2)
 			return (2);
+	}
+	else if (flag == 4)
+	{
+		if (res < 4)
+			return (4);
 	}
 	return (0);
 }

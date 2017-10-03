@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 13:16:47 by fmaury            #+#    #+#             */
-/*   Updated: 2017/10/02 17:05:32 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/03 14:06:25 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ int		main(int ac, char **av)
 	}
 	if (!str_rnm[0] || (oa == 1 && !str_rnm[1]))
 		return (ft_msg_err());
-	ft_launcher(str_rnm[0], str_rnm[1], oa);
+		ft_launcher(str_rnm[0], str_rnm[1], oa);
 	return (0);
 }
