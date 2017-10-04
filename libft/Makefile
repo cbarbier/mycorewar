@@ -133,7 +133,7 @@ all: $(NAME)
 
 %.o: %.c
 	@gcc $(CFLAGS) -c $< -I includes -o $@
-	@echo "\033[K\033[35mLibft :\033[0m [ Compiling :\033[33m $^\033[0m]\033[1A"
+	@echo "\033[K\033[35mLibft :\033[0m [ Compiling :\033[33m $(notdir $^)\033[0m]\033[1A"
 
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)

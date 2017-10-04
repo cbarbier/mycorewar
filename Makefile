@@ -104,20 +104,20 @@ endif
 .asm_objs/%.o:asm_srcs/%.c $(ASM_INC)
 	@mkdir -p .asm_objs
 	@$(COMPILER) $(CC_FLAGS) -Iasm_includes -c $< -o $@
-	@echo "\033[K\033[35mASM :\033[0m [ Compiling :\033[33m $^\033[0m]\033[1A"
+	@echo "\033[K\033[35mASM :\033[0m [ Compiling :\033[33m $(notdir $<)\033[0m]\033[1A"
 
 .core_objs/%.o:core_srcs/%.c $(CORE_INC)
 	@mkdir -p .core_objs/ops
 	@$(COMPILER) $(CC_FLAGS) -Icore_includes -c $< -o $@
-	@echo "\033[K\033[35mCORE :\033[0m [ Compiling :\033[33m $^\033[0m]\033[1A"
+	@echo "\033[K\033[35mCORE :\033[0m [ Compiling :\033[33m $(notdir $<)\033[0m]\033[1A"
 
 $(ASM): $(ASM_OBJS) $(ASM_INC) $(LIBFT)
 	@$(COMPILER) $(CC_FLAGS) $(ASM_OBJS) -L libft/ -lft -o $(ASM)
-	@echo "\033[35mCompiling\033[0m" [ $(ASM) ] "\033[K\033[32mSuccessful\033[0m"
+	@echo "\033[K\033[35mCompiling\033[0m" "[  " $(ASM) "  ]" "\033[K\033[32mSuccessful\033[0m"
  
 $(COREWAR): $(CORE_OBJS) $(CORE_INC) $(LIBFT)
 	@$(COMPILER) $(CC_FLAGS) $(NCURSES) $(CORE_OBJS) -L libft/ -lft -o $(COREWAR)
-	@echo "\033[35mCompiling\033[0m" [ $(COREWAR) ] "\033[K\033[32mSuccessful\033[0m"
+	@echo "\033[K\033[35mCompiling\033[0m" [ $(COREWAR) ] "\033[K\033[32mSuccessful\033[0m"
 
 ifneq ($(shell make -q -C libft/;echo $$?), 0)
 .PHONY: $(LIBFT)
@@ -141,6 +141,6 @@ fclean: clean
 	@rm -rf $(COREWAR)
 
 re: fclean
-	@make
+	@make all	
 
 .PHONY: all clean fclean re
