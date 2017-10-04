@@ -6,7 +6,7 @@ COMPILER			= gcc
 
 CC_FLAGS			= -Wall -Werror -Wextra
 
-LIBFT				= libft
+LIBFT				= libft/libft.a
 
 NCURSES				= -lncurses
 
@@ -54,6 +54,7 @@ CORE_SRC			= main.c \
 					  nc_init2.c \
 					  nc_update1.c \
 					  nc_event.c \
+					  store_vm.c \
 					  nc_blink.c \
 					  ops/f_live.c \
 					  ops/f_ld.c \
@@ -73,13 +74,9 @@ CORE_SRC			= main.c \
 					  ops/f_aff.c
 
 
-ASM_SRCS			= $(addprefix $(ASM_SRC_DIR)/srcs/, $(ASM_SRC))
+ASM_SRCS			= $(addprefix $(ASM_SRC_DIR)/, $(ASM_SRC))
 
-CORE_SRCS			= $(addprefix $(CORE_SRC_DIR)/srcs/, $(CORE_SRC))
-
-ASM_LIBFT			= $(addprefix $(ASM_SRC_DIR)/, $(LIBFT))
-
-CORE_LIBFT			= $(addprefix $(CORE_SRC_DIR)/, $(LIBFT))
+CORE_SRCS			= $(addprefix $(CORE_SRC_DIR)/, $(CORE_SRC))
 
 ASM_OBJ				= $(ASM_SRC:.c=.o)
 
@@ -95,48 +92,43 @@ CORE_OBJS			= $(addprefix $(CORE_OBJS_DIR)/, $(CORE_OBJ))
 
 all : $(ASM) $(COREWAR)
 
-.asm_objs/%.o:asm_srcs/srcs/%.c
+.asm_objs/%.o:asm_srcs/%.c $(ASM_INC)
 	@mkdir -p .asm_objs
 	@$(COMPILER) $(CC_FLAGS) -Iasm_includes -c $< -o $@
 
-.core_objs/%.o:core_srcs/srcs/%.c
+.core_objs/%.o:core_srcs/%.c $(CORE_INC)
 	@mkdir -p .core_objs/ops
 	@$(COMPILER) $(CC_FLAGS) -Icore_includes -c $< -o $@
 
-$(ASM): $(ASM_OBJS) $(ASM_INC) $(ASM_LIBFT)/libft.a
-	@$(COMPILER) $(CC_FLAGS) $(ASM_OBJS) -L $(ASM_LIBFT) -lft -o $(ASM)
-	@echo "asm created !"
+$(ASM): $(ASM_OBJS) $(ASM_INC) $(LIBFT)
+	@$(COMPILER) $(CC_FLAGS) $(ASM_OBJS) -L libft/ -lft -o $(ASM)
+	@echo "ASM BUILT\t\t\033[0;32m✓\033[0m"
 
-$(COREWAR): $(CORE_OBJS) $(CORE_INC) $(CORE_LIBFT)/libft.a
-	@$(COMPILER) $(CC_FLAGS) $(NCURSES) $(CORE_OBJS) -L $(CORE_LIBFT) -lft -o $(COREWAR)
-	@echo "corewar created !"
+$(COREWAR): $(CORE_OBJS) $(CORE_INC) $(LIBFT)
+	@$(COMPILER) $(CC_FLAGS) $(NCURSES) $(CORE_OBJS) -L libft/ -lft -o $(COREWAR)
+	@echo "COREWAR BUILT\t\t\033[0;32m✓\033[0m"
 
-ifneq ($(shell make -q -C asm_srcs/libft;echo $$?), 0)
-.PHONY: asm_srcs/libft/libft.a
+ifneq ($(shell make -q -C libft/;echo $$?), 0)
+.PHONY: $(LIBFT)
 endif
 
-ifneq ($(shell make -q -C core_srcs/libft;echo $$?), 0)
-.PHONY: core_srcs/libft/libft.a
+ifneq ($(shell make -q -C libft/;echo $$?), 0)
+.PHONY: $(LIBFT)
 endif
 
-$(ASM_LIBFT)/libft.a:
-	Make -C $(ASM_LIBFT)
-
-$(CORE_LIBFT)/libft.a:
-	Make -C $(CORE_LIBFT)
+$(LIBFT):
+	@Make -C libft/
 
 clean:
-	@echo "Removing objects"
+	@echo "OBJECTS REMOVED\t\t\033[0;32m✓\033[0m"
 	@rm -rf $(CORE_OBJS)
 	@rm -rf $(ASM_OBJS)
-	Make clean -C $(CORE_LIBFT)
-	Make clean -C $(ASM_LIBFT)
+	@Make clean -C libft/
 	@rm -rf $(OBJ)
 
 fclean: clean
-	@echo "Removing exe"
-	@rm -rf $(CORE_LIBFT)/libft.a
-	@rm -rf $(ASM_LIBFT)/libft.a
+	@echo "BINARIES REMOVED\t\033[0;32m✓\033[0m"
+	@rm -rf $(LIBFT)
 	@rm -rf $(ASM)
 	@rm -rf $(COREWAR)
 
