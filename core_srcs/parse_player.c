@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/07/26 15:38:42 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/10/04 10:18:40 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ static int	get_magik(t_player *p)
 	majik = (majik << 8) + mem.i[2];
 	majik = (majik << 8) + mem.i[3];
 	if (majik != COREWAR_EXEC_MAGIC)
+	{
+		ft_fprintf(2, "Error: wrong magic number : 0x%x", majik);
 		return (0);
+	}
 	p->header.magic = majik;
 	return (get_name(p));
 }
