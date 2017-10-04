@@ -90,7 +90,15 @@ ASM_OBJS			= $(addprefix $(ASM_OBJS_DIR)/, $(ASM_OBJ))
 
 CORE_OBJS			= $(addprefix $(CORE_OBJS_DIR)/, $(CORE_OBJ))
 
-all : $(ASM) $(COREWAR)
+all : visu $(ASM) $(COREWAR)
+
+visu:
+ifneq ($(shell test -e corewar && test -e asm;echo $$?), 0)
+	@echo " / \   / \   / \   / \   / \   / \   / \ "
+	@echo "( c ) ( o ) ( r ) ( e ) ( w ) ( a ) ( r )"
+	@echo " \_/   \_/   \_/   \_/   \_/   \_/   \_/ "
+	@echo "                           by team Dinosaurus\n\n"
+endif
 
 .asm_objs/%.o:asm_srcs/%.c $(ASM_INC)
 	@mkdir -p .asm_objs
@@ -110,10 +118,7 @@ $(COREWAR): $(CORE_OBJS) $(CORE_INC) $(LIBFT)
 
 ifneq ($(shell make -q -C libft/;echo $$?), 0)
 .PHONY: $(LIBFT)
-endif
-
-ifneq ($(shell make -q -C libft/;echo $$?), 0)
-.PHONY: $(LIBFT)
+$(visu)
 endif
 
 $(LIBFT):

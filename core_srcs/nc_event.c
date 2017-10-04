@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/27 08:07:51 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/10/04 10:37:22 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int				nc_event_handling(t_vm **avm)
 	else if (key == ' ')
 	{
 		vm->play = (vm->play && vm->step != vm->cycle ? 0 : 1);
+		if (vm->sound)
+			system(vm->play ? "killall -CONT afplay 2> /dev/null" :
+					"killall -STOP afplay 2> /dev/null");
 		vm->step = -1;
 	}
 	else if (ft_strchr("qwer", key))
