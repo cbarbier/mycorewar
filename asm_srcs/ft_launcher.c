@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_launcher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiulian <agiulian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/07 16:51:57 by fmaury            #+#    #+#             */
-/*   Updated: 2017/10/02 17:04:10 by fmaury           ###   ########.fr       */
+/*   Created: 2017/10/04 15:20:45 by agiulian          #+#    #+#             */
+/*   Updated: 2017/10/04 15:20:50 by agiulian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int		ft_check_error(char *file, t_asm *sfile, char *rnm, int oa)
 	len = ft_strlen(file);
 	if (len < 2 || file[len - 1] != 's' || file[len - 2] != '.')
 	{
-		ft_printf("Mauvaise extension de fichier\n");
+		ft_printf("Bad extension\n");
 		return (0);
 	}
 	else if ((sfile->fd = open(file, O_RDONLY)) == -1)
 	{
-		ft_printf("Erreur lors de l'ouverture du fichier\n");
+		ft_printf("Error opening the file\n");
 		return (0);
 	}
 	if (file)

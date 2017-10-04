@@ -133,11 +133,12 @@ all: $(NAME)
 
 %.o: %.c
 	@gcc $(CFLAGS) -c $< -I includes -o $@
+	@echo "\033[K\033[35mLibft :\033[0m [ Compiling :\033[33m $^\033[0m]\033[1A"
 
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "LIBFT COMPILED\t\t\033[0;32m✓\033[0m"
+	@echo "\033[35mCompiling\033[0m" [ $(NAME) ] "\033[K\033[32mSuccessful\033[0m"
 
 clean:
 	@/bin/rm -f $(OBJ)
@@ -145,6 +146,8 @@ clean:
 fclean: clean
 	@/bin/rm -f $(NAME)
 
-re: fclean all
+re: fclean
+	@make
+
 
 .PHONY: clean
