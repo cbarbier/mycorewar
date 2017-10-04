@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:42:43 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/20 09:58:53 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/04 18:40:18 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		ft_no_param(char *op, t_champ *champ)
 	{
 		champ->lab = 1;
 		champ->label = ft_strdup(ft_erspace(op));
-		if (!ft_forbidden_char(op))
+		if (ft_forbidden_char(op) != -1)
 		{
 			champ->err = 1;
 			champ->errcode = 8;

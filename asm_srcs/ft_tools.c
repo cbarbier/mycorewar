@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:49:13 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/19 16:33:29 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/04 16:18:43 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int		ft_forbidden_char(char *str)
 	while (str[i] && i < (int)ft_strlen(str) - 1)
 	{
 		if (ft_strchr(LABEL_CHARS, str[i]) == 0)
-			return (0);
+			return (i);
 		i++;
 	}
-	return (1);
+	return (-1);
 }
