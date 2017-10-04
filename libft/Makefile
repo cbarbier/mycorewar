@@ -146,7 +146,8 @@ clean:
 fclean: clean
 	@/bin/rm -f $(NAME)
 
-re: fclean 
+re: fclean
 	@make
+
 
 .PHONY: clean

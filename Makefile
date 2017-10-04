@@ -121,7 +121,7 @@ $(COREWAR): $(CORE_OBJS) $(CORE_INC) $(LIBFT)
 
 ifneq ($(shell make -q -C libft/;echo $$?), 0)
 .PHONY: $(LIBFT)
-$(visu)
+$(VISU)
 endif
 
 $(LIBFT):
