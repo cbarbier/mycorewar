@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/10/05 18:35:45 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/10/05 19:04:50 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ static int	get_player(t_vm *vm, int *aindex, char **argv)
 	if (ft_strcmp(&argv[*aindex][tmp - 4], ".cor"))
 		return (0);
 	if ((fd = open(argv[*aindex], O_RDONLY)) < 0)
+	{
+		ft_fprintf(2, "Can't open the file\n");
 		return (0);
+	}
 	tmp = (*aindex > index ? 1 : 0);
 	*aindex = *aindex + 1;
 	return (add_player(vm, fd, tmp, id_arg));

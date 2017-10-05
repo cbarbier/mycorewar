@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/10/04 10:18:40 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/10/05 18:50:52 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	get_comment(t_player *p)
 {
 	int		ret;
 
-	if ((ret = read(p->fd, p->header.comment, COMMENT_LENGTH)) < 0
+	if ((ret = read(p->fd, p->header.comment, COMMENT_LENGTH)) <= 0
 		|| ret != COMMENT_LENGTH)
 	{
 		ft_fprintf(2, "Error: invalid header\n");
@@ -55,7 +55,7 @@ static int	get_name(t_player *p)
 {
 	int		ret;
 
-	if ((ret = read(p->fd, p->header.prog_name, PROG_NAME_LENGTH)) < 0
+	if ((ret = read(p->fd, p->header.prog_name, PROG_NAME_LENGTH)) <= 0
 		|| ret != PROG_NAME_LENGTH)
 	{
 		ft_fprintf(2, "Error: invalid header\n");
@@ -99,7 +99,7 @@ int			parse_player(t_player *p)
 
 	if (!get_magik(p))
 		return (0);
-	if ((ret = read(p->fd, p->prog, CHAMP_MAX_SIZE + 1)) < 0)
+	if ((ret = read(p->fd, p->prog, CHAMP_MAX_SIZE + 1)) <= 0)
 	{
 		ft_fprintf(2, "Error: read failed ret = %d\n", ret);
 		return (0);

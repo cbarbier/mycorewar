@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/10/02 17:02:03 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/05 17:41:34 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,10 +165,4 @@ int				f_aff(t_vm *vm, t_proc *proc);
 */
 void			store_vm(t_vm **avm);
 int				apply_new_vm(t_vm **avm);
-/*
-** 	DEBUG FUNCTIONS
-*/
-int				put_vm_infos(t_vm *vm);
-int				put_proc(t_list *e, void *d);
-int				put_regs(t_proc *p);
 #endif
