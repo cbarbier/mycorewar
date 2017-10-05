@@ -90,7 +90,6 @@ ASM_OBJS			= $(addprefix $(ASM_OBJS_DIR)/, $(ASM_OBJ))
 
 CORE_OBJS			= $(addprefix $(CORE_OBJS_DIR)/, $(CORE_OBJ))
 
-
 all : visu $(LIBFT) $(ASM) $(COREWAR)
 
 visu:
@@ -104,21 +103,22 @@ endif
 
 .asm_objs/%.o:asm_srcs/%.c $(ASM_INC)
 	@mkdir -p .asm_objs
-	@$(COMPILER) $(CC_FLAGS) -Iasm_includes -c $< -o $@
+	@$(COMPILER) $(CC_FLAGS) -Iasm_includes -c $< -o $@ || (echo "\033[K \033[36mASM :      \033[0m [\033[31m $(notdir $<)\033[0m ] \033[31m✕\033[0m")
 	@echo "\033[K \033[36mASM :      \033[0m [ compiling :\033[33m $(notdir $<)\033[0m ]\033[1A"
 
 .core_objs/%.o:core_srcs/%.c $(CORE_INC)
 	@mkdir -p .core_objs/ops
-	@$(COMPILER) $(CC_FLAGS) -Icore_includes -c $< -o $@
+	@$(COMPILER) $(CC_FLAGS) -Icore_includes -c $< -o $@ || (echo "\033[K \033[36mCORE :      \033[0m[\033[31m $(notdir $<)\033[0m ] \033[31m✕\033[0m")
 	@echo "\033[K \033[36mCORE :      \033[0m[ compiling :\033[33m $(notdir $<)\033[0m ]\033[1A"
 
+
 $(ASM): $(ASM_OBJS) $(ASM_INC) $(LIBFT)
-	@$(COMPILER) $(CC_FLAGS) $(ASM_OBJS) -L libft/ -lft -o $(ASM)
-	@echo " \033[36mCompilation\033[0m" "[\033[33;1m  " $(ASM) "\033[0m  ]" "\033[K\033[0;32m✓\033[0m"
+	@$(COMPILER) $(CC_FLAGS) $(ASM_OBJS) -L libft/ -lft -o $(ASM) || (echo "\033[1A\033[K \033[36mCompilation\033[0m" "[\033[31m  " $(ASM) "\033[0m  ]" "\033[31m✕\033[0m"; exit 1)
+	@echo " \033[36mCompilation\033[0m" "[\033[32;1m  " $(ASM) "\033[0m  ]" "\033[K\033[0;32;1m✓\033[0m"
  
 $(COREWAR): $(CORE_OBJS) $(CORE_INC) $(LIBFT)
-	@$(COMPILER) $(CC_FLAGS) $(NCURSES) $(CORE_OBJS) -L libft/ -lft -o $(COREWAR)
-	@echo " \033[36mCompilation\033[0m" ["\033[33;1m" $(COREWAR)"\033[0m" ] "\033[K\033[0;32m✓\033[0m"
+	@$(COMPILER) $(CC_FLAGS) $(NCURSES) $(CORE_OBJS) -L libft/ -lft -o $(COREWAR) || (echo "\033[1A\033[K \033[36mCompilation\033[0m" ["\033[31m" $(COREWAR)"\033[0m" ] "\033[31m✕\033[0m"; exit 1)
+	@echo " \033[36mCompilation\033[0m" ["\033[32;1m" $(COREWAR)"\033[0m" ] "\033[K\033[0;32;1m✓\033[0m"
 
 ifneq ($(shell make -q -C libft/;echo $$?), 0)
 .PHONY: $(LIBFT)
@@ -129,14 +129,14 @@ $(LIBFT):
 	@Make -C libft/
 
 clean:
-	@echo " \033[36mDeletion \033[33m objects \t\033[0m"  "\033[K\033[0;32m✓\033[0m"
+	@echo " \033[36mDeletion    \033[0m[\033[33m objects  \033[0m]"  "\033[K\033[0;32;1m✓\033[0m"
 	@rm -rf $(CORE_OBJS)
 	@rm -rf $(ASM_OBJS)
 	@Make clean -C libft/
 	@rm -rf $(OBJ)
 
 fclean: clean
-	@echo " \033[36mDeletion \033[33m binaries \t\033[0m"  "\033[K\033[0;32m✓\033[0m"
+	@echo " \033[36mDeletion    \033[0m[\033[33m binaries \033[0m]"  "\033[K\033[0;32;1m✓\033[0m"
 	@rm -rf $(LIBFT)
 	@rm -rf $(ASM)
 	@rm -rf $(COREWAR)

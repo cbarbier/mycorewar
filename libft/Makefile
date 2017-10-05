@@ -132,13 +132,13 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 %.o: %.c
-	@gcc $(CFLAGS) -c $< -I includes -o $@
+	@gcc $(CFLAGS) -c $< -I includes -o $@ || (echo "\033[K \033[36mLibft :    \033[0m [\033[31m $(notdir $^)\033[0m ] \033[31m✕\033[0m")
 	@echo "\033[K \033[36mLibft :    \033[0m [ compiling :\033[33m $(notdir $^)\033[0m ]\033[1A"
 
 $(NAME): $(OBJ)
-	@ar rc $(NAME) $(OBJ)
+	@ar rc $(NAME) $(OBJ) || (echo "\033[1A\033[K\033[36m Compilation\033[0m" ["\033[31m" $(NAME)"\033[0m" ] "\033[31m✕\033[0m"; exit 1)
 	@ranlib $(NAME)
-	@echo " \033[36mCompilation\033[0m" ["\033[33;1m" $(NAME)"\033[0m" ] "\033[K\033[0;32m✓\033[0m"
+	@echo " \033[36mCompilation\033[0m" ["\033[32;1m" $(NAME)"\033[0m" ] "\033[K\033[0;32;1m✓\033[0m"
 
 clean:
 	@/bin/rm -f $(OBJ)
