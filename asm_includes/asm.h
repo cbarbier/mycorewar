@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 14:29:09 by fmaury            #+#    #+#             */
-/*   Updated: 2017/10/02 17:02:14 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/05 14:58:37 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct		s_asm
 	char			*file;
 	char			*name;
 	char			*comment;
+	char			bin[CHAMP_MAX_SIZE];
+	char			*code;
 	char			header[16 + PROG_NAME_LENGTH + COMMENT_LENGTH];
 	t_champ			*champ;
 }					t_asm;
@@ -84,6 +86,9 @@ int					ft_gest_ind(t_champ *champ, int size, int i);
 int					ft_gest_reg(t_champ *champ, int size, int i);
 int					ft_check_main_args(char *str);
 int					ft_space_bef(char *line);
+int					ft_reverse(char *file, t_asm *sfile);
+int					ft_rev_find_op(int op);
+int					ft_get_size(char *str);
 char				*ft_erspace(char *str);
 char				*ft_erase_dc(char *str);
 void				ft_fill_codage(t_champ *champ, int i);
@@ -94,5 +99,6 @@ void				ft_col(t_champ *champ);
 void				ft_aff(t_asm *sfile, t_champ *champ);
 void				ft_aff_param(t_champ *champ);
 void				ft_aff_res(t_champ *champ);
+void				ft_reverse_code(t_asm *sfile);
 
 #endif

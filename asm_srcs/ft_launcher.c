@@ -6,25 +6,25 @@
 /*   By: agiulian <agiulian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/04 15:20:45 by agiulian          #+#    #+#             */
-/*   Updated: 2017/10/04 15:20:50 by agiulian         ###   ########.fr       */
+/*   Updated: 2017/10/05 17:33:38 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		ft_check_error(char *file, t_asm *sfile, char *rnm, int oa)
+static int		ft_check_error(char *file, t_asm *sfile, char *rnm, int oa)
 {
 	int		len;
 
 	len = ft_strlen(file);
 	if (len < 2 || file[len - 1] != 's' || file[len - 2] != '.')
 	{
-		ft_printf("Bad extension\n");
+		ft_putstr("Error: Bad file extension, should be a '.s'\n");
 		return (0);
 	}
 	else if ((sfile->fd = open(file, O_RDONLY)) == -1)
 	{
-		ft_printf("Error opening the file\n");
+		ft_printf("Error: Can't open the file\n");
 		return (0);
 	}
 	if (file)
@@ -39,7 +39,7 @@ int		ft_check_error(char *file, t_asm *sfile, char *rnm, int oa)
 	return (1);
 }
 
-void	ft_free_lst(t_champ *champ)
+void			ft_free_lst(t_champ *champ)
 {
 	t_champ *tmp;
 
@@ -63,7 +63,7 @@ void	ft_free_lst(t_champ *champ)
 	}
 }
 
-void	ft_free_struct(t_asm *sfile)
+void			ft_free_struct(t_asm *sfile)
 {
 	if (sfile->origin)
 		free(sfile->origin);
@@ -73,9 +73,11 @@ void	ft_free_struct(t_asm *sfile)
 		free(sfile->file);
 	if (sfile->comment)
 		free(sfile->comment);
+	if (sfile->code)
+		free(sfile->code);
 }
 
-int		ft_launcher(char *file, char *rnm, int oa)
+int				ft_launcher(char *file, char *rnm, int oa)
 {
 	t_asm	sfile;
 	t_champ	*champ;
@@ -84,14 +86,19 @@ int		ft_launcher(char *file, char *rnm, int oa)
 	i = 0;
 	champ = NULL;
 	ft_bzero(&sfile, sizeof(t_asm));
-	if (ft_check_error(file, &sfile, rnm, oa) && (i = ft_head(&sfile)) &&
-			ft_asm(&sfile, champ, i))
+	if (oa < 4)
 	{
-		if (oa > 1)
-			ft_aff(&sfile, sfile.champ);
-		else
-			ft_write(&sfile, sfile.champ);
+		if (ft_check_error(file, &sfile, rnm, oa) && (i = ft_head(&sfile)) &&
+				ft_asm(&sfile, champ, i))
+		{
+			if (oa > 1)
+				ft_aff(&sfile, sfile.champ);
+			else
+				ft_write(&sfile, sfile.champ);
+		}
 	}
+	else
+		ft_reverse(file, &sfile);
 	ft_free_lst(sfile.champ);
 	ft_free_struct(&sfile);
 	return (0);

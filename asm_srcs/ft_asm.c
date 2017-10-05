@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:40:56 by fmaury            #+#    #+#             */
-/*   Updated: 2017/10/04 18:41:20 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/10/05 17:34:37 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			ft_precheck_hlpr(t_champ *champ, char **op_param, t_asm *sfile)
 	if (op_param[1][0] == LABEL_CHAR)
 		return (1);
 	champ = ft_lst(sfile, champ);
-	champ->line = ft_strdup(rop_param[1]);
+	champ->line = ft_strdup(op_param[1]);
 	res = ft_check(rop_param[0], rop_param[1], champ);
 	ft_free_strtab(rop_param);
 	return (res);
@@ -57,8 +57,8 @@ int			ft_precheck_hlpr(t_champ *champ, char **op_param, t_asm *sfile)
 
 int			ft_precheck(char **op_param, t_champ *champ, t_asm *sfile)
 {
-	if (op_param[0] && op_param[0][ft_strlen(op_param[0]) - 1] == LABEL_CHAR
-			&& op_param[1])
+	if (op_param && op_param[0] && op_param[0][ft_strlen(op_param[0]) - 1]
+			== LABEL_CHAR && op_param[1])
 		return (ft_precheck_hlpr(champ, op_param, sfile));
 	else
 		return (ft_check(op_param[0], op_param[1], champ));
