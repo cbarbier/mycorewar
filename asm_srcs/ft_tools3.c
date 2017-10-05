@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:34:29 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/26 18:45:10 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/05 14:58:50 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,28 @@ int		ft_total_size(t_champ *champ)
 		champ = champ->next;
 	}
 	return (total);
+}
+
+int		ft_get_size(char *str)
+{
+	int		res;
+
+	res = (unsigned char)str[PROG_NAME_LENGTH + 10];
+	res <<= 8;
+	res |= (unsigned char)str[PROG_NAME_LENGTH + 11];
+	return (res);
+}
+
+int		ft_rev_find_op(int op)
+{
+	int		i;
+
+	i = 0;
+	while (g_tab[i].nbargs)
+	{
+		if (g_tab[i].opcode == op)
+			return (i);
+		i++;
+	}
+	return (i);
 }

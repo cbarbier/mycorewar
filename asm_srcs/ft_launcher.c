@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 16:51:57 by fmaury            #+#    #+#             */
-/*   Updated: 2017/10/03 14:53:52 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/05 14:56:23 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static int		ft_check_error(char *file, t_asm *sfile, char *rnm, int oa)
 	len = ft_strlen(file);
 	if (len < 2 || file[len - 1] != 's' || file[len - 2] != '.')
 	{
-		ft_putstr("Bad file extension, should be a '.s'");
+		ft_putstr("Error: Bad file extension, should be a '.s'\n");
 		return (0);
 	}
 	else if ((sfile->fd = open(file, O_RDONLY)) == -1)
 	{
-		ft_printf("Erreur lors de l'ouverture du fichier\n");
+		ft_printf("Error: Can't open the file\n");
 		return (0);
 	}
 	if (file)
@@ -39,7 +39,7 @@ static int		ft_check_error(char *file, t_asm *sfile, char *rnm, int oa)
 	return (1);
 }
 
-void	ft_free_lst(t_champ *champ)
+void			ft_free_lst(t_champ *champ)
 {
 	t_champ *tmp;
 
@@ -63,7 +63,7 @@ void	ft_free_lst(t_champ *champ)
 	}
 }
 
-void	ft_free_struct(t_asm *sfile)
+void			ft_free_struct(t_asm *sfile)
 {
 	if (sfile->origin)
 		free(sfile->origin);
@@ -73,9 +73,11 @@ void	ft_free_struct(t_asm *sfile)
 		free(sfile->file);
 	if (sfile->comment)
 		free(sfile->comment);
+	if (sfile->code)
+		free(sfile->code);
 }
 
-int		ft_launcher(char *file, char *rnm, int oa)
+int				ft_launcher(char *file, char *rnm, int oa)
 {
 	t_asm	sfile;
 	t_champ	*champ;

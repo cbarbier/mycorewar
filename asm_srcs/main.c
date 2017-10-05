@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 13:16:47 by fmaury            #+#    #+#             */
-/*   Updated: 2017/10/03 14:06:25 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/05 14:56:50 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int		ft_msg_err(void)
 {
-	ft_printf("Usage: ./asm [-a][-o output file] <sourcefile.s>\n\
+	ft_printf("Usage: ./asm [-a][-o output file][-r] <sourcefile.s>\n\
 	-a: print an annoted version of the code instead of creating a .cor file\n\
-	-o: use the output file as name instead of the default name\n");
+	-o: use the output file as name instead of the default name\n\
+	-r: reverse the binary file\n");
 	return (0);
 }
 
@@ -74,8 +75,8 @@ int		main(int ac, char **av)
 		if (oa < res)
 			oa = res;
 	}
-	if (!str_rnm[0] || (oa == 1 && !str_rnm[1]))
+	if (!str_rnm[0] || (oa == 1 && !str_rnm[1]) || av[i + 1])
 		return (ft_msg_err());
-		ft_launcher(str_rnm[0], str_rnm[1], oa);
+	ft_launcher(str_rnm[0], str_rnm[1], oa);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 14:29:09 by fmaury            #+#    #+#             */
-/*   Updated: 2017/10/03 16:45:51 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/05 14:58:37 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int					ft_gest_reg(t_champ *champ, int size, int i);
 int					ft_check_main_args(char *str);
 int					ft_space_bef(char *line);
 int					ft_reverse(char *file, t_asm *sfile);
+int					ft_rev_find_op(int op);
+int					ft_get_size(char *str);
 char				*ft_erspace(char *str);
 char				*ft_erase_dc(char *str);
 void				ft_fill_codage(t_champ *champ, int i);

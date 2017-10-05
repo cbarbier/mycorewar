@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:44:23 by fmaury            #+#    #+#             */
-/*   Updated: 2017/09/20 11:19:19 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/05 14:54:21 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ static int	ft_flagor_header(t_asm *sfile, int flag)
 	if (flag != -2)
 	{
 		if (!sfile->name)
-			ft_printf("Name missing\n");
+			ft_printf("Error: Name missing\n");
 		else if (!sfile->comment)
-			ft_printf("Comment missing\n");
+			ft_printf("Error: Comment missing\n");
 	}
 	else if (flag == -2)
 	{
 		if (!sfile->name)
-			ft_printf("Name wrong format\n");
+			ft_printf("Error: Name wrong format\n");
 		else if (!sfile->comment)
-			ft_printf("Comment wrong format\n");
+			ft_printf("Error: Comment wrong format\n");
 	}
 	return (0);
 }
@@ -112,7 +112,7 @@ int			ft_head(t_asm *sfile)
 			ft_strlen(sfile->comment) > COMMENT_LENGTH)
 	{
 		ft_strlen(sfile->name) > PROG_NAME_LENGTH ?
-			ft_printf("Name too long\n") : ft_printf("Comment too long\n");
+ft_printf("Error: Name too long\n") : ft_printf("Error: Comment too long\n");
 		return (0);
 	}
 	ft_set_header(sfile);
