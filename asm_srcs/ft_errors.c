@@ -6,7 +6,7 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/08 11:43:41 by fmaury            #+#    #+#             */
-/*   Updated: 2017/10/02 15:55:54 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/05 16:22:04 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int		ft_col_cursor(t_champ *champ)
 	int		i;
 
 	i = 0;
-	postop = ft_strlen(champ->op) + 1;
+	if (champ->lab)
+		champ->col = ft_forbidden_char(champ->label);
+	postop = !champ->lab ? ft_strlen(champ->op) + 1 : 0;
 	while (ft_isspace(champ->line[postop + i]))
 		i++;
 	return (champ->col + i + 1 + champ->spbf);

@@ -6,11 +6,13 @@
 /*   By: fmaury <fmaury@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 18:34:29 by fmaury            #+#    #+#             */
-/*   Updated: 2017/10/05 14:58:50 by fmaury           ###   ########.fr       */
+/*   Updated: 2017/10/05 15:17:05 by fmaury           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+extern t_op g_tab[17];
 
 int		ft_size(t_champ *node)
 {
