@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/09/27 08:57:38 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/10/05 19:21:57 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int			init_vm(t_vm *vm, int argc, char **argv)
 		if (!parse_player(vm->players + ip))
 		{
 			ft_printf("Error: parsing player %d failed\n", ip + 1);
+			vm->ncurse = 0;
 			free_vm(vm);
 			return (0);
 		}

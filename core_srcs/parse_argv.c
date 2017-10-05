@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 18:17:05 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/10/05 19:04:50 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/10/05 19:17:06 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int			parse_argv(t_vm *vm, int argc, char **argv)
 		else if (!ft_strcmp(argv[index], "-sound") && (vm->sound = 1))
 			ret = ++index;
 		else if (!get_player(vm, &index, argv))
-			ret = 0;
+			return (0);
 		if (!ret)
 			return (0);
 	}
