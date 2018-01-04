@@ -53,7 +53,7 @@ $ ./corewar [-d N -v N -ncurse] < [-n N] champion1.cor> <...>{1, 4}
 * `R` fasten cycles / second by 10
 * `A` pause && go back to the last cycle 
 * `S` pause && go cycle by cycle.
-![Alt text](./screenshots/example.png?raw=true "Corewar Visualisator")
+![visualisator screenshot](./screenshots/example.png?raw=true "Corewar Visualisator")
 
 Example of Redcode program
 ------------
